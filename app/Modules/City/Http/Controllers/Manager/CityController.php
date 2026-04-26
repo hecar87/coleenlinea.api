@@ -5,27 +5,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\City\Repositories\ICityRepository;
+use App\Modules\City\Domain\Repositories\ICityRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\City\Requests\CreateCityRequest;
-use App\Http\Controllers\Manager\City\Requests\UpdateCityRequest;
-use App\Http\Controllers\Manager\City\Requests\ListCityRequest;
-use App\Http\Controllers\Manager\City\Requests\SearchCityRequest;
+use App\Modules\City\Http\Requests\Manager\CreateCityRequest;
+use App\Modules\City\Http\Requests\Manager\UpdateCityRequest;
+use App\Modules\City\Http\Requests\Manager\ListCityRequest;
+use App\Modules\City\Http\Requests\Manager\SearchCityRequest;
 
 // DTOs
-use App\Application\City\DTOs\CreateCityDTO;
-use App\Application\City\DTOs\UpdateCityDTO;
-use App\Application\City\DTOs\SearchCityDTO;
+use App\Modules\City\Application\DTOs\CreateCityDTO;
+use App\Modules\City\Application\DTOs\UpdateCityDTO;
+use App\Modules\City\Application\DTOs\SearchCityDTO;
 
 // Actions
-use App\Application\City\Actions\CreateCityAction;
-use App\Application\City\Actions\UpdateCityAction;
-use App\Application\City\Actions\DeleteCityAction;
-use App\Application\City\Actions\IndexCityAction;
-use App\Application\City\Actions\ListCityAction;
-use App\Application\City\Actions\SearchCityAction;
+use App\Modules\City\Application\Actions\CreateCityAction;
+use App\Modules\City\Application\Actions\UpdateCityAction;
+use App\Modules\City\Application\Actions\DeleteCityAction;
+use App\Modules\City\Application\Actions\IndexCityAction;
+use App\Modules\City\Application\Actions\ListCityAction;
+use App\Modules\City\Application\Actions\SearchCityAction;
 
 
 class CityController extends Controller
