@@ -3,8 +3,8 @@
 namespace App\Modules\TypeBank\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeBank\Enums\TypeBankFilterDisplay;
-use App\Domain\TypeBank\Enums\TypeBankFilterStatus;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterDisplay;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterStatus;
 
 class SearchTypeBankDTO
 {

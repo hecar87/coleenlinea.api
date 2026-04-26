@@ -4,11 +4,11 @@ namespace App\Modules\TypeBank\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\TypeBank\Entities\TypeBank;
-use App\Application\TypeBank\DTOs\CreateTypeBankDTO;
-use App\Application\TypeBank\DTOs\UpdateTypeBankDTO;
-use App\Application\TypeBank\DTOs\DuplicatedTypeBankDTO;
-use App\Application\TypeBank\DTOs\SearchTypeBankDTO;
-use App\Domain\TypeBank\Enums\TypeBankFilterDisplay;
+use App\Modules\TypeBank\Application\DTOs\CreateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\UpdateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\DuplicatedTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\SearchTypeBankDTO;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterDisplay;
 
 interface ITypeBankRepository
 {

@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeBank\Repositories\ITypeBankRepository;
-use App\Domain\TypeBank\Enums\TypeBankFilterDisplay;
+use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterDisplay;
 
 
 class ListTypeBankAction

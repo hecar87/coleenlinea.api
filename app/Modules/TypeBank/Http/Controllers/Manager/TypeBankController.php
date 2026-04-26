@@ -5,27 +5,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeBank\Repositories\ITypeBankRepository;
+use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeBank\Requests\CreateTypeBankRequest;
-use App\Http\Controllers\Manager\TypeBank\Requests\UpdateTypeBankRequest;
-use App\Http\Controllers\Manager\TypeBank\Requests\ListTypeBankRequest;
-use App\Http\Controllers\Manager\TypeBank\Requests\SearchTypeBankRequest;
+use App\Modules\TypeBank\Http\Requests\Manager\CreateTypeBankRequest;
+use App\Modules\TypeBank\Http\Requests\Manager\UpdateTypeBankRequest;
+use App\Modules\TypeBank\Http\Requests\Manager\ListTypeBankRequest;
+use App\Modules\TypeBank\Http\Requests\Manager\SearchTypeBankRequest;
 
 // DTOs
-use App\Application\TypeBank\DTOs\CreateTypeBankDTO;
-use App\Application\TypeBank\DTOs\UpdateTypeBankDTO;
-use App\Application\TypeBank\DTOs\SearchTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\CreateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\UpdateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\SearchTypeBankDTO;
 
 // Actions
-use App\Application\TypeBank\Actions\CreateTypeBankAction;
-use App\Application\TypeBank\Actions\UpdateTypeBankAction;
-use App\Application\TypeBank\Actions\DeleteTypeBankAction;
-use App\Application\TypeBank\Actions\IndexTypeBankAction;
-use App\Application\TypeBank\Actions\ListTypeBankAction;
-use App\Application\TypeBank\Actions\SearchTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\CreateTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\UpdateTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\DeleteTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\IndexTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\ListTypeBankAction;
+use App\Modules\TypeBank\Application\Actions\SearchTypeBankAction;
 
 
 class TypeBankController extends Controller

@@ -6,19 +6,19 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeBank\Repositories\ITypeBankRepository;
+use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
 use App\Domain\TypeBank\Entities\TypeBank as TypeBankEntity;
-use App\Infrastructure\TypeBank\Persistence\EloquentTypeBank as TypeBankModel;
+use App\Modules\TypeBank\Infrastructure\Persistence\EloquentTypeBank as TypeBankModel;
 
-use App\Application\TypeBank\DTOs\CreateTypeBankDTO;
-use App\Application\TypeBank\DTOs\UpdateTypeBankDTO;
-use App\Application\TypeBank\DTOs\DuplicatedTypeBankDTO;
-use App\Application\TypeBank\DTOs\SearchTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\CreateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\UpdateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\DuplicatedTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\SearchTypeBankDTO;
 
-use App\Domain\TypeBank\Enums\TypeBankFilterDisplay;
-use App\Domain\TypeBank\Enums\TypeBankFilterStatus;
-use App\Domain\TypeBank\Enums\TypeBankPublic;
-use App\Domain\TypeBank\Enums\TypeBankStatus;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterDisplay;
+use App\Modules\TypeBank\Domain\Enums\TypeBankFilterStatus;
+use App\Modules\TypeBank\Domain\Enums\TypeBankPublic;
+use App\Modules\TypeBank\Domain\Enums\TypeBankStatus;
 
 
 class EloquentTypeBankRepository implements ITypeBankRepository

@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeBank\Repositories\ITypeBankRepository;
-use App\Application\TypeBank\DTOs\UpdateTypeBankDTO;
-use App\Application\TypeBank\DTOs\DuplicatedTypeBankDTO;
+use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
+use App\Modules\TypeBank\Application\DTOs\UpdateTypeBankDTO;
+use App\Modules\TypeBank\Application\DTOs\DuplicatedTypeBankDTO;
 
 
 class UpdateTypeBankAction

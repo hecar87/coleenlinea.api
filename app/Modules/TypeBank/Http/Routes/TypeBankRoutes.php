@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeBank\TypeBankController;
+use App\Modules\TypeBank\Http\Controllers\Manager\TypeBankController;
 
 
 Route::middleware('manager.access')->name('type-bank.create')	->post		("/type-banks",				[ TypeBankController::class, "create" ]);
