@@ -2,8 +2,8 @@
 
 namespace App\Modules\State\Domain\Entities;
 
-use App\Domain\State\Enums\StatePublic;
-use App\Domain\State\Enums\StateStatus;
+use App\Modules\State\Domain\Enums\StatePublic;
+use App\Modules\State\Domain\Enums\StateStatus;
 
 
 class State

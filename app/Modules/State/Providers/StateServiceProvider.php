@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Modules\State\Domain\Repositories\IStateRepository;
 use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
 
+
 class StateServiceProvider extends ServiceProvider
 {
 	public function register(): void

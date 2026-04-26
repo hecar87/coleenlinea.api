@@ -9,6 +9,7 @@ use App\Helpers\ResultManager;
 use App\Modules\State\Domain\Repositories\IStateRepository;
 use App\Modules\State\Application\DTOs\SearchStateDTO;
 
+
 class SearchStateAction
 {
 	protected IStateRepository $oStateRepository;
