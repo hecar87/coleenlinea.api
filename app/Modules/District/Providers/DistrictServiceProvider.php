@@ -5,15 +5,15 @@ namespace App\Modules\State\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
+use App\Modules\District\Infrastructure\Repositories\EloquentDistrictRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class DistrictServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(IDistrictRepository::class, EloquentDistrictRepository::class);
 	}
 
 	public function boot(): void
