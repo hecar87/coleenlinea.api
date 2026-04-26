@@ -351,7 +351,7 @@ class EloquentDistrictRepository implements IDistrictRepository
                 $oQuery->where('District_Public', $whereDisplay[$Display->value]);
             }
 
-            $oQuery->where('District_Status', '<>', DistrictStatus::ACTIVE->value);
+            $oQuery->where('District_Status', '=', DistrictStatus::ACTIVE->value);
 			$oQuery->where("Id_City", "=", $Id_City);
 			$oQuery->orderBy("District_Name", "ASC");
 

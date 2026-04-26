@@ -330,7 +330,9 @@ class EloquentStateRepository implements IStateRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		}
+		catch (\Exception $oException)
+		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
