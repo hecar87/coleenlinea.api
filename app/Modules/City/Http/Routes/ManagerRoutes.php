@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\City\CityController;
+use App\Modules\City\Http\Controllers\Manager\CityController;
 
 
 Route::middleware('manager.access')->name('city.create')	->post		("/cities",							[ CityController::class, "create" ]);

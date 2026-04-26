@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\City;
+
+namespace App\Modules\City\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
