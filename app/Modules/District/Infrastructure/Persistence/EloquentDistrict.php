@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\District\Persistence;
+namespace App\Modules\District\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 

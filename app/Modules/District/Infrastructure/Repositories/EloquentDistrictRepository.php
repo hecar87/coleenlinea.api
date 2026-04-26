@@ -1,5 +1,5 @@
 <?php
-namespace App\Infrastructure\District\Repositories;
+namespace App\Modules\District\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;

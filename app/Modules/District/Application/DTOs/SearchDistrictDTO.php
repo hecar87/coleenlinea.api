@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\District\DTOs;
+
+namespace App\Modules\District\Application\DTOs;
 
 use Illuminate\Http\Request;
 use App\Domain\District\Enums\DistrictFilterDisplay;

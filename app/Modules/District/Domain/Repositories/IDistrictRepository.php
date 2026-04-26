@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\District\Repositories;
+namespace App\Modules\District\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\District\Entities\District;

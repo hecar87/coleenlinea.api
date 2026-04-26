@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\District\Enums;
+namespace App\Modules\District\Domain\Enums;
 
 enum DistrictFilterDisplay : string
 {
