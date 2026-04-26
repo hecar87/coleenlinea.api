@@ -6,19 +6,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\District\Repositories\IDistrictRepository;
-use App\Domain\District\Entities\District as DistrictEntity;
-use App\Infrastructure\District\Persistence\EloquentDistrict as DistrictModel;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
+use App\Modules\District\Infrastructure\Persistence\EloquentDistrict as DistrictModel;
 
-use App\Application\District\DTOs\CreateDistrictDTO;
-use App\Application\District\DTOs\UpdateDistrictDTO;
-use App\Application\District\DTOs\DuplicatedDistrictDTO;
-use App\Application\District\DTOs\SearchDistrictDTO;
+use App\Modules\District\Application\DTOs\CreateDistrictDTO;
+use App\Modules\District\Application\DTOs\UpdateDistrictDTO;
+use App\Modules\District\Application\DTOs\DuplicatedDistrictDTO;
+use App\Modules\District\Application\DTOs\SearchDistrictDTO;
 
-use App\Domain\District\Enums\DistrictFilterDisplay;
-use App\Domain\District\Enums\DistrictFilterStatus;
-use App\Domain\District\Enums\DistrictPublic;
-use App\Domain\District\Enums\DistrictStatus;
+use App\Modules\District\Domain\Enums\DistrictFilterDisplay;
+use App\Modules\District\Domain\Enums\DistrictFilterStatus;
+use App\Modules\District\Domain\Enums\DistrictPublic;
+use App\Modules\District\Domain\Enums\DistrictStatus;
 
 
 class EloquentDistrictRepository implements IDistrictRepository

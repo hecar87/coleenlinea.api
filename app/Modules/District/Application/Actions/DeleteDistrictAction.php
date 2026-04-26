@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\District\Repositories\IDistrictRepository;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
 
 
 class DeleteDistrictAction

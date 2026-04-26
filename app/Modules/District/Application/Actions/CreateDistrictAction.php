@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\District\Repositories\IDistrictRepository;
-use App\Application\District\DTOs\CreateDistrictDTO;
-use App\Application\District\DTOs\DuplicatedDistrictDTO;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
+use App\Modules\District\Application\DTOs\CreateDistrictDTO;
+use App\Modules\District\Application\DTOs\DuplicatedDistrictDTO;
 
 
 class CreateDistrictAction

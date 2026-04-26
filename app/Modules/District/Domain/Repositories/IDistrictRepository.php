@@ -4,11 +4,11 @@ namespace App\Modules\District\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\District\Entities\District;
-use App\Application\District\DTOs\CreateDistrictDTO;
-use App\Application\District\DTOs\UpdateDistrictDTO;
-use App\Application\District\DTOs\DuplicatedDistrictDTO;
-use App\Application\District\DTOs\SearchDistrictDTO;
-use App\Domain\District\Enums\DistrictFilterDisplay;
+use App\Modules\District\Application\DTOs\CreateDistrictDTO;
+use App\Modules\District\Application\DTOs\UpdateDistrictDTO;
+use App\Modules\District\Application\DTOs\DuplicatedDistrictDTO;
+use App\Modules\District\Application\DTOs\SearchDistrictDTO;
+use App\Modules\District\Domain\Enums\DistrictFilterDisplay;
 
 interface IDistrictRepository
 {

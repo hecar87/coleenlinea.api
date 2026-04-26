@@ -3,8 +3,8 @@
 namespace App\Modules\District\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\District\Enums\DistrictFilterDisplay;
-use App\Domain\District\Enums\DistrictFilterStatus;
+use App\Modules\District\Domain\Enums\DistrictFilterDisplay;
+use App\Modules\District\Domain\Enums\DistrictFilterStatus;
 
 class SearchDistrictDTO
 {

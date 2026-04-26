@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\District\Repositories\IDistrictRepository;
-use App\Application\District\DTOs\UpdateDistrictDTO;
-use App\Application\District\DTOs\DuplicatedDistrictDTO;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
+use App\Modules\District\Application\DTOs\UpdateDistrictDTO;
+use App\Modules\District\Application\DTOs\DuplicatedDistrictDTO;
 
 
 class UpdateDistrictAction
