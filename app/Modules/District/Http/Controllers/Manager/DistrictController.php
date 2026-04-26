@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\District;
+
+namespace App\Modules\District\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\District\Repositories\IDistrictRepository;
+use App\Modules\District\Domain\Repositories\IDistrictRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\District\Requests\CreateDistrictRequest;
-use App\Http\Controllers\Manager\District\Requests\UpdateDistrictRequest;
-use App\Http\Controllers\Manager\District\Requests\ListDistrictRequest;
-use App\Http\Controllers\Manager\District\Requests\SearchDistrictRequest;
+use App\Modules\District\Http\Requests\Manager\CreateDistrictRequest;
+use App\Modules\District\Http\Requests\Manager\UpdateDistrictRequest;
+use App\Modules\District\Http\Requests\Manager\ListDistrictRequest;
+use App\Modules\District\Http\Requests\Manager\SearchDistrictRequest;
 
 // DTOs
-use App\Application\District\DTOs\CreateDistrictDTO;
-use App\Application\District\DTOs\UpdateDistrictDTO;
-use App\Application\District\DTOs\SearchDistrictDTO;
+use App\Modules\District\Application\DTOs\CreateDistrictDTO;
+use App\Modules\District\Application\DTOs\UpdateDistrictDTO;
+use App\Modules\District\Application\DTOs\SearchDistrictDTO;
 
 // Actions
-use App\Application\District\Actions\CreateDistrictAction;
-use App\Application\District\Actions\UpdateDistrictAction;
-use App\Application\District\Actions\DeleteDistrictAction;
-use App\Application\District\Actions\IndexDistrictAction;
-use App\Application\District\Actions\ListDistrictAction;
-use App\Application\District\Actions\SearchDistrictAction;
+use App\Modules\District\Application\Actions\CreateDistrictAction;
+use App\Modules\District\Application\Actions\UpdateDistrictAction;
+use App\Modules\District\Application\Actions\DeleteDistrictAction;
+use App\Modules\District\Application\Actions\IndexDistrictAction;
+use App\Modules\District\Application\Actions\ListDistrictAction;
+use App\Modules\District\Application\Actions\SearchDistrictAction;
 
 
 class DistrictController extends Controller

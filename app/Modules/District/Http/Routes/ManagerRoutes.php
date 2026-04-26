@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\District\DistrictController;
+use App\Modules\District\Http\Controllers\Manager\DistrictController;
 
 
 Route::middleware('manager.access')
