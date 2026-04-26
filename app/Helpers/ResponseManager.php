@@ -2,16 +2,17 @@
 
 namespace App\Helpers;
 
+use App\Helpers\Result;
+
 
 class ResponseManager
 {
-	public static function Response($oResult, $oMetadata = null)
+	public static function Response(Result $oResult, $oMetadata = null)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oResponse	= array();
-		$oResult	= $oResult[0];
 
 
 		//------------------------------------------------------------------------------

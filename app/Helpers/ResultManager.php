@@ -2,30 +2,24 @@
 
 namespace App\Helpers;
 
+use App\Helpers\Result;
+
 
 class ResultManager
 {
-	public static function Result($Code, $Entity, $Data = null, $Data_Total = 0, $Error = "")
+	public static function Result(int $Code, string $Entity, mixed $Data = null, int $Data_Total = 0, string $Error = "") : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oResult	= array();
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= array(
-			(object)[
-				"RESULT_STS"	=> SELF::Result_Status($Code),
-				"RESULT_COD"	=> SELF::Result_Code($Code),
-				"RESULT_DOM"	=> SELF::Result_Domain($Entity),
-				"RESULT_MSG"	=> SELF::Result_Message($Code),
-				"RESULT_DTA"	=> $Data,
-				"RESULT_DTL"	=> $Data_Total,
-				"RESULT_ERR"	=> $Error
-			]
+		$oResult	= new Result(
+			RESULT_STS	: SELF::Result_Status($Code),
+			RESULT_COD	: SELF::Result_Code($Code),
+			RESULT_DOM	: SELF::Result_Domain($Entity),
+			RESULT_MSG	: SELF::Result_Message($Code),
+			RESULT_DTA	: $Data,
+			RESULT_DTL	: $Data_Total,
+			RESULT_ERR	: $Error
 		);
 
 
