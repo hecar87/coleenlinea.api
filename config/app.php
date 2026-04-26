@@ -129,7 +129,8 @@ return [
 		App\Providers\RouteServiceProvider::class,
 
 		// Modules
-		App\Modules\State\Providers\StateServiceProvider::class,
+		App\Providers\RepositoryServiceProvider::class,
+
 	])->toArray(),
 
 	/*
