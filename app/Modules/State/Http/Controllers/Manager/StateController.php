@@ -1,31 +1,31 @@
 <?php
-namespace App\Http\Controllers\Manager\State;
+namespace App\Modules\State\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\State\Repositories\IStateRepository;
+use App\Modules\State\Domain\Repositories\IStateRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\State\Requests\CreateStateRequest;
-use App\Http\Controllers\Manager\State\Requests\UpdateStateRequest;
-use App\Http\Controllers\Manager\State\Requests\ListStateRequest;
-use App\Http\Controllers\Manager\State\Requests\SearchStateRequest;
+use App\Modules\State\Http\Requests\Manager\CreateStateRequest;
+use App\Modules\State\Http\Requests\Manager\UpdateStateRequest;
+use App\Modules\State\Http\Requests\Manager\ListStateRequest;
+use App\Modules\State\Http\Requests\Manager\SearchStateRequest;
 
 // DTOs
-use App\Application\State\DTOs\CreateStateDTO;
-use App\Application\State\DTOs\UpdateStateDTO;
-use App\Application\State\DTOs\SearchStateDTO;
+use App\Modules\State\Application\DTOs\CreateStateDTO;
+use App\Modules\State\Application\DTOs\UpdateStateDTO;
+use App\Modules\State\Application\DTOs\SearchStateDTO;
 
 // Actions
-use App\Application\State\Actions\CreateStateAction;
-use App\Application\State\Actions\UpdateStateAction;
-use App\Application\State\Actions\DeleteStateAction;
-use App\Application\State\Actions\IndexStateAction;
-use App\Application\State\Actions\ListStateAction;
-use App\Application\State\Actions\SearchStateAction;
+use App\Modules\State\Application\Actions\CreateStateAction;
+use App\Modules\State\Application\Actions\UpdateStateAction;
+use App\Modules\State\Application\Actions\DeleteStateAction;
+use App\Modules\State\Application\Actions\IndexStateAction;
+use App\Modules\State\Application\Actions\ListStateAction;
+use App\Modules\State\Application\Actions\SearchStateAction;
 
 
 class StateController extends Controller
