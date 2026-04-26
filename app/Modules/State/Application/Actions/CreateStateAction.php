@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\State\Actions;
+namespace App\Modules\State\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\State\Repositories\IStateRepository;
-use App\Application\State\DTOs\CreateStateDTO;
-use App\Application\State\DTOs\DuplicatedStateDTO;
+use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\State\Application\DTOs\CreateStateDTO;
+use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
 
 
 class CreateStateAction

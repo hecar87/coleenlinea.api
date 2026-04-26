@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\State\DTOs;
+namespace App\Modules\State\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\State\Enums\StateFilterDisplay;
-use App\Domain\State\Enums\StateFilterStatus;
+use App\Modules\State\Domain\Enums\StateFilterDisplay;
+use App\Modules\State\Domain\Enums\StateFilterStatus;
+
 
 class SearchStateDTO
 {

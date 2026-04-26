@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\State\Actions;
+namespace App\Modules\State\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\State\Repositories\IStateRepository;
+use App\Modules\State\Domain\Repositories\IStateRepository;
 
 
 class DeleteStateAction

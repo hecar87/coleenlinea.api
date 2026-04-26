@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\State\Enums;
+namespace App\Modules\State\Domain\Enums;
 
 enum StateFilterDisplay : string
 {

@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Infrastructure\State\Repositories;
+namespace App\Modules\State\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\State\Repositories\IStateRepository;
-use App\Domain\State\Entities\State as StateEntity;
-use App\Infrastructure\State\Persistence\EloquentState as StateModel;
+use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\State\Infrastructure\Persistence\EloquentState as StateModel;
 
-use App\Application\State\DTOs\CreateStateDTO;
-use App\Application\State\DTOs\UpdateStateDTO;
-use App\Application\State\DTOs\DuplicatedStateDTO;
-use App\Application\State\DTOs\SearchStateDTO;
+use App\Modules\State\Application\DTOs\CreateStateDTO;
+use App\Modules\State\Application\DTOs\UpdateStateDTO;
+use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
+use App\Modules\State\Application\DTOs\SearchStateDTO;
 
-use App\Domain\State\Enums\StateFilterDisplay;
-use App\Domain\State\Enums\StateFilterStatus;
-use App\Domain\State\Enums\StatePublic;
-use App\Domain\State\Enums\StateStatus;
+use App\Modules\State\Domain\Enums\StateFilterDisplay;
+use App\Modules\State\Domain\Enums\StateFilterStatus;
+use App\Modules\State\Domain\Enums\StatePublic;
+use App\Modules\State\Domain\Enums\StateStatus;
 
 
 class EloquentStateRepository implements IStateRepository

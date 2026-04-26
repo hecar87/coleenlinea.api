@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Domain\State\Repositories;
+namespace App\Modules\State\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\State\Entities\State;
-use App\Application\State\DTOs\CreateStateDTO;
-use App\Application\State\DTOs\UpdateStateDTO;
-use App\Application\State\DTOs\DuplicatedStateDTO;
-use App\Application\State\DTOs\SearchStateDTO;
-use App\Domain\State\Enums\StateFilterDisplay;
+use App\Modules\State\Application\DTOs\CreateStateDTO;
+use App\Modules\State\Application\DTOs\UpdateStateDTO;
+use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
+use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\State\Domain\Enums\StateFilterDisplay;
+
 
 interface IStateRepository
 {

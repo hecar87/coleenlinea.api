@@ -1,5 +1,5 @@
 <?php
-namespace App\Application\State\DTOs;
+namespace App\Modules\State\Application\DTOs;
 
 use Illuminate\Http\Request;
 
