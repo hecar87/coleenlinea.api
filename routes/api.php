@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::group(
-	[
-		"namespace" 	=> "App\Http\Controllers\Manager",
-		"prefix"		=> "manager"
-	],
-	function()
-	{
-		$RouteBase	= __DIR__ . "/../app/Http/Controllers/Manager/";
+// Route::group(
+// 	[
+// 		"namespace" 	=> "App\Http\Controllers\Manager",
+// 		"prefix"		=> "manager"
+// 	],
+// 	function()
+// 	{
+// 		$RouteBase	= __DIR__ . "/../app/Http/Controllers/Manager/";
 
-		//include ( $RouteBase . "State/StateRoutes.php" );
-	}
-);
+// 		//include ( $RouteBase . "State/StateRoutes.php" );
+// 	}
+// );
