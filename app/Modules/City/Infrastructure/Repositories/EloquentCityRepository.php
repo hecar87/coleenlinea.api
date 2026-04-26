@@ -1,24 +1,23 @@
 <?php
-namespace App\Infrastructure\City\Repositories;
+namespace App\Modules\City\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\City\Repositories\ICityRepository;
-use App\Domain\City\Entities\City as CityEntity;
-use App\Infrastructure\City\Persistence\EloquentCity as CityModel;
+use App\Modules\City\Domain\Repositories\ICityRepository;
+use App\Modules\City\Infrastructure\Persistence\EloquentCity as CityModel;
 
-use App\Application\City\DTOs\CreateCityDTO;
-use App\Application\City\DTOs\UpdateCityDTO;
-use App\Application\City\DTOs\DuplicatedCityDTO;
-use App\Application\City\DTOs\SearchCityDTO;
+use App\Modules\City\Application\DTOs\CreateCityDTO;
+use App\Modules\City\Application\DTOs\UpdateCityDTO;
+use App\Modules\City\Application\DTOs\DuplicatedCityDTO;
+use App\Modules\City\Application\DTOs\SearchCityDTO;
 
-use App\Domain\City\Enums\CityFilterDisplay;
-use App\Domain\City\Enums\CityFilterStatus;
-use App\Domain\City\Enums\CityPublic;
-use App\Domain\City\Enums\CityStatus;
+use App\Modules\City\Domain\Enums\CityFilterDisplay;
+use App\Modules\City\Domain\Enums\CityFilterStatus;
+use App\Modules\City\Domain\Enums\CityPublic;
+use App\Modules\City\Domain\Enums\CityStatus;
 
 
 class EloquentCityRepository implements ICityRepository

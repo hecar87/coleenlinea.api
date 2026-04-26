@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Application\City\Actions;
+namespace App\Modules\City\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\City\Repositories\ICityRepository;
+use App\Modules\City\Domain\Repositories\ICityRepository;
+
 
 class IndexCityAction
 {

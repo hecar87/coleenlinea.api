@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Domain\City\Repositories;
+namespace App\Modules\City\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\City\Entities\City;
-use App\Application\City\DTOs\CreateCityDTO;
-use App\Application\City\DTOs\UpdateCityDTO;
-use App\Application\City\DTOs\DuplicatedCityDTO;
-use App\Application\City\DTOs\SearchCityDTO;
-use App\Domain\City\Enums\CityFilterDisplay;
+use App\Modules\City\Application\DTOs\CreateCityDTO;
+use App\Modules\City\Application\DTOs\UpdateCityDTO;
+use App\Modules\City\Application\DTOs\DuplicatedCityDTO;
+use App\Modules\City\Application\DTOs\SearchCityDTO;
+use App\Modules\City\Domain\Enums\CityFilterDisplay;
+
 
 interface ICityRepository
 {

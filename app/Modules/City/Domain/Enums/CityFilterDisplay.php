@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\City\Enums;
+namespace App\Modules\City\Domain\Enums;
 
 enum CityFilterDisplay : string
 {

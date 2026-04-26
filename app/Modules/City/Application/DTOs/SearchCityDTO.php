@@ -1,9 +1,11 @@
 <?php
-namespace App\Application\City\DTOs;
+
+namespace App\Modules\City\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\City\Enums\CityFilterDisplay;
-use App\Domain\City\Enums\CityFilterStatus;
+use App\Modules\City\Domain\Enums\CityFilterDisplay;
+use App\Modules\City\Domain\Enums\CityFilterStatus;
+
 
 class SearchCityDTO
 {
