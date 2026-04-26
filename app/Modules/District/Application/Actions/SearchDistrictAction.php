@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Application\District\Actions;
+
+use Illuminate\Support\Facades\DB;
+use App\Helpers\Result;
+use App\Helpers\ResultManager;
+
+use App\Domain\District\Repositories\IDistrictRepository;
+use App\Application\District\DTOs\SearchDistrictDTO;
+
+class SearchDistrictAction
+{
+	protected IDistrictRepository $oDistrictRepository;
+
+	public function __construct(IDistrictRepository $oDistrictRepository)
+	{
+		$this->oDistrictRepository = $oDistrictRepository;
+	}
+
+	public function execute(int $Id_City, SearchDistrictDTO $oData) : Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity = $this->oDistrictRepository->getEntity();
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try
+		{
+			//
+			//	TRANSACTION
+			//
+			DB::beginTransaction();
+
+			$oResult = $this->oDistrictRepository->search($Id_City, $oData);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			DB::commit();
+		}
+		catch (\Exception $oException)
+		{
+			DB::rollBack();
+			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+
+	}
+}
