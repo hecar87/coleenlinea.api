@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\State\Entities;
+namespace App\Modules\State\Domain\Entities;
 
 use App\Domain\State\Enums\StatePublic;
 use App\Domain\State\Enums\StateStatus;
