@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\TypeBank\Actions;
+namespace App\Modules\TypeBank\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;

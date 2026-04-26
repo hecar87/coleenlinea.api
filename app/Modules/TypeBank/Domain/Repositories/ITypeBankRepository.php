@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeBank\Repositories;
+namespace App\Modules\TypeBank\Domain\Repositories;
 
 use App\Helpers\Result;
 //use App\Domain\TypeBank\Entities\TypeBank;

@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeBank\Requests;
+
+namespace App\Modules\TypeBank\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

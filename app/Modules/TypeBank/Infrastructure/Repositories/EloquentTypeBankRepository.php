@@ -1,5 +1,5 @@
 <?php
-namespace App\Infrastructure\TypeBank\Repositories;
+namespace App\Modules\TypeBank\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeBank;
+namespace App\Modules\TypeBank\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;

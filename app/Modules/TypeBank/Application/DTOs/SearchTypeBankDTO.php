@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeBank\DTOs;
+
+namespace App\Modules\TypeBank\Application\DTOs;
 
 use Illuminate\Http\Request;
 use App\Domain\TypeBank\Enums\TypeBankFilterDisplay;

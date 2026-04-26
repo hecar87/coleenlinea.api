@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeBank\Enums;
+namespace App\Modules\TypeBank\Domain\Enums;
 
 enum TypeBankFilterStatus : string
 {
