@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeCivil\Enums;
+namespace App\Modules\TypeCivil\Domain\Enums;
 
 enum TypeCivilStatus : int
 {

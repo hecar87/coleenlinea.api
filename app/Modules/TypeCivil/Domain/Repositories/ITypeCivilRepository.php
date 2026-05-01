@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\TypeCivil\Repositories;
+namespace App\Modules\TypeCivil\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeCivil\Entities\TypeCivil;
+
 use App\Application\TypeCivil\DTOs\CreateTypeCivilDTO;
 use App\Application\TypeCivil\DTOs\UpdateTypeCivilDTO;
 use App\Application\TypeCivil\DTOs\DuplicatedTypeCivilDTO;

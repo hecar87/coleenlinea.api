@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeCivil;
+
+namespace App\Modules\TypeCivil\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;

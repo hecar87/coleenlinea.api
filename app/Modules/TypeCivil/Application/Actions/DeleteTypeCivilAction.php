@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\TypeCivil\Actions;
+namespace App\Modules\TypeCivil\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;

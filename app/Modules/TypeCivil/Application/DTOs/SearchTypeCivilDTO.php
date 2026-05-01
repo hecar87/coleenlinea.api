@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeCivil\DTOs;
+
+namespace App\Modules\TypeCivil\Application\DTOs;
 
 use Illuminate\Http\Request;
 use App\Domain\TypeCivil\Enums\TypeCivilFilterDisplay;
