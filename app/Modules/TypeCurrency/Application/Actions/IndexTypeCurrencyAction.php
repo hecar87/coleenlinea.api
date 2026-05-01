@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\TypeCurrency\Actions;
+namespace App\Modules\TypeCurrency\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;

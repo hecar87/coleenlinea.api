@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeCurrency\Repositories;
+namespace App\Modules\TypeCurrency\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeCurrency\Entities\TypeCurrency;

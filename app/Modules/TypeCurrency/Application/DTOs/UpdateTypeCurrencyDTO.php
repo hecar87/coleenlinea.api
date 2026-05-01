@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeCurrency\DTOs;
+
+namespace App\Modules\TypeCurrency\Application\DTOs;
 
 use Illuminate\Http\Request;
 

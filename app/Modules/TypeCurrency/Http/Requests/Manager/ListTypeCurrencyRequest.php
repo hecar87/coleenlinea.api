@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeCurrency\Requests;
+
+namespace App\Modules\TypeCurrency\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\TypeCurrency\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +9,7 @@ use App\Modules\State\Domain\Repositories\IStateRepository;
 use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeCurrencyServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{

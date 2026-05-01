@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeCurrency\Enums;
+namespace App\Modules\TypeCurrency\Domain\Enums;
 
 enum TypeCurrencyFilterDisplay : string
 {

@@ -1,5 +1,6 @@
 <?php
-namespace App\Infrastructure\TypeCurrency\Repositories;
+
+namespace App\Modules\TypeCurrency\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;

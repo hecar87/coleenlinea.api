@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeCurrency;
+namespace App\Modules\TypeCurrency\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
