@@ -4,11 +4,12 @@ namespace App\Modules\TypeCivil\Domain\Repositories;
 
 use App\Helpers\Result;
 
-use App\Application\TypeCivil\DTOs\CreateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\UpdateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\DuplicatedTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\SearchTypeCivilDTO;
-use App\Domain\TypeCivil\Enums\TypeCivilFilterDisplay;
+use App\Modules\TypeCivil\Application\DTOs\CreateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\UpdateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\DuplicatedTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\SearchTypeCivilDTO;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterDisplay;
+
 
 interface ITypeCivilRepository
 {

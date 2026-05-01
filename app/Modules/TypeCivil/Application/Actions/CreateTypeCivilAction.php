@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeCivil\Repositories\ITypeCivilRepository;
-use App\Application\TypeCivil\DTOs\CreateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\DuplicatedTypeCivilDTO;
+use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
+use App\Modules\TypeCivil\Application\DTOs\CreateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\DuplicatedTypeCivilDTO;
 
 
 class CreateTypeCivilAction

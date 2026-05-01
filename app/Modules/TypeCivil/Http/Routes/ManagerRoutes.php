@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeCivil\TypeCivilController;
+use App\Modules\TypeCivil\Http\Controllers\Manager\TypeCivilController;
 
 
 Route::middleware('manager.access')->name('type-civil.create')	->post		("/type-civils",			[ TypeCivilController::class, "create" ]);

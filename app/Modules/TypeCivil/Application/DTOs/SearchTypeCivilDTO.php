@@ -3,8 +3,8 @@
 namespace App\Modules\TypeCivil\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeCivil\Enums\TypeCivilFilterDisplay;
-use App\Domain\TypeCivil\Enums\TypeCivilFilterStatus;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterDisplay;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterStatus;
 
 class SearchTypeCivilDTO
 {

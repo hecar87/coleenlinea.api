@@ -6,19 +6,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeCivil\Repositories\ITypeCivilRepository;
-use App\Domain\TypeCivil\Entities\TypeCivil as TypeCivilEntity;
-use App\Infrastructure\TypeCivil\Persistence\EloquentTypeCivil as TypeCivilModel;
+use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
+use App\Modules\TypeCivil\Infrastructure\Persistence\EloquentTypeCivil as TypeCivilModel;
 
-use App\Application\TypeCivil\DTOs\CreateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\UpdateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\DuplicatedTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\SearchTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\CreateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\UpdateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\DuplicatedTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\SearchTypeCivilDTO;
 
-use App\Domain\TypeCivil\Enums\TypeCivilFilterDisplay;
-use App\Domain\TypeCivil\Enums\TypeCivilFilterStatus;
-use App\Domain\TypeCivil\Enums\TypeCivilPublic;
-use App\Domain\TypeCivil\Enums\TypeCivilStatus;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterDisplay;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterStatus;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilPublic;
+use App\Modules\TypeCivil\Domain\Enums\TypeCivilStatus;
 
 
 class EloquentTypeCivilRepository implements ITypeCivilRepository

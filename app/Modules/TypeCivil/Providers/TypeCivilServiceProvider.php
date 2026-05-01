@@ -5,15 +5,15 @@ namespace App\Modules\TypeCivil\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
+use App\Modules\TypeCivil\Infrastructure\Repositories\EloquentTypeCivilRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeCivilServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeCivilRepository::class, EloquentTypeCivilRepository::class);
 	}
 
 	public function boot(): void

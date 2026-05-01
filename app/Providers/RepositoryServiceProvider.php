@@ -8,6 +8,7 @@ use App\Modules\State\Providers\StateServiceProvider;
 use App\Modules\City\Providers\CityServiceProvider;
 use App\Modules\District\Providers\DistrictServiceProvider;
 use App\Modules\TypeBank\Providers\TypeBankServiceProvider;
+use App\Modules\TypeCivil\Providers\TypeCivilServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -18,6 +19,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(CityServiceProvider::class);
 		$this->app->register(DistrictServiceProvider::class);
 		$this->app->register(TypeBankServiceProvider::class);
+		$this->app->register(TypeCivilServiceProvider::class);
 	}
 
 	public function boot(): void

@@ -6,27 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeCivil\Repositories\ITypeCivilRepository;
+use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeCivil\Requests\CreateTypeCivilRequest;
-use App\Http\Controllers\Manager\TypeCivil\Requests\UpdateTypeCivilRequest;
-use App\Http\Controllers\Manager\TypeCivil\Requests\ListTypeCivilRequest;
-use App\Http\Controllers\Manager\TypeCivil\Requests\SearchTypeCivilRequest;
+use App\Modules\TypeCivil\Http\Requests\Manager\CreateTypeCivilRequest;
+use App\Modules\TypeCivil\Http\Requests\Manager\UpdateTypeCivilRequest;
+use App\Modules\TypeCivil\Http\Requests\Manager\ListTypeCivilRequest;
+use App\Modules\TypeCivil\Http\Requests\Manager\SearchTypeCivilRequest;
 
 // DTOs
-use App\Application\TypeCivil\DTOs\CreateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\UpdateTypeCivilDTO;
-use App\Application\TypeCivil\DTOs\SearchTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\CreateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\UpdateTypeCivilDTO;
+use App\Modules\TypeCivil\Application\DTOs\SearchTypeCivilDTO;
 
 // Actions
-use App\Application\TypeCivil\Actions\CreateTypeCivilAction;
-use App\Application\TypeCivil\Actions\UpdateTypeCivilAction;
-use App\Application\TypeCivil\Actions\DeleteTypeCivilAction;
-use App\Application\TypeCivil\Actions\IndexTypeCivilAction;
-use App\Application\TypeCivil\Actions\ListTypeCivilAction;
-use App\Application\TypeCivil\Actions\SearchTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\CreateTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\UpdateTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\DeleteTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\IndexTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\ListTypeCivilAction;
+use App\Modules\TypeCivil\Application\Actions\SearchTypeCivilAction;
 
 
 class TypeCivilController extends Controller

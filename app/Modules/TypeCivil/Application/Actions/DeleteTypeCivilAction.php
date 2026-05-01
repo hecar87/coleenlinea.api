@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeCivil\Repositories\ITypeCivilRepository;
+use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
 
 
 class DeleteTypeCivilAction
