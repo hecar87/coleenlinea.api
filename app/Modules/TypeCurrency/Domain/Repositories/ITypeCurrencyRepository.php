@@ -4,11 +4,12 @@ namespace App\Modules\TypeCurrency\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeCurrency\Entities\TypeCurrency;
-use App\Application\TypeCurrency\DTOs\CreateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\UpdateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\DuplicatedTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\SearchTypeCurrencyDTO;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterDisplay;
+use App\Modules\TypeCurrency\Application\DTOs\CreateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\UpdateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\DuplicatedTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\SearchTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterDisplay;
+
 
 interface ITypeCurrencyRepository
 {

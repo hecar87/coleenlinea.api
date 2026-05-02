@@ -5,15 +5,15 @@ namespace App\Modules\TypeCurrency\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypeCurrency\Infrastructure\Repositories\EloquentTypeCurrencyRepository;
 
 
 class TypeCurrencyServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeCurrencyRepository::class, EloquentTypeCurrencyRepository::class);
 	}
 
 	public function boot(): void

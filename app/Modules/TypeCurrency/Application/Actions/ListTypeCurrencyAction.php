@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeCurrency\Repositories\ITypeCurrencyRepository;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterDisplay;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterDisplay;
 
 
 class ListTypeCurrencyAction

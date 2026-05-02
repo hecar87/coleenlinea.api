@@ -7,19 +7,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeCurrency\Repositories\ITypeCurrencyRepository;
-use App\Domain\TypeCurrency\Entities\TypeCurrency as TypeCurrencyEntity;
-use App\Infrastructure\TypeCurrency\Persistence\EloquentTypeCurrency as TypeCurrencyModel;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypeCurrency\Infrastructure\Persistence\EloquentTypeCurrency as TypeCurrencyModel;
 
-use App\Application\TypeCurrency\DTOs\CreateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\UpdateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\DuplicatedTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\SearchTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\CreateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\UpdateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\DuplicatedTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\SearchTypeCurrencyDTO;
 
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterDisplay;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterStatus;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyPublic;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyStatus;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterDisplay;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterStatus;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyPublic;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyStatus;
 
 
 class EloquentTypeCurrencyRepository implements ITypeCurrencyRepository

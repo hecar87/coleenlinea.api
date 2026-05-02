@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeCurrency\Repositories\ITypeCurrencyRepository;
-use App\Application\TypeCurrency\DTOs\UpdateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\DuplicatedTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypeCurrency\Application\DTOs\UpdateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\DuplicatedTypeCurrencyDTO;
 
 
 class UpdateTypeCurrencyAction

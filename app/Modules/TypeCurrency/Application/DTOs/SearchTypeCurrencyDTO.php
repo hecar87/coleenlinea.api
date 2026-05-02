@@ -3,8 +3,8 @@
 namespace App\Modules\TypeCurrency\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterDisplay;
-use App\Domain\TypeCurrency\Enums\TypeCurrencyFilterStatus;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterDisplay;
+use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterStatus;
 
 class SearchTypeCurrencyDTO
 {

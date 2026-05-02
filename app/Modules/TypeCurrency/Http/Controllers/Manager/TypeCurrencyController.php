@@ -5,27 +5,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeCurrency\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeCurrency\Requests\CreateTypeCurrencyRequest;
-use App\Http\Controllers\Manager\TypeCurrency\Requests\UpdateTypeCurrencyRequest;
-use App\Http\Controllers\Manager\TypeCurrency\Requests\ListTypeCurrencyRequest;
-use App\Http\Controllers\Manager\TypeCurrency\Requests\SearchTypeCurrencyRequest;
+use App\Modules\TypeCurrency\Http\Requests\Manager\CreateTypeCurrencyRequest;
+use App\Modules\TypeCurrency\Http\Requests\Manager\UpdateTypeCurrencyRequest;
+use App\Modules\TypeCurrency\Http\Requests\Manager\ListTypeCurrencyRequest;
+use App\Modules\TypeCurrency\Http\Requests\Manager\SearchTypeCurrencyRequest;
 
 // DTOs
-use App\Application\TypeCurrency\DTOs\CreateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\UpdateTypeCurrencyDTO;
-use App\Application\TypeCurrency\DTOs\SearchTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\CreateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\UpdateTypeCurrencyDTO;
+use App\Modules\TypeCurrency\Application\DTOs\SearchTypeCurrencyDTO;
 
 // Actions
-use App\Application\TypeCurrency\Actions\CreateTypeCurrencyAction;
-use App\Application\TypeCurrency\Actions\UpdateTypeCurrencyAction;
-use App\Application\TypeCurrency\Actions\DeleteTypeCurrencyAction;
-use App\Application\TypeCurrency\Actions\IndexTypeCurrencyAction;
-use App\Application\TypeCurrency\Actions\ListTypeCurrencyAction;
-use App\Application\TypeCurrency\Actions\SearchTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\CreateTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\UpdateTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\DeleteTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\IndexTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\ListTypeCurrencyAction;
+use App\Modules\TypeCurrency\Application\Actions\SearchTypeCurrencyAction;
 
 
 class TypeCurrencyController extends Controller

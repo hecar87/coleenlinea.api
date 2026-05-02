@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeCurrency\TypeCurrencyController;
+use App\Modules\TypeCurrency\Http\Controllers\Manager\TypeCurrencyController;
 
 
 Route::middleware('manager.access')->name('type-currency.create')	->post		("/type-currencies",		[ TypeCurrencyController::class, "create" ]);
