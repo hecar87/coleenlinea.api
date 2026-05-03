@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\TypeGender\Persistence;
+namespace App\Modules\TypeGender\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 

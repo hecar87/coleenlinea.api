@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeGender\Repositories;
+namespace App\Modules\TypeGender\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeGender\Entities\TypeGender;

@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeGender;
+
+namespace App\Modules\TypeGender\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;

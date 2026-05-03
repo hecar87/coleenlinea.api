@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeGender\Enums;
+namespace App\Modules\TypeGender\Domain\Enums;
 
 enum TypeGenderFilterStatus : string
 {
