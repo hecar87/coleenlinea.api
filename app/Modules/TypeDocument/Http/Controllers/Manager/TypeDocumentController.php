@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeDocument;
+
+namespace App\Modules\TypeDocument\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;

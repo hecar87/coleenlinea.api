@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeDocument\Repositories;
+namespace App\Modules\TypeDocument\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeDocument\Entities\TypeDocument;

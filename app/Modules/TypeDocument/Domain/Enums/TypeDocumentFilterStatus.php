@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeDocument\Enums;
+namespace App\Modules\TypeDocument\Domain\Enums;
 
 enum TypeDocumentFilterStatus : string
 {

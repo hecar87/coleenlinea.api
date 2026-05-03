@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\TypeDocument\Actions;
+namespace App\Modules\TypeDocument\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
