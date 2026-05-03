@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeInstallment\Repositories;
+namespace App\Modules\TypeInstallment\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeInstallment\Entities\TypeInstallment;

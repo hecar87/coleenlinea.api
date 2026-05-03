@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeInstallment\Enums;
+namespace App\Modules\TypeInstallment\Domain\Enums;
 
 enum TypeInstallmentPublic : int
 {

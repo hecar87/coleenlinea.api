@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeInstallment\Requests;
+
+namespace App\Modules\TypeInstallment\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

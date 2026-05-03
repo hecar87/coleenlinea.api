@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeInstallment\DTOs;
+
+namespace App\Modules\TypeInstallment\Application\DTOs;
 
 use Illuminate\Http\Request;
 use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterDisplay;
