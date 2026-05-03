@@ -5,15 +5,15 @@ namespace App\Modules\TypeGender\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeGender\Domain\Repositories\ITypeGenderRepository;
+use App\Modules\TypeGender\Infrastructure\Repositories\EloquentTypeGenderRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeGenderServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeGenderRepository::class, EloquentTypeGenderRepository::class);
 	}
 
 	public function boot(): void

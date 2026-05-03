@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeGender\Repositories\ITypeGenderRepository;
-use App\Domain\TypeGender\Enums\TypeGenderFilterDisplay;
+use App\Modules\TypeGender\Domain\Repositories\ITypeGenderRepository;
+use App\Modules\TypeGender\Domain\Enums\TypeGenderFilterDisplay;
 
 
 class ListTypeGenderAction

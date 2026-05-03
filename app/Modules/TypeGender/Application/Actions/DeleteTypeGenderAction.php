@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeGender\Repositories\ITypeGenderRepository;
+use App\Modules\TypeGender\Domain\Repositories\ITypeGenderRepository;
 
 
 class DeleteTypeGenderAction

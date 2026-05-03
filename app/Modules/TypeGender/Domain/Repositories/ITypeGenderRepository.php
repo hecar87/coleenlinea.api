@@ -3,12 +3,11 @@
 namespace App\Modules\TypeGender\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeGender\Entities\TypeGender;
-use App\Application\TypeGender\DTOs\CreateTypeGenderDTO;
-use App\Application\TypeGender\DTOs\UpdateTypeGenderDTO;
-use App\Application\TypeGender\DTOs\DuplicatedTypeGenderDTO;
-use App\Application\TypeGender\DTOs\SearchTypeGenderDTO;
-use App\Domain\TypeGender\Enums\TypeGenderFilterDisplay;
+use App\Modules\TypeGender\Application\DTOs\CreateTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\UpdateTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\DuplicatedTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\SearchTypeGenderDTO;
+use App\Modules\TypeGender\Domain\Enums\TypeGenderFilterDisplay;
 
 interface ITypeGenderRepository
 {

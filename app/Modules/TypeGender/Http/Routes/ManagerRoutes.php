@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeGender\TypeGenderController;
+use App\Modules\TypeGender\Http\Controllers\Manager\TypeGenderController;
 
 
 Route::middleware('manager.access')->name('type-gender.create')	->post		("/type-genders",			[ TypeGenderController::class, "create" ]);

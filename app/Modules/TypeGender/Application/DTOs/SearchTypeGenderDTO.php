@@ -3,8 +3,8 @@
 namespace App\Modules\TypeGender\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeGender\Enums\TypeGenderFilterDisplay;
-use App\Domain\TypeGender\Enums\TypeGenderFilterStatus;
+use App\Modules\TypeGender\Domain\Enums\TypeGenderFilterDisplay;
+use App\Modules\TypeGender\Domain\Enums\TypeGenderFilterStatus;
 
 class SearchTypeGenderDTO
 {

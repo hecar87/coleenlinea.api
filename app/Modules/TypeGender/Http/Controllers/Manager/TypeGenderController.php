@@ -6,27 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeGender\Repositories\ITypeGenderRepository;
+use App\Modules\TypeGender\Domain\Repositories\ITypeGenderRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeGender\Requests\CreateTypeGenderRequest;
-use App\Http\Controllers\Manager\TypeGender\Requests\UpdateTypeGenderRequest;
-use App\Http\Controllers\Manager\TypeGender\Requests\ListTypeGenderRequest;
-use App\Http\Controllers\Manager\TypeGender\Requests\SearchTypeGenderRequest;
+use App\Modules\TypeGender\Http\Requests\Manager\CreateTypeGenderRequest;
+use App\Modules\TypeGender\Http\Requests\Manager\UpdateTypeGenderRequest;
+use App\Modules\TypeGender\Http\Requests\Manager\ListTypeGenderRequest;
+use App\Modules\TypeGender\Http\Requests\Manager\SearchTypeGenderRequest;
 
 // DTOs
-use App\Application\TypeGender\DTOs\CreateTypeGenderDTO;
-use App\Application\TypeGender\DTOs\UpdateTypeGenderDTO;
-use App\Application\TypeGender\DTOs\SearchTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\CreateTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\UpdateTypeGenderDTO;
+use App\Modules\TypeGender\Application\DTOs\SearchTypeGenderDTO;
 
 // Actions
-use App\Application\TypeGender\Actions\CreateTypeGenderAction;
-use App\Application\TypeGender\Actions\UpdateTypeGenderAction;
-use App\Application\TypeGender\Actions\DeleteTypeGenderAction;
-use App\Application\TypeGender\Actions\IndexTypeGenderAction;
-use App\Application\TypeGender\Actions\ListTypeGenderAction;
-use App\Application\TypeGender\Actions\SearchTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\CreateTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\UpdateTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\DeleteTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\IndexTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\ListTypeGenderAction;
+use App\Modules\TypeGender\Application\Actions\SearchTypeGenderAction;
 
 
 class TypeGenderController extends Controller
