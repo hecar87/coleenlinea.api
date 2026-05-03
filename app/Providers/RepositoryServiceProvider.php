@@ -11,6 +11,7 @@ use App\Modules\TypeBank\Providers\TypeBankServiceProvider;
 use App\Modules\TypeCivil\Providers\TypeCivilServiceProvider;
 use App\Modules\TypeCurrency\Providers\TypeCurrencyServiceProvider;
 use App\Modules\TypeDocument\Providers\TypeDocumentServiceProvider;
+use App\Modules\TypeFee\Providers\TypeFeeServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypeCivilServiceProvider::class);
 		$this->app->register(TypeCurrencyServiceProvider::class);
 		$this->app->register(TypeDocumentServiceProvider::class);
+		$this->app->register(TypeFeeServiceProvider::class);
 	}
 
 	public function boot(): void
