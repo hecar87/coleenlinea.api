@@ -8,7 +8,7 @@ use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
 use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
-use App\Modules\TypeFee\Infrastructure\Persistence\EloquentTypeFee as TypeInstallmentModel;
+use App\Modules\TypeInstallment\Infrastructure\Persistence\EloquentTypeInstallment 	as TypeInstallmentModel;
 
 use App\Modules\TypeInstallment\Application\DTOs\CreateTypeInstallmentDTO;
 use App\Modules\TypeInstallment\Application\DTOs\UpdateTypeInstallmentDTO;
