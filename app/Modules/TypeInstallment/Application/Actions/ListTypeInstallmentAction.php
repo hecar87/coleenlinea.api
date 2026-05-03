@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeInstallment\Repositories\ITypeInstallmentRepository;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterDisplay;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterDisplay;
 
 
 class ListTypeInstallmentAction

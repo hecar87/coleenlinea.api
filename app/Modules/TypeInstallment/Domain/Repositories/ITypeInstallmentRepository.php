@@ -3,12 +3,11 @@
 namespace App\Modules\TypeInstallment\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeInstallment\Entities\TypeInstallment;
-use App\Application\TypeInstallment\DTOs\CreateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\UpdateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\DuplicatedTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\SearchTypeInstallmentDTO;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterDisplay;
+use App\Modules\TypeInstallment\Application\DTOs\CreateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\UpdateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\DuplicatedTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\SearchTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterDisplay;
 
 interface ITypeInstallmentRepository
 {

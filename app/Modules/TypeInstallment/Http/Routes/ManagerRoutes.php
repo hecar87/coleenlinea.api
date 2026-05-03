@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeInstallment\TypeInstallmentController;
+use App\Modules\TypeInstallment\Http\Controllers\Manager\TypeInstallmentController;
 
 
 Route::middleware('manager.access')->name('type-installment.create')	->post		("/type-installments",			[ TypeInstallmentController::class, "create" ]);

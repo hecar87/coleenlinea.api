@@ -7,19 +7,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeInstallment\Repositories\ITypeInstallmentRepository;
-use App\Domain\TypeInstallment\Entities\TypeInstallment as TypeInstallmentEntity;
-use App\Infrastructure\TypeInstallment\Persistence\EloquentTypeInstallment as TypeInstallmentModel;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeFee\Infrastructure\Persistence\EloquentTypeFee as TypeInstallmentModel;
 
-use App\Application\TypeInstallment\DTOs\CreateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\UpdateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\DuplicatedTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\SearchTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\CreateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\UpdateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\DuplicatedTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\SearchTypeInstallmentDTO;
 
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterDisplay;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterStatus;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentPublic;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentStatus;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterDisplay;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterStatus;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentPublic;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentStatus;
 
 
 class EloquentTypeInstallmentRepository implements ITypeInstallmentRepository

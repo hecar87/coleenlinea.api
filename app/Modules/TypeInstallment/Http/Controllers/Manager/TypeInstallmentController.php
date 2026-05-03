@@ -6,27 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeInstallment\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeInstallment\Requests\CreateTypeInstallmentRequest;
-use App\Http\Controllers\Manager\TypeInstallment\Requests\UpdateTypeInstallmentRequest;
-use App\Http\Controllers\Manager\TypeInstallment\Requests\ListTypeInstallmentRequest;
-use App\Http\Controllers\Manager\TypeInstallment\Requests\SearchTypeInstallmentRequest;
+use App\Modules\TypeInstallment\Http\Requests\Manager\CreateTypeInstallmentRequest;
+use App\Modules\TypeInstallment\Http\Requests\Manager\UpdateTypeInstallmentRequest;
+use App\Modules\TypeInstallment\Http\Requests\Manager\ListTypeInstallmentRequest;
+use App\Modules\TypeInstallment\Http\Requests\Manager\SearchTypeInstallmentRequest;
 
 // DTOs
-use App\Application\TypeInstallment\DTOs\CreateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\UpdateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\SearchTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\CreateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\UpdateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\SearchTypeInstallmentDTO;
 
 // Actions
-use App\Application\TypeInstallment\Actions\CreateTypeInstallmentAction;
-use App\Application\TypeInstallment\Actions\UpdateTypeInstallmentAction;
-use App\Application\TypeInstallment\Actions\DeleteTypeInstallmentAction;
-use App\Application\TypeInstallment\Actions\IndexTypeInstallmentAction;
-use App\Application\TypeInstallment\Actions\ListTypeInstallmentAction;
-use App\Application\TypeInstallment\Actions\SearchTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\CreateTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\UpdateTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\DeleteTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\IndexTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\ListTypeInstallmentAction;
+use App\Modules\TypeInstallment\Application\Actions\SearchTypeInstallmentAction;
 
 
 class TypeInstallmentController extends Controller

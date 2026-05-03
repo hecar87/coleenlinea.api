@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeInstallment\Repositories\ITypeInstallmentRepository;
-use App\Application\TypeInstallment\DTOs\UpdateTypeInstallmentDTO;
-use App\Application\TypeInstallment\DTOs\DuplicatedTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeInstallment\Application\DTOs\UpdateTypeInstallmentDTO;
+use App\Modules\TypeInstallment\Application\DTOs\DuplicatedTypeInstallmentDTO;
 
 
 class UpdateTypeInstallmentAction

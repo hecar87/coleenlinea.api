@@ -5,15 +5,15 @@ namespace App\Modules\TypeInstallment\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeInstallment\Infrastructure\Repositories\EloquentTypeInstallmentRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeInstallmentServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeInstallmentRepository::class, EloquentTypeInstallmentRepository::class);
 	}
 
 	public function boot(): void

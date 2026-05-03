@@ -3,8 +3,8 @@
 namespace App\Modules\TypeInstallment\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterDisplay;
-use App\Domain\TypeInstallment\Enums\TypeInstallmentFilterStatus;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterDisplay;
+use App\Modules\TypeInstallment\Domain\Enums\TypeInstallmentFilterStatus;
 
 class SearchTypeInstallmentDTO
 {
