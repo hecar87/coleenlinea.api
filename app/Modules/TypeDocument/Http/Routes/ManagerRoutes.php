@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeDocument\TypeDocumentController;
+use App\Modules\TypeDocument\Http\Controllers\Manager\TypeDocumentController;
 
 
 Route::middleware('manager.access')->name('type-document.create')	->post		("/type-documents",			[ TypeDocumentController::class, "create" ]);

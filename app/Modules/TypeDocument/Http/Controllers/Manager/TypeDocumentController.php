@@ -6,27 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeDocument\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeDocument\Requests\CreateTypeDocumentRequest;
-use App\Http\Controllers\Manager\TypeDocument\Requests\UpdateTypeDocumentRequest;
-use App\Http\Controllers\Manager\TypeDocument\Requests\ListTypeDocumentRequest;
-use App\Http\Controllers\Manager\TypeDocument\Requests\SearchTypeDocumentRequest;
+use App\Modules\TypeDocument\Http\Requests\Manager\CreateTypeDocumentRequest;
+use App\Modules\TypeDocument\Http\Requests\Manager\UpdateTypeDocumentRequest;
+use App\Modules\TypeDocument\Http\Requests\Manager\ListTypeDocumentRequest;
+use App\Modules\TypeDocument\Http\Requests\Manager\SearchTypeDocumentRequest;
 
 // DTOs
-use App\Application\TypeDocument\DTOs\CreateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\UpdateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\SearchTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\CreateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\UpdateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\SearchTypeDocumentDTO;
 
 // Actions
-use App\Application\TypeDocument\Actions\CreateTypeDocumentAction;
-use App\Application\TypeDocument\Actions\UpdateTypeDocumentAction;
-use App\Application\TypeDocument\Actions\DeleteTypeDocumentAction;
-use App\Application\TypeDocument\Actions\IndexTypeDocumentAction;
-use App\Application\TypeDocument\Actions\ListTypeDocumentAction;
-use App\Application\TypeDocument\Actions\SearchTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\CreateTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\UpdateTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\DeleteTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\IndexTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\ListTypeDocumentAction;
+use App\Modules\TypeDocument\Application\Actions\SearchTypeDocumentAction;
 
 
 class TypeDocumentController extends Controller

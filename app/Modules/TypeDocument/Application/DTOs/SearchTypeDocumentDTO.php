@@ -3,8 +3,8 @@
 namespace App\Modules\TypeDocument\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeDocument\Enums\TypeDocumentFilterDisplay;
-use App\Domain\TypeDocument\Enums\TypeDocumentFilterStatus;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterDisplay;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterStatus;
 
 class SearchTypeDocumentDTO
 {

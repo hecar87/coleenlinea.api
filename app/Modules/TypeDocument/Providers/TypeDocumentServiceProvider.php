@@ -5,15 +5,15 @@ namespace App\Modules\TypeDocument\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Infrastructure\Repositories\EloquentTypeDocumentRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeDocumentServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeDocumentRepository::class, EloquentTypeDocumentRepository::class);
 	}
 
 	public function boot(): void

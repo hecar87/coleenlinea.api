@@ -3,12 +3,12 @@
 namespace App\Modules\TypeDocument\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeDocument\Entities\TypeDocument;
-use App\Application\TypeDocument\DTOs\CreateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\UpdateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\DuplicatedTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\SearchTypeDocumentDTO;
-use App\Domain\TypeDocument\Enums\TypeDocumentFilterDisplay;
+use App\Modules\TypeDocument\Application\DTOs\CreateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\UpdateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\DuplicatedTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\SearchTypeDocumentDTO;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterDisplay;
+
 
 interface ITypeDocumentRepository
 {

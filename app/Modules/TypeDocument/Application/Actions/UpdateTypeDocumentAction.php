@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeDocument\Repositories\ITypeDocumentRepository;
-use App\Application\TypeDocument\DTOs\UpdateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\DuplicatedTypeDocumentDTO;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Application\DTOs\UpdateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\DuplicatedTypeDocumentDTO;
 
 
 class UpdateTypeDocumentAction

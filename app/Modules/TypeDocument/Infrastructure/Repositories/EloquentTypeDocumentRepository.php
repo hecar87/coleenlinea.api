@@ -7,19 +7,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeDocument\Repositories\ITypeDocumentRepository;
-use App\Domain\TypeDocument\Entities\TypeDocument as TypeDocumentEntity;
-use App\Infrastructure\TypeDocument\Persistence\EloquentTypeDocument as TypeDocumentModel;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Infrastructure\Persistence\EloquentTypeDocument as TypeDocumentModel;
 
-use App\Application\TypeDocument\DTOs\CreateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\UpdateTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\DuplicatedTypeDocumentDTO;
-use App\Application\TypeDocument\DTOs\SearchTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\CreateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\UpdateTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\DuplicatedTypeDocumentDTO;
+use App\Modules\TypeDocument\Application\DTOs\SearchTypeDocumentDTO;
 
-use App\Domain\TypeDocument\Enums\TypeDocumentFilterDisplay;
-use App\Domain\TypeDocument\Enums\TypeDocumentFilterStatus;
-use App\Domain\TypeDocument\Enums\TypeDocumentPublic;
-use App\Domain\TypeDocument\Enums\TypeDocumentStatus;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterDisplay;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterStatus;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentPublic;
+use App\Modules\TypeDocument\Domain\Enums\TypeDocumentStatus;
 
 
 class EloquentTypeDocumentRepository implements ITypeDocumentRepository

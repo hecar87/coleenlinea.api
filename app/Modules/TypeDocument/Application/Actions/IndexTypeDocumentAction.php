@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeDocument\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
+
 
 class IndexTypeDocumentAction
 {
