@@ -5,15 +5,15 @@ namespace App\Modules\TypeFee\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
+use App\Modules\TypeFee\Infrastructure\Repositories\EloquentTypeFeeRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeFeeServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeFeeRepository::class, EloquentTypeFeeRepository::class);
 	}
 
 	public function boot(): void

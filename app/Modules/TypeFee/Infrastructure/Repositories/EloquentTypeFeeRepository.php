@@ -7,19 +7,18 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeFee\Repositories\ITypeFeeRepository;
-use App\Domain\TypeFee\Entities\TypeFee as TypeFeeEntity;
-use App\Infrastructure\TypeFee\Persistence\EloquentTypeFee as TypeFeeModel;
+use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
+use App\Modules\TypeFee\Infrastructure\Persistence\EloquentTypeFee as TypeFeeModel;
 
-use App\Application\TypeFee\DTOs\CreateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\UpdateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\DuplicatedTypeFeeDTO;
-use App\Application\TypeFee\DTOs\SearchTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\CreateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\UpdateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\DuplicatedTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\SearchTypeFeeDTO;
 
-use App\Domain\TypeFee\Enums\TypeFeeFilterDisplay;
-use App\Domain\TypeFee\Enums\TypeFeeFilterStatus;
-use App\Domain\TypeFee\Enums\TypeFeePublic;
-use App\Domain\TypeFee\Enums\TypeFeeStatus;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterDisplay;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterStatus;
+use App\Modules\TypeFee\Domain\Enums\TypeFeePublic;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeStatus;
 
 
 class EloquentTypeFeeRepository implements ITypeFeeRepository

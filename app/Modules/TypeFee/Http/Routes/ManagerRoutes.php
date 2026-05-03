@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeFee\TypeFeeController;
+use App\Modules\TypeFee\Http\Controllers\Manager\TypeFeeController;
 
 
 Route::middleware('manager.access')->name('type-fee.create')	->post		("/type-fees",			[ TypeFeeController::class, "create" ]);

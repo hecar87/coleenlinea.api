@@ -6,27 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeFee\Repositories\ITypeFeeRepository;
+use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeFee\Requests\CreateTypeFeeRequest;
-use App\Http\Controllers\Manager\TypeFee\Requests\UpdateTypeFeeRequest;
-use App\Http\Controllers\Manager\TypeFee\Requests\ListTypeFeeRequest;
-use App\Http\Controllers\Manager\TypeFee\Requests\SearchTypeFeeRequest;
+use App\Modules\TypeFee\Http\Requests\Manager\CreateTypeFeeRequest;
+use App\Modules\TypeFee\Http\Requests\Manager\UpdateTypeFeeRequest;
+use App\Modules\TypeFee\Http\Requests\Manager\ListTypeFeeRequest;
+use App\Modules\TypeFee\Http\Requests\Manager\SearchTypeFeeRequest;
 
 // DTOs
-use App\Application\TypeFee\DTOs\CreateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\UpdateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\SearchTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\CreateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\UpdateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\SearchTypeFeeDTO;
 
 // Actions
-use App\Application\TypeFee\Actions\CreateTypeFeeAction;
-use App\Application\TypeFee\Actions\UpdateTypeFeeAction;
-use App\Application\TypeFee\Actions\DeleteTypeFeeAction;
-use App\Application\TypeFee\Actions\IndexTypeFeeAction;
-use App\Application\TypeFee\Actions\ListTypeFeeAction;
-use App\Application\TypeFee\Actions\SearchTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\CreateTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\UpdateTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\DeleteTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\IndexTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\ListTypeFeeAction;
+use App\Modules\TypeFee\Application\Actions\SearchTypeFeeAction;
 
 
 class TypeFeeController extends Controller

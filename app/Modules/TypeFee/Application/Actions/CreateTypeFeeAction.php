@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeFee\Repositories\ITypeFeeRepository;
-use App\Application\TypeFee\DTOs\CreateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\DuplicatedTypeFeeDTO;
+use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
+use App\Modules\TypeFee\Application\DTOs\CreateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\DuplicatedTypeFeeDTO;
 
 
 class CreateTypeFeeAction

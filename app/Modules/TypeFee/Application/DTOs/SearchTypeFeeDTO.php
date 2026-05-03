@@ -3,8 +3,8 @@
 namespace App\Modules\TypeFee\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeFee\Enums\TypeFeeFilterDisplay;
-use App\Domain\TypeFee\Enums\TypeFeeFilterStatus;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterDisplay;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterStatus;
 
 class SearchTypeFeeDTO
 {

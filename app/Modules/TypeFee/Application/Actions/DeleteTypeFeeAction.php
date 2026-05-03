@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeFee\Repositories\ITypeFeeRepository;
+use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
 
 
 class DeleteTypeFeeAction

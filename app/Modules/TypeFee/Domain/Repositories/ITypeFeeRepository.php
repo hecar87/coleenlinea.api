@@ -3,12 +3,11 @@
 namespace App\Modules\TypeFee\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeFee\Entities\TypeFee;
-use App\Application\TypeFee\DTOs\CreateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\UpdateTypeFeeDTO;
-use App\Application\TypeFee\DTOs\DuplicatedTypeFeeDTO;
-use App\Application\TypeFee\DTOs\SearchTypeFeeDTO;
-use App\Domain\TypeFee\Enums\TypeFeeFilterDisplay;
+use App\Modules\TypeFee\Application\DTOs\CreateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\UpdateTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\DuplicatedTypeFeeDTO;
+use App\Modules\TypeFee\Application\DTOs\SearchTypeFeeDTO;
+use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterDisplay;
 
 interface ITypeFeeRepository
 {
