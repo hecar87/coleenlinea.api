@@ -10,6 +10,7 @@ use App\Modules\District\Providers\DistrictServiceProvider;
 use App\Modules\TypeBank\Providers\TypeBankServiceProvider;
 use App\Modules\TypeCivil\Providers\TypeCivilServiceProvider;
 use App\Modules\TypeCurrency\Providers\TypeCurrencyServiceProvider;
+use App\Modules\TypeDocument\Providers\TypeDocumentServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -22,6 +23,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypeBankServiceProvider::class);
 		$this->app->register(TypeCivilServiceProvider::class);
 		$this->app->register(TypeCurrencyServiceProvider::class);
+		$this->app->register(TypeDocumentServiceProvider::class);
 	}
 
 	public function boot(): void
