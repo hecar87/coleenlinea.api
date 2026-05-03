@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\TypeFee\Actions;
+namespace App\Modules\TypeFee\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;

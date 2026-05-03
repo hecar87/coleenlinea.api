@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeFee\Requests;
+
+namespace App\Modules\TypeFee\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

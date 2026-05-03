@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeFee\Repositories;
+namespace App\Modules\TypeFee\Domain\Repositories;
 
 use App\Helpers\Result;
 use App\Domain\TypeFee\Entities\TypeFee;

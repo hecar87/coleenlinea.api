@@ -1,5 +1,6 @@
 <?php
-namespace App\Infrastructure\TypeFee\Repositories;
+
+namespace App\Modules\TypeFee\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;

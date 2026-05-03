@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeFee\Enums;
+namespace App\Modules\TypeFee\Domain\Enums;
 
 enum TypeFeeStatus : int
 {
