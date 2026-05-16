@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Domain\TypeKinship\Repositories;
+namespace App\Modules\TypeKinship\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeKinship\Entities\TypeKinship;
-use App\Application\TypeKinship\DTOs\CreateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\UpdateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\DuplicatedTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\SearchTypeKinshipDTO;
-use App\Domain\TypeKinship\Enums\TypeKinshipFilterDisplay;
+use App\Modules\TypeKinship\Application\DTOs\CreateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\UpdateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\DuplicatedTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\SearchTypeKinshipDTO;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterDisplay;
 
 interface ITypeKinshipRepository
 {

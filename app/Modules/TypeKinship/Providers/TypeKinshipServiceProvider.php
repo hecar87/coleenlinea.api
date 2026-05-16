@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\TypeKinship\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeKinship\Domain\Repositories\ITypeKinshipRepository;
+use App\Modules\TypeKinship\Infrastructure\Repositories\EloquentTypeKinshipRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeKinshipServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeKinshipRepository::class, EloquentTypeKinshipRepository::class);
 	}
 
 	public function boot(): void

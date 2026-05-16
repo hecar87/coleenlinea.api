@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypeKinship\Repositories;
+
+namespace App\Modules\TypeKinship\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeKinship\Repositories\ITypeKinshipRepository;
-use App\Domain\TypeKinship\Entities\TypeKinship as TypeKinshipEntity;
-use App\Infrastructure\TypeKinship\Persistence\EloquentTypeKinship as TypeKinshipModel;
+use App\Modules\TypeKinship\Domain\Repositories\ITypeKinshipRepository;
+use App\Modules\TypeKinship\Infrastructure\Persistence\EloquentTypeKinship as TypeKinshipModel;
 
-use App\Application\TypeKinship\DTOs\CreateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\UpdateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\DuplicatedTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\SearchTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\CreateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\UpdateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\DuplicatedTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\SearchTypeKinshipDTO;
 
-use App\Domain\TypeKinship\Enums\TypeKinshipFilterDisplay;
-use App\Domain\TypeKinship\Enums\TypeKinshipFilterStatus;
-use App\Domain\TypeKinship\Enums\TypeKinshipPublic;
-use App\Domain\TypeKinship\Enums\TypeKinshipStatus;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterDisplay;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterStatus;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipPublic;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipStatus;
 
 
 class EloquentTypeKinshipRepository implements ITypeKinshipRepository

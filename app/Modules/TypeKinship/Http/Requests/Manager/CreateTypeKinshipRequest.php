@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeKinship\Requests;
+
+namespace App\Modules\TypeKinship\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

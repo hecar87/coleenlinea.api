@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\TypeKinship\Actions;
+namespace App\Modules\TypeKinship\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeKinship\Repositories\ITypeKinshipRepository;
+use App\Modules\TypeKinship\Domain\Repositories\ITypeKinshipRepository;
 
 
 class DeleteTypeKinshipAction

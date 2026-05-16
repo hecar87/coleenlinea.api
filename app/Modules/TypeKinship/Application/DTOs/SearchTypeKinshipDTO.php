@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypeKinship\DTOs;
+
+namespace App\Modules\TypeKinship\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeKinship\Enums\TypeKinshipFilterDisplay;
-use App\Domain\TypeKinship\Enums\TypeKinshipFilterStatus;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterDisplay;
+use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterStatus;
 
 class SearchTypeKinshipDTO
 {

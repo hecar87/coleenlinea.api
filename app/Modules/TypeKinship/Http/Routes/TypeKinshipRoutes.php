@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeKinship\TypeKinshipController;
+use App\Modules\TypeKinship\Http\Controllers\Manager\TypeKinshipController;
 
 
 Route::middleware('manager.access')->name('type-kinship.create')	->post		("/type-kinships",			[ TypeKinshipController::class, "create" ]);

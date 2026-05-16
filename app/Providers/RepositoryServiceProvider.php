@@ -13,6 +13,7 @@ use App\Modules\TypeCurrency\Providers\TypeCurrencyServiceProvider;
 use App\Modules\TypeDocument\Providers\TypeDocumentServiceProvider;
 use App\Modules\TypeFee\Providers\TypeFeeServiceProvider;
 use App\Modules\TypeInstallment\Providers\TypeInstallmentServiceProvider;
+use App\Modules\TypeKinship\Providers\TypeKinshipServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -28,6 +29,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypeDocumentServiceProvider::class);
 		$this->app->register(TypeFeeServiceProvider::class);
 		$this->app->register(TypeInstallmentServiceProvider::class);
+		$this->app->register(TypeKinshipServiceProvider::class);
 	}
 
 	public function boot(): void

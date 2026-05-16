@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeKinship\DTOs;
+
+namespace App\Modules\TypeKinship\Application\DTOs;
 
 use Illuminate\Http\Request;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\TypeKinship\Persistence;
+namespace App\Modules\TypeKinship\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeKinship\Enums;
+namespace App\Modules\TypeKinship\Domain\Enums;
 
 enum TypeKinshipPublic : int
 {

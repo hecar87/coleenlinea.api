@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeKinship;
+
+namespace App\Modules\TypeKinship\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeKinship\Repositories\ITypeKinshipRepository;
+use App\Modules\TypeKinship\Domain\Repositories\ITypeKinshipRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeKinship\Requests\CreateTypeKinshipRequest;
-use App\Http\Controllers\Manager\TypeKinship\Requests\UpdateTypeKinshipRequest;
-use App\Http\Controllers\Manager\TypeKinship\Requests\ListTypeKinshipRequest;
-use App\Http\Controllers\Manager\TypeKinship\Requests\SearchTypeKinshipRequest;
+use App\Modules\TypeKinship\Http\Requests\Manager\CreateTypeKinshipRequest;
+use App\Modules\TypeKinship\Http\Requests\Manager\UpdateTypeKinshipRequest;
+use App\Modules\TypeKinship\Http\Requests\Manager\ListTypeKinshipRequest;
+use App\Modules\TypeKinship\Http\Requests\Manager\SearchTypeKinshipRequest;
 
 // DTOs
-use App\Application\TypeKinship\DTOs\CreateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\UpdateTypeKinshipDTO;
-use App\Application\TypeKinship\DTOs\SearchTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\CreateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\UpdateTypeKinshipDTO;
+use App\Modules\TypeKinship\Application\DTOs\SearchTypeKinshipDTO;
 
 // Actions
-use App\Application\TypeKinship\Actions\CreateTypeKinshipAction;
-use App\Application\TypeKinship\Actions\UpdateTypeKinshipAction;
-use App\Application\TypeKinship\Actions\DeleteTypeKinshipAction;
-use App\Application\TypeKinship\Actions\IndexTypeKinshipAction;
-use App\Application\TypeKinship\Actions\ListTypeKinshipAction;
-use App\Application\TypeKinship\Actions\SearchTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\CreateTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\UpdateTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\DeleteTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\IndexTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\ListTypeKinshipAction;
+use App\Modules\TypeKinship\Application\Actions\SearchTypeKinshipAction;
 
 
 class TypeKinshipController extends Controller
