@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\TypePayment\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
+use App\Modules\TypePayment\Infrastructure\Repositories\EloquentTypePaymentRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypePaymentServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypePaymentRepository::class, EloquentTypePaymentRepository::class);
 	}
 
 	public function boot(): void

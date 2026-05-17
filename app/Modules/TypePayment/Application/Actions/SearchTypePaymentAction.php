@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Application\TypePayment\Actions;
+namespace App\Modules\TypePayment\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypePayment\Repositories\ITypePaymentRepository;
-use App\Application\TypePayment\DTOs\SearchTypePaymentDTO;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
+use App\Modules\TypePayment\Application\DTOs\SearchTypePaymentDTO;
+
 
 class SearchTypePaymentAction
 {

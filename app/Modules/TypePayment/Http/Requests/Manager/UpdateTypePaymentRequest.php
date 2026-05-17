@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypePayment\Requests;
+
+namespace App\Modules\TypePayment\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

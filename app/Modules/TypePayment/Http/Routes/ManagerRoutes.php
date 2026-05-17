@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypePayment\TypePaymentController;
+use App\modules\TypePayment\Http\Controllers\Manager\TypePaymentController;
 
 
 Route::middleware('manager.access')->name('type-payment.create')	->post		("/type-payments",			[ TypePaymentController::class, "create" ]);

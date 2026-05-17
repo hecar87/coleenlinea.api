@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypePayment\Repositories;
+
+namespace App\Modules\TypePayment\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypePayment\Repositories\ITypePaymentRepository;
-use App\Domain\TypePayment\Entities\TypePayment as TypePaymentEntity;
-use App\Infrastructure\TypePayment\Persistence\EloquentTypePayment as TypePaymentModel;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
+use App\Modules\TypePayment\Infrastructure\Persistence\EloquentTypePayment as TypePaymentModel;
 
-use App\Application\TypePayment\DTOs\CreateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\UpdateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\DuplicatedTypePaymentDTO;
-use App\Application\TypePayment\DTOs\SearchTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\CreateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\UpdateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\DuplicatedTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\SearchTypePaymentDTO;
 
-use App\Domain\TypePayment\Enums\TypePaymentFilterDisplay;
-use App\Domain\TypePayment\Enums\TypePaymentFilterStatus;
-use App\Domain\TypePayment\Enums\TypePaymentPublic;
-use App\Domain\TypePayment\Enums\TypePaymentStatus;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterDisplay;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterStatus;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentPublic;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentStatus;
 
 
 class EloquentTypePaymentRepository implements ITypePaymentRepository

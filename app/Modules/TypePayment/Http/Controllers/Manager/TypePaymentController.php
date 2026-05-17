@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypePayment;
+
+namespace App\Modules\TypePayment\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypePayment\Repositories\ITypePaymentRepository;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypePayment\Requests\CreateTypePaymentRequest;
-use App\Http\Controllers\Manager\TypePayment\Requests\UpdateTypePaymentRequest;
-use App\Http\Controllers\Manager\TypePayment\Requests\ListTypePaymentRequest;
-use App\Http\Controllers\Manager\TypePayment\Requests\SearchTypePaymentRequest;
+use App\Modules\TypePayment\Http\Requests\Manager\CreateTypePaymentRequest;
+use App\Modules\TypePayment\Http\Requests\Manager\UpdateTypePaymentRequest;
+use App\Modules\TypePayment\Http\Requests\Manager\ListTypePaymentRequest;
+use App\Modules\TypePayment\Http\Requests\Manager\SearchTypePaymentRequest;
 
 // DTOs
-use App\Application\TypePayment\DTOs\CreateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\UpdateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\SearchTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\CreateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\UpdateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\SearchTypePaymentDTO;
 
 // Actions
-use App\Application\TypePayment\Actions\CreateTypePaymentAction;
-use App\Application\TypePayment\Actions\UpdateTypePaymentAction;
-use App\Application\TypePayment\Actions\DeleteTypePaymentAction;
-use App\Application\TypePayment\Actions\IndexTypePaymentAction;
-use App\Application\TypePayment\Actions\ListTypePaymentAction;
-use App\Application\TypePayment\Actions\SearchTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\CreateTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\UpdateTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\DeleteTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\IndexTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\ListTypePaymentAction;
+use App\Modules\TypePayment\Application\Actions\SearchTypePaymentAction;
 
 
 class TypePaymentController extends Controller

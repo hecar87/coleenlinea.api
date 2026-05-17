@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypePayment\DTOs;
+
+namespace App\Modules\TypePayment\Application\DTOs;
 
 use Illuminate\Http\Request;
 

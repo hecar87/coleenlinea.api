@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\TypePayment\Persistence;
+namespace App\modules\TypePayment\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 

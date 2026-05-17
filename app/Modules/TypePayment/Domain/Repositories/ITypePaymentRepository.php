@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domain\TypePayment\Repositories;
+namespace App\Modules\TypePayment\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypePayment\Entities\TypePayment;
-use App\Application\TypePayment\DTOs\CreateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\UpdateTypePaymentDTO;
-use App\Application\TypePayment\DTOs\DuplicatedTypePaymentDTO;
-use App\Application\TypePayment\DTOs\SearchTypePaymentDTO;
-use App\Domain\TypePayment\Enums\TypePaymentFilterDisplay;
+
+use App\Modules\TypePayment\Application\DTOs\CreateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\UpdateTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\DuplicatedTypePaymentDTO;
+use App\Modules\TypePayment\Application\DTOs\SearchTypePaymentDTO;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterDisplay;
 
 interface ITypePaymentRepository
 {

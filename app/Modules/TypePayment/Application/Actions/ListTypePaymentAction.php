@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Application\TypePayment\Actions;
+namespace App\Modules\TypePayment\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypePayment\Repositories\ITypePaymentRepository;
-use App\Domain\TypePayment\Enums\TypePaymentFilterDisplay;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterDisplay;
 
 
 class ListTypePaymentAction

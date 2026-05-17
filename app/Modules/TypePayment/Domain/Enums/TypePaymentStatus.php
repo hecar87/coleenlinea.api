@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypePayment\Enums;
+namespace App\Modules\TypePayment\Domain\Enums;
 
 enum TypePaymentStatus : int
 {

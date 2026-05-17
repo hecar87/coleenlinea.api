@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypePayment\DTOs;
+
+namespace App\Modules\TypePayment\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypePayment\Enums\TypePaymentFilterDisplay;
-use App\Domain\TypePayment\Enums\TypePaymentFilterStatus;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterDisplay;
+use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterStatus;
 
 class SearchTypePaymentDTO
 {
