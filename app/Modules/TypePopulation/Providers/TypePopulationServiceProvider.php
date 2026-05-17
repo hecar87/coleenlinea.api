@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\TypePopulation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
+use App\Modules\TypePopulation\Infrastructure\Repositories\EloquentTypePopulationRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypePopulationServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypePopulationRepository::class, EloquentTypePopulationRepository::class);
 	}
 
 	public function boot(): void

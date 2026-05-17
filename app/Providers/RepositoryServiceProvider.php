@@ -16,6 +16,7 @@ use App\Modules\TypeInstallment\Providers\TypeInstallmentServiceProvider;
 use App\Modules\TypeKinship\Providers\TypeKinshipServiceProvider;
 use App\Modules\TypeLevel\Providers\TypeLevelServiceProvider;
 use App\Modules\TypePayment\Providers\TypePaymentServiceProvider;
+use App\Modules\TypePopulation\Providers\TypePopulationServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -34,6 +35,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypeKinshipServiceProvider::class);
 		$this->app->register(TypeLevelServiceProvider::class);
 		$this->app->register(TypePaymentServiceProvider::class);
+		$this->app->register(TypePopulationServiceProvider::class);
 	}
 
 	public function boot(): void

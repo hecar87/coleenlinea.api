@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Application\TypePopulation\Actions;
+namespace App\Modules\TypePopulation\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypePopulation\Repositories\ITypePopulationRepository;
+use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
+
 
 class IndexTypePopulationAction
 {

@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypePopulation;
+
+namespace App\Modules\TypePopulation\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypePopulation\Repositories\ITypePopulationRepository;
+use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypePopulation\Requests\CreateTypePopulationRequest;
-use App\Http\Controllers\Manager\TypePopulation\Requests\UpdateTypePopulationRequest;
-use App\Http\Controllers\Manager\TypePopulation\Requests\ListTypePopulationRequest;
-use App\Http\Controllers\Manager\TypePopulation\Requests\SearchTypePopulationRequest;
+use App\Modules\TypePopulation\Http\Requests\Manager\CreateTypePopulationRequest;
+use App\Modules\TypePopulation\Http\Requests\Manager\UpdateTypePopulationRequest;
+use App\Modules\TypePopulation\Http\Requests\Manager\ListTypePopulationRequest;
+use App\Modules\TypePopulation\Http\Requests\Manager\SearchTypePopulationRequest;
 
 // DTOs
-use App\Application\TypePopulation\DTOs\CreateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\UpdateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\SearchTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\CreateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\UpdateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\SearchTypePopulationDTO;
 
 // Actions
-use App\Application\TypePopulation\Actions\CreateTypePopulationAction;
-use App\Application\TypePopulation\Actions\UpdateTypePopulationAction;
-use App\Application\TypePopulation\Actions\DeleteTypePopulationAction;
-use App\Application\TypePopulation\Actions\IndexTypePopulationAction;
-use App\Application\TypePopulation\Actions\ListTypePopulationAction;
-use App\Application\TypePopulation\Actions\SearchTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\CreateTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\UpdateTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\DeleteTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\IndexTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\ListTypePopulationAction;
+use App\Modules\TypePopulation\Application\Actions\SearchTypePopulationAction;
 
 
 class TypePopulationController extends Controller

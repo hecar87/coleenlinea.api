@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypePopulation\DTOs;
+
+namespace App\Modules\TypePopulation\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypePopulation\Enums\TypePopulationFilterDisplay;
-use App\Domain\TypePopulation\Enums\TypePopulationFilterStatus;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterDisplay;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterStatus;
 
 class SearchTypePopulationDTO
 {

@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypePopulation\Repositories;
+
+namespace App\Modules\TypePopulation\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypePopulation\Repositories\ITypePopulationRepository;
-use App\Domain\TypePopulation\Entities\TypePopulation as TypePopulationEntity;
-use App\Infrastructure\TypePopulation\Persistence\EloquentTypePopulation as TypePopulationModel;
+use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
+use App\Modules\TypePopulation\Infrastructure\Persistence\EloquentTypePopulation as TypePopulationModel;
 
-use App\Application\TypePopulation\DTOs\CreateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\UpdateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\DuplicatedTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\SearchTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\CreateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\UpdateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\DuplicatedTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\SearchTypePopulationDTO;
 
-use App\Domain\TypePopulation\Enums\TypePopulationFilterDisplay;
-use App\Domain\TypePopulation\Enums\TypePopulationFilterStatus;
-use App\Domain\TypePopulation\Enums\TypePopulationPublic;
-use App\Domain\TypePopulation\Enums\TypePopulationStatus;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterDisplay;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterStatus;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationPublic;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationStatus;
 
 
 class EloquentTypePopulationRepository implements ITypePopulationRepository

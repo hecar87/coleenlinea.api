@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\TypePopulation\Actions;
+namespace App\Modules\TypePopulation\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypePopulation\Repositories\ITypePopulationRepository;
-use App\Application\TypePopulation\DTOs\UpdateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\DuplicatedTypePopulationDTO;
+use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
+use App\Modules\TypePopulation\Application\DTOs\UpdateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\DuplicatedTypePopulationDTO;
 
 
 class UpdateTypePopulationAction

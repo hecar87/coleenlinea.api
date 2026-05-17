@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Domain\TypePopulation\Repositories;
+namespace App\Modules\TypePopulation\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypePopulation\Entities\TypePopulation;
-use App\Application\TypePopulation\DTOs\CreateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\UpdateTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\DuplicatedTypePopulationDTO;
-use App\Application\TypePopulation\DTOs\SearchTypePopulationDTO;
-use App\Domain\TypePopulation\Enums\TypePopulationFilterDisplay;
+use App\Modules\TypePopulation\Application\DTOs\CreateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\UpdateTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\DuplicatedTypePopulationDTO;
+use App\Modules\TypePopulation\Application\DTOs\SearchTypePopulationDTO;
+use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterDisplay;
 
 interface ITypePopulationRepository
 {

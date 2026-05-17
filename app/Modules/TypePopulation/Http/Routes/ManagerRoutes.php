@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypePopulation\TypePopulationController;
+use App\Modules\TypePopulation\Http\Controllers\Manager\TypePopulationController;
 
 
 Route::middleware('manager.access')->name('type-population.create')	->post		("/type-populations",			[ TypePopulationController::class, "create" ]);

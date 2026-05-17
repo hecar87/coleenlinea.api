@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypePopulation\Enums;
+namespace App\Modules\TypePopulation\Domain\Enums;
 
 enum TypePopulationFilterDisplay : string
 {
