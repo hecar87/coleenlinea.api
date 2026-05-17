@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Domain\TypeLevel\Repositories;
+namespace App\Modules\TypeLevel\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeLevel\Entities\TypeLevel;
-use App\Application\TypeLevel\DTOs\CreateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\UpdateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\DuplicatedTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\SearchTypeLevelDTO;
-use App\Domain\TypeLevel\Enums\TypeLevelFilterDisplay;
+use App\Modules\TypeLevel\Application\DTOs\CreateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\UpdateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\DuplicatedTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\SearchTypeLevelDTO;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterDisplay;
 
 interface ITypeLevelRepository
 {

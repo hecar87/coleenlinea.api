@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeLevel\Enums;
+namespace App\Modules\TypeLevel\Domain\Enums;
 
 enum TypeLevelFilterDisplay : string
 {

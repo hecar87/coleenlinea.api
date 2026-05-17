@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\TypeLevel\Actions;
+namespace App\Modules\TypeLevel\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeLevel\Repositories\ITypeLevelRepository;
-use App\Application\TypeLevel\DTOs\UpdateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\DuplicatedTypeLevelDTO;
+use App\Modules\TypeLevel\Domain\Repositories\ITypeLevelRepository;
+use App\Modules\TypeLevel\Application\DTOs\UpdateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\DuplicatedTypeLevelDTO;
 
 
 class UpdateTypeLevelAction

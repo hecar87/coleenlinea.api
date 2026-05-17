@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeLevel;
+
+namespace App\Modules\TypeLevel\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeLevel\Repositories\ITypeLevelRepository;
+use App\Modules\TypeLevel\Domain\Repositories\ITypeLevelRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeLevel\Requests\CreateTypeLevelRequest;
-use App\Http\Controllers\Manager\TypeLevel\Requests\UpdateTypeLevelRequest;
-use App\Http\Controllers\Manager\TypeLevel\Requests\ListTypeLevelRequest;
-use App\Http\Controllers\Manager\TypeLevel\Requests\SearchTypeLevelRequest;
+use App\Modules\TypeLevel\Http\Requests\Manager\CreateTypeLevelRequest;
+use App\Modules\TypeLevel\Http\Requests\Manager\UpdateTypeLevelRequest;
+use App\Modules\TypeLevel\Http\Requests\Manager\ListTypeLevelRequest;
+use App\Modules\TypeLevel\Http\Requests\Manager\SearchTypeLevelRequest;
 
 // DTOs
-use App\Application\TypeLevel\DTOs\CreateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\UpdateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\SearchTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\CreateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\UpdateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\SearchTypeLevelDTO;
 
 // Actions
-use App\Application\TypeLevel\Actions\CreateTypeLevelAction;
-use App\Application\TypeLevel\Actions\UpdateTypeLevelAction;
-use App\Application\TypeLevel\Actions\DeleteTypeLevelAction;
-use App\Application\TypeLevel\Actions\IndexTypeLevelAction;
-use App\Application\TypeLevel\Actions\ListTypeLevelAction;
-use App\Application\TypeLevel\Actions\SearchTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\CreateTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\UpdateTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\DeleteTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\IndexTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\ListTypeLevelAction;
+use App\Modules\TypeLevel\Application\Actions\SearchTypeLevelAction;
 
 
 class TypeLevelController extends Controller

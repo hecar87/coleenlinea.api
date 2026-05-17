@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypeLevel\DTOs;
+
+namespace App\Modules\TypeLevel\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeLevel\Enums\TypeLevelFilterDisplay;
-use App\Domain\TypeLevel\Enums\TypeLevelFilterStatus;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterDisplay;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterStatus;
 
 class SearchTypeLevelDTO
 {

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeLevel\TypeLevelController;
+use App\Modules\TypeLevel\Http\Controllers\Manager\TypeLevelController;
 
 
 Route::middleware('manager.access')->name('type-level.create')	->post		("/type-levels",			[ TypeLevelController::class, "create" ]);

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\TypeLevel\Actions;
+namespace App\Modules\TypeLevel\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeLevel\Repositories\ITypeLevelRepository;
+use App\Modules\TypeLevel\Domain\Repositories\ITypeLevelRepository;
 
 
 class DeleteTypeLevelAction

@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypeLevel\Repositories;
+
+namespace App\Modules\TypeLevel\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeLevel\Repositories\ITypeLevelRepository;
-use App\Domain\TypeLevel\Entities\TypeLevel as TypeLevelEntity;
-use App\Infrastructure\TypeLevel\Persistence\EloquentTypeLevel as TypeLevelModel;
+use App\Modules\TypeLevel\Domain\Repositories\ITypeLevelRepository;
+use App\Modules\TypeLevel\Infrastructure\Persistence\EloquentTypeLevel as TypeLevelModel;
 
-use App\Application\TypeLevel\DTOs\CreateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\UpdateTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\DuplicatedTypeLevelDTO;
-use App\Application\TypeLevel\DTOs\SearchTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\CreateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\UpdateTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\DuplicatedTypeLevelDTO;
+use App\Modules\TypeLevel\Application\DTOs\SearchTypeLevelDTO;
 
-use App\Domain\TypeLevel\Enums\TypeLevelFilterDisplay;
-use App\Domain\TypeLevel\Enums\TypeLevelFilterStatus;
-use App\Domain\TypeLevel\Enums\TypeLevelPublic;
-use App\Domain\TypeLevel\Enums\TypeLevelStatus;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterDisplay;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterStatus;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelPublic;
+use App\Modules\TypeLevel\Domain\Enums\TypeLevelStatus;
 
 
 class EloquentTypeLevelRepository implements ITypeLevelRepository
