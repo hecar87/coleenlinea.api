@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\TypeReceipt\Actions;
+namespace App\Modules\TypeReceipt\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeReceipt\Repositories\ITypeReceiptRepository;
-use App\Application\TypeReceipt\DTOs\CreateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\DuplicatedTypeReceiptDTO;
+use App\Modules\TypeReceipt\Domain\Repositories\ITypeReceiptRepository;
+use App\Modules\TypeReceipt\Application\DTOs\CreateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\DuplicatedTypeReceiptDTO;
 
 
 class CreateTypeReceiptAction

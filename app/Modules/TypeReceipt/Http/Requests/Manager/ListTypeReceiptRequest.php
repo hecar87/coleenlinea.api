@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeReceipt\Requests;
+
+namespace App\Modules\TypeReceipt\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\TypeReceipt\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\TypeReceipt\Domain\Repositories\ITypeReceiptRepository;
+use App\Modules\TypeReceipt\Infrastructure\Repositories\EloquentTypeReceiptRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class TypeReceiptServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(ITypeReceiptRepository::class, EloquentTypeReceiptRepository::class);
 	}
 
 	public function boot(): void

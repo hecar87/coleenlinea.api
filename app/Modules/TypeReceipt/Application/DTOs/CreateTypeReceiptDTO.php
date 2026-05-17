@@ -1,5 +1,6 @@
 <?php
-namespace App\Application\TypeReceipt\DTOs;
+
+namespace App\Modules\TypeReceipt\Application\DTOs;
 
 use Illuminate\Http\Request;
 

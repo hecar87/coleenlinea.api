@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypeReceipt\DTOs;
+
+namespace App\Modules\TypeReceipt\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeReceipt\Enums\TypeReceiptFilterDisplay;
-use App\Domain\TypeReceipt\Enums\TypeReceiptFilterStatus;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterDisplay;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterStatus;
 
 class SearchTypeReceiptDTO
 {

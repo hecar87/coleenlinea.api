@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypeReceipt\Repositories;
+
+namespace App\Modules\TypeReceipt\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeReceipt\Repositories\ITypeReceiptRepository;
-use App\Domain\TypeReceipt\Entities\TypeReceipt as TypeReceiptEntity;
-use App\Infrastructure\TypeReceipt\Persistence\EloquentTypeReceipt as TypeReceiptModel;
+use App\Modules\TypeReceipt\Domain\Repositories\ITypeReceiptRepository;
+use App\Modules\TypeReceipt\Infrastructure\Persistence\EloquentTypeReceipt as TypeReceiptModel;
 
-use App\Application\TypeReceipt\DTOs\CreateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\UpdateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\DuplicatedTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\SearchTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\CreateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\UpdateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\DuplicatedTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\SearchTypeReceiptDTO;
 
-use App\Domain\TypeReceipt\Enums\TypeReceiptFilterDisplay;
-use App\Domain\TypeReceipt\Enums\TypeReceiptFilterStatus;
-use App\Domain\TypeReceipt\Enums\TypeReceiptPublic;
-use App\Domain\TypeReceipt\Enums\TypeReceiptStatus;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterDisplay;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterStatus;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptPublic;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptStatus;
 
 
 class EloquentTypeReceiptRepository implements ITypeReceiptRepository

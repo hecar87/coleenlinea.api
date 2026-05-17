@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeReceipt;
+
+namespace App\Modules\TypeReceipt\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeReceipt\Repositories\ITypeReceiptRepository;
+use App\Modules\TypeReceipt\Domain\Repositories\ITypeReceiptRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeReceipt\Requests\CreateTypeReceiptRequest;
-use App\Http\Controllers\Manager\TypeReceipt\Requests\UpdateTypeReceiptRequest;
-use App\Http\Controllers\Manager\TypeReceipt\Requests\ListTypeReceiptRequest;
-use App\Http\Controllers\Manager\TypeReceipt\Requests\SearchTypeReceiptRequest;
+use App\Modules\TypeReceipt\Http\Requests\Manager\CreateTypeReceiptRequest;
+use App\Modules\TypeReceipt\Http\Requests\Manager\UpdateTypeReceiptRequest;
+use App\Modules\TypeReceipt\Http\Requests\Manager\ListTypeReceiptRequest;
+use App\Modules\TypeReceipt\Http\Requests\Manager\SearchTypeReceiptRequest;
 
 // DTOs
-use App\Application\TypeReceipt\DTOs\CreateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\UpdateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\SearchTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\CreateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\UpdateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\SearchTypeReceiptDTO;
 
 // Actions
-use App\Application\TypeReceipt\Actions\CreateTypeReceiptAction;
-use App\Application\TypeReceipt\Actions\UpdateTypeReceiptAction;
-use App\Application\TypeReceipt\Actions\DeleteTypeReceiptAction;
-use App\Application\TypeReceipt\Actions\IndexTypeReceiptAction;
-use App\Application\TypeReceipt\Actions\ListTypeReceiptAction;
-use App\Application\TypeReceipt\Actions\SearchTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\CreateTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\UpdateTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\DeleteTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\IndexTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\ListTypeReceiptAction;
+use App\Modules\TypeReceipt\Application\Actions\SearchTypeReceiptAction;
 
 
 class TypeReceiptController extends Controller

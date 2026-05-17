@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\TypeReceipt\Persistence;
+namespace App\Modules\TypeReceipt\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 

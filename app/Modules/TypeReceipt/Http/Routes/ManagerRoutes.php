@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeReceipt\TypeReceiptController;
+use App\Modules\TypeReceipt\Http\Controllers\Manager\TypeReceiptController;
 
 
 Route::middleware('manager.access')->name('type-receipt.create')	->post		("/type-receipts",			[ TypeReceiptController::class, "create" ]);

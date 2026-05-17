@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Domain\TypeReceipt\Repositories;
+namespace App\Modules\TypeReceipt\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeReceipt\Entities\TypeReceipt;
-use App\Application\TypeReceipt\DTOs\CreateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\UpdateTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\DuplicatedTypeReceiptDTO;
-use App\Application\TypeReceipt\DTOs\SearchTypeReceiptDTO;
-use App\Domain\TypeReceipt\Enums\TypeReceiptFilterDisplay;
+use App\Modules\TypeReceipt\Application\DTOs\CreateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\UpdateTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\DuplicatedTypeReceiptDTO;
+use App\Modules\TypeReceipt\Application\DTOs\SearchTypeReceiptDTO;
+use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterDisplay;
 
 interface ITypeReceiptRepository
 {

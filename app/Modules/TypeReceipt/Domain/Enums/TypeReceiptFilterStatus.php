@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeReceipt\Enums;
+namespace App\Modules\TypeReceipt\Domain\Enums;
 
 enum TypeReceiptFilterStatus : string
 {
