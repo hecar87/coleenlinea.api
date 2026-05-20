@@ -1,31 +1,32 @@
 <?php
-namespace App\Http\Controllers\Manager\TypeSchool;
+
+namespace App\Modules\TypeSchool\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Domain\TypeSchool\Repositories\ITypeSchoolRepository;
+use App\Modules\TypeSchool\Domain\Repositories\ITypeSchoolRepository;
 
 
 // Requests
-use App\Http\Controllers\Manager\TypeSchool\Requests\CreateTypeSchoolRequest;
-use App\Http\Controllers\Manager\TypeSchool\Requests\UpdateTypeSchoolRequest;
-use App\Http\Controllers\Manager\TypeSchool\Requests\ListTypeSchoolRequest;
-use App\Http\Controllers\Manager\TypeSchool\Requests\SearchTypeSchoolRequest;
+use App\Modules\TypeSchool\Http\Requests\Manager\CreateTypeSchoolRequest;
+use App\Modules\TypeSchool\Http\Requests\Manager\UpdateTypeSchoolRequest;
+use App\Modules\TypeSchool\Http\Requests\Manager\ListTypeSchoolRequest;
+use App\Modules\TypeSchool\Http\Requests\Manager\SearchTypeSchoolRequest;
 
 // DTOs
-use App\Application\TypeSchool\DTOs\CreateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\UpdateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\SearchTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\CreateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\UpdateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\SearchTypeSchoolDTO;
 
 // Actions
-use App\Application\TypeSchool\Actions\CreateTypeSchoolAction;
-use App\Application\TypeSchool\Actions\UpdateTypeSchoolAction;
-use App\Application\TypeSchool\Actions\DeleteTypeSchoolAction;
-use App\Application\TypeSchool\Actions\IndexTypeSchoolAction;
-use App\Application\TypeSchool\Actions\ListTypeSchoolAction;
-use App\Application\TypeSchool\Actions\SearchTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\CreateTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\UpdateTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\DeleteTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\IndexTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\ListTypeSchoolAction;
+use App\Modules\TypeSchool\Application\Actions\SearchTypeSchoolAction;
 
 
 class TypeSchoolController extends Controller

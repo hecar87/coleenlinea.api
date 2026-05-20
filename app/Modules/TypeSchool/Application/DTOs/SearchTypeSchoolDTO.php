@@ -1,9 +1,10 @@
 <?php
-namespace App\Application\TypeSchool\DTOs;
+
+namespace App\Modules\TypeSchool\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Domain\TypeSchool\Enums\TypeSchoolFilterDisplay;
-use App\Domain\TypeSchool\Enums\TypeSchoolFilterStatus;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterDisplay;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterStatus;
 
 class SearchTypeSchoolDTO
 {

@@ -1,24 +1,24 @@
 <?php
-namespace App\Infrastructure\TypeSchool\Repositories;
+
+namespace App\Modules\TypeSchool\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Domain\TypeSchool\Repositories\ITypeSchoolRepository;
-use App\Domain\TypeSchool\Entities\TypeSchool as TypeSchoolEntity;
-use App\Infrastructure\TypeSchool\Persistence\EloquentTypeSchool as TypeSchoolModel;
+use App\Modules\TypeSchool\Domain\Repositories\ITypeSchoolRepository;
+use App\Modules\TypeSchool\Infrastructure\Persistence\EloquentTypeSchool as TypeSchoolModel;
 
-use App\Application\TypeSchool\DTOs\CreateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\UpdateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\DuplicatedTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\SearchTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\CreateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\UpdateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\DuplicatedTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\SearchTypeSchoolDTO;
 
-use App\Domain\TypeSchool\Enums\TypeSchoolFilterDisplay;
-use App\Domain\TypeSchool\Enums\TypeSchoolFilterStatus;
-use App\Domain\TypeSchool\Enums\TypeSchoolPublic;
-use App\Domain\TypeSchool\Enums\TypeSchoolStatus;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterDisplay;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterStatus;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolPublic;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolStatus;
 
 
 class EloquentTypeSchoolRepository implements ITypeSchoolRepository

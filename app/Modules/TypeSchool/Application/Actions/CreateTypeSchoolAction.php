@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\TypeSchool\Actions;
+namespace App\Modules\TypeSchool\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Domain\TypeSchool\Repositories\ITypeSchoolRepository;
-use App\Application\TypeSchool\DTOs\CreateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\DuplicatedTypeSchoolDTO;
+use App\Modules\TypeSchool\Domain\Repositories\ITypeSchoolRepository;
+use App\Modules\TypeSchool\Application\DTOs\CreateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\DuplicatedTypeSchoolDTO;
 
 
 class CreateTypeSchoolAction

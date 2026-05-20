@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Manager\TypeSchool\TypeSchoolController;
+use App\Modules\TypeSchool\Http\Controllers\Manager\TypeSchoolController;
 
 
 Route::middleware('manager.access')->name('type-school.create')	->post		("/type-schools",			[ TypeSchoolController::class, "create" ]);

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Domain\TypeSchool\Repositories;
+namespace App\Modules\TypeSchool\Domain\Repositories;
 
 use App\Helpers\Result;
-use App\Domain\TypeSchool\Entities\TypeSchool;
-use App\Application\TypeSchool\DTOs\CreateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\UpdateTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\DuplicatedTypeSchoolDTO;
-use App\Application\TypeSchool\DTOs\SearchTypeSchoolDTO;
-use App\Domain\TypeSchool\Enums\TypeSchoolFilterDisplay;
+use App\Modules\TypeSchool\Application\DTOs\CreateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\UpdateTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\DuplicatedTypeSchoolDTO;
+use App\Modules\TypeSchool\Application\DTOs\SearchTypeSchoolDTO;
+use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterDisplay;
 
 interface ITypeSchoolRepository
 {

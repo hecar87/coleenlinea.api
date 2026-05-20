@@ -18,6 +18,7 @@ use App\Modules\TypeLevel\Providers\TypeLevelServiceProvider;
 use App\Modules\TypePayment\Providers\TypePaymentServiceProvider;
 use App\Modules\TypePopulation\Providers\TypePopulationServiceProvider;
 use App\Modules\TypeReceipt\Providers\TypeReceiptServiceProvider;
+use App\Modules\TypeSchool\Providers\TypeSchoolServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -38,6 +39,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypePaymentServiceProvider::class);
 		$this->app->register(TypePopulationServiceProvider::class);
 		$this->app->register(TypeReceiptServiceProvider::class);
+		$this->app->register(TypeSchoolServiceProvider::class);
 	}
 
 	public function boot(): void

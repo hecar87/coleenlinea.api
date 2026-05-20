@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\TypeSchool\Enums;
+namespace App\Modules\TypeSchool\Domain\Enums;
 
 enum TypeSchoolFilterStatus : string
 {
