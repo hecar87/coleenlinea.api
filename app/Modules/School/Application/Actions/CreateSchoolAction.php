@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\School\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\School\Application\DTOs\CreateSchoolDTO;
+use App\Modules\School\Application\DTOs\DuplicatedSchoolDTO;
 
 
-class CreateStateAction
+class CreateSchoolAction
 {
-	protected IStateRepository $oStateRepository;
+	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(ISchoolRepository $oSchoolRepository)
 	{
-		$this->oStateRepository = $oStateRepository;
+		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
-	public function execute(CreateStateDTO $oData) : Result
+	public function execute(CreateSchoolDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
-		$oDataDuplicated = new DuplicatedStateDTO(
-			Id_State	: 0,
-			State_Code	: $oData->State_Code,
-			State_Name	: $oData->State_Name,
-			State_Abrv	: $oData->State_Abrv
+		$oEntity = $this->oSchoolRepository->getEntity();
+		$oDataDuplicated = new DuplicatedSchoolDTO(
+			Id_School	: 0,
+			School_Code	: $oData->School_Code,
+			School_Name	: $oData->School_Name,
+			School_Abrv	: $oData->School_Abrv
 		);;
 
 
@@ -44,10 +44,10 @@ class CreateStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oSchoolRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->create($oData);
+			$oResult = $this->oSchoolRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

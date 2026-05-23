@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\School\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
 
-class DeleteStateAction
+class DeleteSchoolAction
 {
-	protected IStateRepository $oStateRepository;
+	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(ISchoolRepository $oSchoolRepository)
 	{
-		$this->oStateRepository = $oStateRepository;
+		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
-	public function execute(int $Id_State) : Result
+	public function execute(int $Id_School) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
+		$oEntity = $this->oSchoolRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->exists($Id_State);
+			$oResult = $this->oSchoolRepository->exists($Id_School);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->delete($Id_State);
+			$oResult = $this->oSchoolRepository->delete($Id_School);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

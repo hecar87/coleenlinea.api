@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\School\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\School\Domain\Enums\SchoolFilterDisplay;
 
 
-class ListStateAction
+class ListSchoolAction
 {
-	protected IStateRepository $oStateRepository;
+	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(ISchoolRepository $oSchoolRepository)
 	{
-		$this->oStateRepository = $oStateRepository;
+		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
 	public function execute(string $Display) : Result
@@ -24,8 +24,8 @@ class ListStateAction
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oStateRepository->getEntity();
-		$oDisplay 	= StateFilterDisplay::from(strtoupper($Display));
+		$oEntity 	= $this->oSchoolRepository->getEntity();
+		$oDisplay 	= SchoolFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class ListStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->list($oDisplay);
+			$oResult = $this->oSchoolRepository->list($oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

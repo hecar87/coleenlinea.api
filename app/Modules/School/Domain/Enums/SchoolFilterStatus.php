@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\State\Domain\Enums;
+namespace App\Modules\School\Domain\Enums;
 
-enum StateFilterStatus : string
+enum SchoolFilterStatus : string
 {
     case ALL = 'ALL';
     case ACTIVE = 'ACTIVE';

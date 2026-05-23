@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Modules\State\Infrastructure\Persistence;
+namespace App\Modules\School\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 
 
-class EloquentState extends Model
+class EloquentSchool extends Model
 {
 	public $timestamps 		= false;
 	protected $table 		= "t_state";
 	protected $entity		= "STATE";
-	protected $primaryKey 	= "Id_State";
+	protected $primaryKey 	= "Id_School";
 	protected $fillable 	= [
-		"Id_State",
-		"State_Code",
-		"State_Name",
-		"State_Abrv",
-		"State_Public",
-		"State_Status"
+		"Id_School",
+		"School_Code",
+		"School_Name",
+		"School_Abrv",
+		"School_Public",
+		"School_Status"
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

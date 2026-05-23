@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\State\Http\Controllers\Manager;
+namespace App\Modules\School\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
 
 // Requests
-use App\Modules\State\Http\Requests\Manager\CreateStateRequest;
-use App\Modules\State\Http\Requests\Manager\UpdateStateRequest;
-use App\Modules\State\Http\Requests\Manager\ListStateRequest;
-use App\Modules\State\Http\Requests\Manager\SearchStateRequest;
+use App\Modules\School\Http\Requests\Manager\CreateSchoolRequest;
+use App\Modules\School\Http\Requests\Manager\UpdateSchoolRequest;
+use App\Modules\School\Http\Requests\Manager\ListSchoolRequest;
+use App\Modules\School\Http\Requests\Manager\SearchSchoolRequest;
 
 // DTOs
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\School\Application\DTOs\CreateSchoolDTO;
+use App\Modules\School\Application\DTOs\UpdateSchoolDTO;
+use App\Modules\School\Application\DTOs\SearchSchoolDTO;
 
 // Actions
-use App\Modules\State\Application\Actions\CreateStateAction;
-use App\Modules\State\Application\Actions\UpdateStateAction;
-use App\Modules\State\Application\Actions\DeleteStateAction;
-use App\Modules\State\Application\Actions\IndexStateAction;
-use App\Modules\State\Application\Actions\ListStateAction;
-use App\Modules\State\Application\Actions\SearchStateAction;
+use App\Modules\School\Application\Actions\CreateSchoolAction;
+use App\Modules\School\Application\Actions\UpdateSchoolAction;
+use App\Modules\School\Application\Actions\DeleteSchoolAction;
+use App\Modules\School\Application\Actions\IndexSchoolAction;
+use App\Modules\School\Application\Actions\ListSchoolAction;
+use App\Modules\School\Application\Actions\SearchSchoolAction;
 
 
-class StateController extends Controller
+class SchoolController extends Controller
 {
-	protected IStateRepository $repository;
+	protected ISchoolRepository $repository;
 
 	public function __construct(
-		IStateRepository $repository,
+		ISchoolRepository $repository,
 
-		private CreateStateAction $oCreateStateAction,
-		private UpdateStateAction $oUpdateStateAction,
-		private DeleteStateAction $oDeleteStateAction,
-		private IndexStateAction $oIndexStateAction,
-		private ListStateAction $oListStateAction,
-		private SearchStateAction $oSearchStateAction
+		private CreateSchoolAction $oCreateSchoolAction,
+		private UpdateSchoolAction $oUpdateSchoolAction,
+		private DeleteSchoolAction $oDeleteSchoolAction,
+		private IndexSchoolAction $oIndexSchoolAction,
+		private ListSchoolAction $oListSchoolAction,
+		private SearchSchoolAction $oSearchSchoolAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateStateRequest $oRequest)
+	public function create(CreateSchoolRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateStateDTO::fromRequest($oRequest);
+		$oData = CreateSchoolDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateStateAction->execute($oData);
+		$oResult	= $this->oCreateSchoolAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateStateRequest $oRequest)
+	public function update(UpdateSchoolRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateStateDTO::fromRequest($oRequest);
+		$oData = UpdateSchoolDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateStateAction->execute($oData);
+		$oResult	= $this->oUpdateSchoolAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_State)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteStateAction->execute($Id_State);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_State)
+	public function delete(int $Id_School)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexStateAction->execute($Id_State);
+		$oResult	= $this->oDeleteSchoolAction->execute($Id_School);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(ListStateRequest $oRequest)
+	public function index(int $Id_School)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexSchoolAction->execute($Id_School);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(ListSchoolRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListStateAction->execute($Display);
+		$oResult	= $this->oListSchoolAction->execute($Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchStateRequest $oRequest)
+	public function search(SearchSchoolRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchStateDTO::fromRequest($oRequest);
+		$oData = SearchSchoolDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchStateAction->execute($oData);
+		$oResult	= $this->oSearchSchoolAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Http\Requests\Manager;
+namespace App\Modules\School\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class CreateStateRequest extends ValidatedRequest
+class CreateSchoolRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{
 		return [
-			"State_Code"		=> "required|string|max:2",
-			"State_Name"		=> "required|string|max:250",
-			"State_Abrv"		=> "required|string|max:4",
-			"State_Public"		=> "required|int|in:1,2",
-			"State_Status"		=> "required|int|in:1,2"
+			"School_Code"		=> "required|string|max:2",
+			"School_Name"		=> "required|string|max:250",
+			"School_Abrv"		=> "required|string|max:4",
+			"School_Public"		=> "required|int|in:1,2",
+			"School_Status"		=> "required|int|in:1,2"
 		];
 	}
 
