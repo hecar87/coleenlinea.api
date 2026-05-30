@@ -331,12 +331,19 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
+			$oQuery->join("t_state", 			"t_school.Id_State", 			"=", "t_state.Id_State");
+			$oQuery->join("t_city", 			"t_school.Id_City", 			"=", "t_city.Id_City");
+			$oQuery->join("t_district", 		"t_school.Id_District", 		"=", "t_district.Id_District");
+			$oQuery->join("t_type_document", 	"t_school.Id_TypeDocument", 	"=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_population", 	"t_school.Id_TypePopulation", 	"=", "t_type_population.Id_TypePopulation");
+			$oQuery->join("t_type_school", 		"t_school.Id_TypeSchool", 		"=", "t_type_school.Id_TypeSchool");
+
 			if (isset($whereDisplay[$Display->value])) {
 				$oQuery->where('School_Public', $whereDisplay[$Display->value]);
 			}
 
 			$oQuery->where('School_Status', '=', SchoolStatus::ACTIVE->value);
-			$oQuery->orderBy("School_Name", "ASC");
+			$oQuery->orderBy("School_TradeName", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -393,6 +400,13 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
+			$oQuery->join("t_state", 			"t_school.Id_State", 			"=", "t_state.Id_State");
+			$oQuery->join("t_city", 			"t_school.Id_City", 			"=", "t_city.Id_City");
+			$oQuery->join("t_district", 		"t_school.Id_District", 		"=", "t_district.Id_District");
+			$oQuery->join("t_type_document", 	"t_school.Id_TypeDocument", 	"=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_population", 	"t_school.Id_TypePopulation", 	"=", "t_type_population.Id_TypePopulation");
+			$oQuery->join("t_type_school", 		"t_school.Id_TypeSchool", 		"=", "t_type_school.Id_TypeSchool");
+
 			if (isset($whereDisplay[$dto->Display->value])) {
 				$oQuery->where('School_Public', $whereDisplay[$dto->Display->value]);
 			}
@@ -414,7 +428,7 @@ class EloquentSchoolRepository implements ISchoolRepository
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("School_BusinessName", "ASC");
+			$oQuery->orderBy("School_TradeName", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
