@@ -11,11 +11,11 @@ use App\Modules\TypeLevel\Domain\Repositories\ITypeLevelRepository;
 
 class DeleteTypeLevelAction
 {
-	protected ITypeLevelRepository $oTypeLevelRepository;
 
-	public function __construct(ITypeLevelRepository $oTypeLevelRepository)
+	public function __construct(
+		protected ITypeLevelRepository $oTypeLevelRepository
+	)
 	{
-		$this->oTypeLevelRepository = $oTypeLevelRepository;
 	}
 
 	public function execute(int $Id_TypeLevel) : Result

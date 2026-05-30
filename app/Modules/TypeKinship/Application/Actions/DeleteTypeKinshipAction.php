@@ -11,11 +11,11 @@ use App\Modules\TypeKinship\Domain\Repositories\ITypeKinshipRepository;
 
 class DeleteTypeKinshipAction
 {
-	protected ITypeKinshipRepository $oTypeKinshipRepository;
 
-	public function __construct(ITypeKinshipRepository $oTypeKinshipRepository)
+	public function __construct(
+		protected ITypeKinshipRepository $oTypeKinshipRepository
+	)
 	{
-		$this->oTypeKinshipRepository = $oTypeKinshipRepository;
 	}
 
 	public function execute(int $Id_TypeKinship) : Result

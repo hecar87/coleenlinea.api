@@ -12,11 +12,11 @@ use App\Modules\District\Domain\Enums\DistrictFilterDisplay;
 
 class ListDistrictAction
 {
-	protected IDistrictRepository $oDistrictRepository;
 
-	public function __construct(IDistrictRepository $oDistrictRepository)
+	public function __construct(
+		protected IDistrictRepository $oDistrictRepository
+	)
 	{
-		$this->oDistrictRepository = $oDistrictRepository;
 	}
 
 	public function execute(int $Id_City, string $Display) : Result

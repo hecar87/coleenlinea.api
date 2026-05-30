@@ -13,11 +13,11 @@ use App\Modules\TypeKinship\Application\DTOs\DuplicatedTypeKinshipDTO;
 
 class UpdateTypeKinshipAction
 {
-	protected ITypeKinshipRepository $oTypeKinshipRepository;
 
-	public function __construct(ITypeKinshipRepository $oTypeKinshipRepository)
+	public function __construct(
+		protected ITypeKinshipRepository $oTypeKinshipRepository
+	)
 	{
-		$this->oTypeKinshipRepository = $oTypeKinshipRepository;
 	}
 
 	public function execute(UpdateTypeKinshipDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypeKinshipAction
 			Id_TypeKinship		: $oData->Id_TypeKinship,
 			TypeKinship_Name	: $oData->TypeKinship_Name,
 			TypeKinship_Abrv	: $oData->TypeKinship_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

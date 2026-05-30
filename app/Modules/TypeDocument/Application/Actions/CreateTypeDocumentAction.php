@@ -13,11 +13,11 @@ use App\Modules\TypeDocument\Application\DTOs\DuplicatedTypeDocumentDTO;
 
 class CreateTypeDocumentAction
 {
-	protected ITypeDocumentRepository $oTypeDocumentRepository;
 
-	public function __construct(ITypeDocumentRepository $oTypeDocumentRepository)
+	public function __construct(
+		protected ITypeDocumentRepository $oTypeDocumentRepository
+	)
 	{
-		$this->oTypeDocumentRepository = $oTypeDocumentRepository;
 	}
 
 	public function execute(CreateTypeDocumentDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypeDocumentAction
 			Id_TypeDocument		: 0,
 			TypeDocument_Name	: $oData->TypeDocument_Name,
 			TypeDocument_Abrv	: $oData->TypeDocument_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

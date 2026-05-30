@@ -11,11 +11,11 @@ use App\Modules\TypeKinship\Application\DTOs\SearchTypeKinshipDTO;
 
 class SearchTypeKinshipAction
 {
-	protected ITypeKinshipRepository $oTypeKinshipRepository;
 
-	public function __construct(ITypeKinshipRepository $oTypeKinshipRepository)
+	public function __construct(
+		protected ITypeKinshipRepository $oTypeKinshipRepository
+	)
 	{
-		$this->oTypeKinshipRepository = $oTypeKinshipRepository;
 	}
 
 	public function execute(SearchTypeKinshipDTO $oData) : Result

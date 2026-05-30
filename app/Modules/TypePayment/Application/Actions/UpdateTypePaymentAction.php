@@ -13,11 +13,11 @@ use App\Modules\TypePayment\Application\DTOs\DuplicatedTypePaymentDTO;
 
 class UpdateTypePaymentAction
 {
-	protected ITypePaymentRepository $oTypePaymentRepository;
 
-	public function __construct(ITypePaymentRepository $oTypePaymentRepository)
+	public function __construct(
+		protected ITypePaymentRepository $oTypePaymentRepository
+	)
 	{
-		$this->oTypePaymentRepository = $oTypePaymentRepository;
 	}
 
 	public function execute(UpdateTypePaymentDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypePaymentAction
 			Id_TypePayment		: $oData->Id_TypePayment,
 			TypePayment_Name	: $oData->TypePayment_Name,
 			TypePayment_Abrv	: $oData->TypePayment_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

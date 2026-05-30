@@ -12,11 +12,11 @@ use App\Modules\TypeReceipt\Application\DTOs\SearchTypeReceiptDTO;
 
 class SearchTypeReceiptAction
 {
-	protected ITypeReceiptRepository $oTypeReceiptRepository;
 
-	public function __construct(ITypeReceiptRepository $oTypeReceiptRepository)
+	public function __construct(
+		protected ITypeReceiptRepository $oTypeReceiptRepository
+	)
 	{
-		$this->oTypeReceiptRepository = $oTypeReceiptRepository;
 	}
 
 	public function execute(SearchTypeReceiptDTO $oData) : Result

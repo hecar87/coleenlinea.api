@@ -12,11 +12,11 @@ use App\Modules\District\Application\DTOs\SearchDistrictDTO;
 
 class SearchDistrictAction
 {
-	protected IDistrictRepository $oDistrictRepository;
 
-	public function __construct(IDistrictRepository $oDistrictRepository)
+	public function __construct(
+		protected IDistrictRepository $oDistrictRepository
+	)
 	{
-		$this->oDistrictRepository = $oDistrictRepository;
 	}
 
 	public function execute(int $Id_City, SearchDistrictDTO $oData) : Result

@@ -11,11 +11,11 @@ use App\Modules\TypeLevel\Application\DTOs\SearchTypeLevelDTO;
 
 class SearchTypeLevelAction
 {
-	protected ITypeLevelRepository $oTypeLevelRepository;
 
-	public function __construct(ITypeLevelRepository $oTypeLevelRepository)
+	public function __construct(
+		protected ITypeLevelRepository $oTypeLevelRepository
+	)
 	{
-		$this->oTypeLevelRepository = $oTypeLevelRepository;
 	}
 
 	public function execute(SearchTypeLevelDTO $oData) : Result

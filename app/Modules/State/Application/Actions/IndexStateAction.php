@@ -11,11 +11,11 @@ use App\Modules\State\Domain\Repositories\IStateRepository;
 
 class IndexStateAction
 {
-	protected IStateRepository $oStateRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(
+		protected IStateRepository $oStateRepository
+	)
 	{
-		$this->oStateRepository = $oStateRepository;
 	}
 
 	public function execute(int $Id_State) : Result

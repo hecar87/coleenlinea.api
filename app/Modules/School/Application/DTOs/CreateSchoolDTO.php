@@ -7,7 +7,6 @@ class CreateSchoolDTO
 {
     public function __construct(
         public int $Id_School,
-        public string $School_Code,
         public string $School_BusinessName,
         public string $School_TradeName,
         public string $School_NoDocument,
@@ -27,7 +26,6 @@ class CreateSchoolDTO
     {
         return new self(
             Id_School: (int) $oRequest->input('Id_School', 0),
-            School_Code: $oRequest->input('School_Code', ''),
             School_BusinessName: $oRequest->input('School_BusinessName', ''),
             School_TradeName: $oRequest->input('School_TradeName', ''),
             School_NoDocument: $oRequest->input('School_NoDocument', ''),

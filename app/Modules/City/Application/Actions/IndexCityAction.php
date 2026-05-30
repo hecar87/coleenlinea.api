@@ -11,11 +11,11 @@ use App\Modules\City\Domain\Repositories\ICityRepository;
 
 class IndexCityAction
 {
-	protected ICityRepository $oCityRepository;
 
-	public function __construct(ICityRepository $oCityRepository)
+	public function __construct(
+		protected ICityRepository $oCityRepository
+	)
 	{
-		$this->oCityRepository = $oCityRepository;
 	}
 
 	public function execute(int $Id_City) : Result

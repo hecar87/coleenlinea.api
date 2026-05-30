@@ -135,9 +135,11 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
+			$pSchool_Code = $this->generateCode($dto->Id_State, $dto->Id_City, $dto->Id_District, $dto->Id_TypeSchool);
+
 			$Id 	= $oQuery->insertGetId([
 				"Id_School"				=> $dto->Id_School,
-				"School_Code"			=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
+				"School_Code"			=> $pSchool_Code,
 				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
 				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
 				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
@@ -192,7 +194,6 @@ class EloquentSchoolRepository implements ISchoolRepository
 
 			$oQuery->where("Id_School", "=", $dto->Id_School);
 			$oQuery->update([
-				"School_Code"			=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
 				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
 				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
 				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
@@ -442,6 +443,44 @@ class EloquentSchoolRepository implements ISchoolRepository
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
 		} catch (\Exception $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+
+
+	private function generateCode(int $Id_State, int $Id_City, int $Id_District, int $Id_TypeSchool): string
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= SchoolModel::getEntity();
+		$oResult	= "";
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oRow				= SchoolModel::orderBy("Id_School", "DESC")->get()->first();
+			$New_Id				= $oRow == null ? 1 : $oRow->Id_School + 1;
+
+			$Code_School		= str_pad( $New_Id, 6, "0", STR_PAD_LEFT );
+			$Code_State			= str_pad( $Id_State, 2, "0", STR_PAD_LEFT );
+			$Code_City			= str_pad( $Id_City, 3, "0", STR_PAD_LEFT );
+			$Code_District		= str_pad( $Id_District, 4, "0", STR_PAD_LEFT );
+			$Code_TypeSchool	= str_pad( $Id_TypeSchool, 2, "0", STR_PAD_LEFT );
+
+			$oResult			= "SC".$Code_TypeSchool.$Code_State.$Code_City.$Code_District.$Code_School;
+		} catch (\Exception $oException) {
+			$oResult = "ERCODE";
 		}
 
 

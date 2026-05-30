@@ -12,11 +12,11 @@ use App\Modules\TypePayment\Domain\Enums\TypePaymentFilterDisplay;
 
 class ListTypePaymentAction
 {
-	protected ITypePaymentRepository $oTypePaymentRepository;
 
-	public function __construct(ITypePaymentRepository $oTypePaymentRepository)
+	public function __construct(
+		protected ITypePaymentRepository $oTypePaymentRepository
+	)
 	{
-		$this->oTypePaymentRepository = $oTypePaymentRepository;
 	}
 
 	public function execute(string $Display) : Result

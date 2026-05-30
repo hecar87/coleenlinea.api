@@ -12,11 +12,11 @@ use App\Modules\TypeSchool\Application\DTOs\SearchTypeSchoolDTO;
 
 class SearchTypeSchoolAction
 {
-	protected ITypeSchoolRepository $oTypeSchoolRepository;
 
-	public function __construct(ITypeSchoolRepository $oTypeSchoolRepository)
+	public function __construct(
+		protected ITypeSchoolRepository $oTypeSchoolRepository
+	)
 	{
-		$this->oTypeSchoolRepository = $oTypeSchoolRepository;
 	}
 
 	public function execute(SearchTypeSchoolDTO $oData) : Result

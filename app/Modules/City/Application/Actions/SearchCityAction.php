@@ -12,11 +12,11 @@ use App\Modules\City\Application\DTOs\SearchCityDTO;
 
 class SearchCityAction
 {
-	protected ICityRepository $oCityRepository;
 
-	public function __construct(ICityRepository $oCityRepository)
+	public function __construct(
+		protected ICityRepository $oCityRepository
+	)
 	{
-		$this->oCityRepository = $oCityRepository;
 	}
 
 	public function execute(int $Id_State, SearchCityDTO $oData) : Result

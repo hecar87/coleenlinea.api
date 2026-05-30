@@ -13,11 +13,11 @@ use App\Modules\TypeLevel\Application\DTOs\DuplicatedTypeLevelDTO;
 
 class CreateTypeLevelAction
 {
-	protected ITypeLevelRepository $oTypeLevelRepository;
 
-	public function __construct(ITypeLevelRepository $oTypeLevelRepository)
+	public function __construct(
+		protected ITypeLevelRepository $oTypeLevelRepository
+	)
 	{
-		$this->oTypeLevelRepository = $oTypeLevelRepository;
 	}
 
 	public function execute(CreateTypeLevelDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypeLevelAction
 			Id_TypeLevel	: 0,
 			TypeLevel_Name	: $oData->TypeLevel_Name,
 			TypeLevel_Abrv	: $oData->TypeLevel_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

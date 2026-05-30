@@ -11,11 +11,11 @@ use App\Modules\TypeCivil\Application\DTOs\SearchTypeCivilDTO;
 
 class SearchTypeCivilAction
 {
-	protected ITypeCivilRepository $oTypeCivilRepository;
 
-	public function __construct(ITypeCivilRepository $oTypeCivilRepository)
+	public function __construct(
+		protected ITypeCivilRepository $oTypeCivilRepository
+	)
 	{
-		$this->oTypeCivilRepository = $oTypeCivilRepository;
 	}
 
 	public function execute(SearchTypeCivilDTO $oData) : Result

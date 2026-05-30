@@ -11,11 +11,11 @@ use App\Modules\TypeReceipt\Domain\Repositories\ITypeReceiptRepository;
 
 class DeleteTypeReceiptAction
 {
-	protected ITypeReceiptRepository $oTypeReceiptRepository;
 
-	public function __construct(ITypeReceiptRepository $oTypeReceiptRepository)
+	public function __construct(
+		protected ITypeReceiptRepository $oTypeReceiptRepository
+	)
 	{
-		$this->oTypeReceiptRepository = $oTypeReceiptRepository;
 	}
 
 	public function execute(int $Id_TypeReceipt) : Result

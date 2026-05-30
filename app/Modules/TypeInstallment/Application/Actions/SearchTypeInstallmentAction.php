@@ -12,11 +12,11 @@ use App\Modules\TypeInstallment\Application\DTOs\SearchTypeInstallmentDTO;
 
 class SearchTypeInstallmentAction
 {
-	protected ITypeInstallmentRepository $oTypeInstallmentRepository;
 
-	public function __construct(ITypeInstallmentRepository $oTypeInstallmentRepository)
+	public function __construct(
+		protected ITypeInstallmentRepository $oTypeInstallmentRepository
+	)
 	{
-		$this->oTypeInstallmentRepository = $oTypeInstallmentRepository;
 	}
 
 	public function execute(SearchTypeInstallmentDTO $oData) : Result

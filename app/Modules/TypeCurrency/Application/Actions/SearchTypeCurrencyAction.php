@@ -11,11 +11,11 @@ use App\Modules\TypeCurrency\Application\DTOs\SearchTypeCurrencyDTO;
 
 class SearchTypeCurrencyAction
 {
-	protected ITypeCurrencyRepository $oTypeCurrencyRepository;
 
-	public function __construct(ITypeCurrencyRepository $oTypeCurrencyRepository)
+	public function __construct(
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+	)
 	{
-		$this->oTypeCurrencyRepository = $oTypeCurrencyRepository;
 	}
 
 	public function execute(SearchTypeCurrencyDTO $oData) : Result

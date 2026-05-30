@@ -12,11 +12,11 @@ use App\Modules\TypeFee\Application\DTOs\SearchTypeFeeDTO;
 
 class SearchTypeFeeAction
 {
-	protected ITypeFeeRepository $oTypeFeeRepository;
 
-	public function __construct(ITypeFeeRepository $oTypeFeeRepository)
+	public function __construct(
+		protected ITypeFeeRepository $oTypeFeeRepository
+	)
 	{
-		$this->oTypeFeeRepository = $oTypeFeeRepository;
 	}
 
 	public function execute(SearchTypeFeeDTO $oData) : Result

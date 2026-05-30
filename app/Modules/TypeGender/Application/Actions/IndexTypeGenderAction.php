@@ -10,11 +10,11 @@ use App\Modules\TypeGender\Domain\Repositories\ITypeGenderRepository;
 
 class IndexTypeGenderAction
 {
-	protected ITypeGenderRepository $oTypeGenderRepository;
 
-	public function __construct(ITypeGenderRepository $oTypeGenderRepository)
+	public function __construct(
+		protected ITypeGenderRepository $oTypeGenderRepository
+	)
 	{
-		$this->oTypeGenderRepository = $oTypeGenderRepository;
 	}
 
 	public function execute(int $Id_TypeGender) : Result

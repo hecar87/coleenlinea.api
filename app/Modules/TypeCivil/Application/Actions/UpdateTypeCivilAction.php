@@ -13,11 +13,11 @@ use App\Modules\TypeCivil\Application\DTOs\DuplicatedTypeCivilDTO;
 
 class UpdateTypeCivilAction
 {
-	protected ITypeCivilRepository $oTypeCivilRepository;
 
-	public function __construct(ITypeCivilRepository $oTypeCivilRepository)
+	public function __construct(
+		protected ITypeCivilRepository $oTypeCivilRepository
+	)
 	{
-		$this->oTypeCivilRepository = $oTypeCivilRepository;
 	}
 
 	public function execute(UpdateTypeCivilDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypeCivilAction
 			Id_TypeCivil	: $oData->Id_TypeCivil,
 			TypeCivil_Name	: $oData->TypeCivil_Name,
 			TypeCivil_Abrv	: $oData->TypeCivil_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

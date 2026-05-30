@@ -11,11 +11,11 @@ use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 
 class IndexTypeDocumentAction
 {
-	protected ITypeDocumentRepository $oTypeDocumentRepository;
 
-	public function __construct(ITypeDocumentRepository $oTypeDocumentRepository)
+	public function __construct(
+		protected ITypeDocumentRepository $oTypeDocumentRepository
+	)
 	{
-		$this->oTypeDocumentRepository = $oTypeDocumentRepository;
 	}
 
 	public function execute(int $Id_TypeDocument) : Result

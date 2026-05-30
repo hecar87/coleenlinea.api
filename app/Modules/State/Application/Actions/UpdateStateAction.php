@@ -13,11 +13,11 @@ use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
 
 class UpdateStateAction
 {
-	protected IStateRepository $oStateRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(
+		protected IStateRepository $oStateRepository
+	)
 	{
-		$this->oStateRepository = $oStateRepository;
 	}
 
 	public function execute(UpdateStateDTO $oData) : Result
@@ -31,7 +31,7 @@ class UpdateStateAction
 			State_Code	: $oData->State_Code,
 			State_Name	: $oData->State_Name,
 			State_Abrv	: $oData->State_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

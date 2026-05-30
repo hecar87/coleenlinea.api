@@ -12,11 +12,11 @@ use App\Modules\TypeBank\Domain\Enums\TypeBankFilterDisplay;
 
 class ListTypeBankAction
 {
-	protected ITypeBankRepository $oTypeBankRepository;
 
-	public function __construct(ITypeBankRepository $oTypeBankRepository)
+	public function __construct(
+		protected ITypeBankRepository $oTypeBankRepository
+	)
 	{
-		$this->oTypeBankRepository = $oTypeBankRepository;
 	}
 
 	public function execute(string $Display) : Result

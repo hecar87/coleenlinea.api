@@ -13,11 +13,11 @@ use App\Modules\TypeBank\Application\DTOs\DuplicatedTypeBankDTO;
 
 class UpdateTypeBankAction
 {
-	protected ITypeBankRepository $oTypeBankRepository;
 
-	public function __construct(ITypeBankRepository $oTypeBankRepository)
+	public function __construct(
+		protected ITypeBankRepository $oTypeBankRepository
+	)
 	{
-		$this->oTypeBankRepository = $oTypeBankRepository;
 	}
 
 	public function execute(UpdateTypeBankDTO $oData) : Result
@@ -31,7 +31,7 @@ class UpdateTypeBankAction
 			TypeBank_Code	: $oData->TypeBank_Code,
 			TypeBank_Name	: $oData->TypeBank_Name,
 			TypeBank_Abrv	: $oData->TypeBank_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

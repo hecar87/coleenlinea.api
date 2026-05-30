@@ -13,11 +13,11 @@ use App\Modules\TypeSchool\Application\DTOs\DuplicatedTypeSchoolDTO;
 
 class UpdateTypeSchoolAction
 {
-	protected ITypeSchoolRepository $oTypeSchoolRepository;
 
-	public function __construct(ITypeSchoolRepository $oTypeSchoolRepository)
+	public function __construct(
+		protected ITypeSchoolRepository $oTypeSchoolRepository
+	)
 	{
-		$this->oTypeSchoolRepository = $oTypeSchoolRepository;
 	}
 
 	public function execute(UpdateTypeSchoolDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypeSchoolAction
 			Id_TypeSchool	: $oData->Id_TypeSchool,
 			TypeSchool_Name	: $oData->TypeSchool_Name,
 			TypeSchool_Abrv	: $oData->TypeSchool_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

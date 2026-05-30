@@ -12,11 +12,11 @@ use App\Modules\TypePopulation\Domain\Enums\TypePopulationFilterDisplay;
 
 class ListTypePopulationAction
 {
-	protected ITypePopulationRepository $oTypePopulationRepository;
 
-	public function __construct(ITypePopulationRepository $oTypePopulationRepository)
+	public function __construct(
+		protected ITypePopulationRepository $oTypePopulationRepository
+	)
 	{
-		$this->oTypePopulationRepository = $oTypePopulationRepository;
 	}
 
 	public function execute(string $Display) : Result

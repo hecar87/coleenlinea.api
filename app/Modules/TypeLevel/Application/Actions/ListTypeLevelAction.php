@@ -12,11 +12,11 @@ use App\Modules\TypeLevel\Domain\Enums\TypeLevelFilterDisplay;
 
 class ListTypeLevelAction
 {
-	protected ITypeLevelRepository $oTypeLevelRepository;
 
-	public function __construct(ITypeLevelRepository $oTypeLevelRepository)
+	public function __construct(
+		protected ITypeLevelRepository $oTypeLevelRepository
+	)
 	{
-		$this->oTypeLevelRepository = $oTypeLevelRepository;
 	}
 
 	public function execute(string $Display) : Result

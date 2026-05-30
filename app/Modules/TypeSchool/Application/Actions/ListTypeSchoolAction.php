@@ -12,11 +12,11 @@ use App\Modules\TypeSchool\Domain\Enums\TypeSchoolFilterDisplay;
 
 class ListTypeSchoolAction
 {
-	protected ITypeSchoolRepository $oTypeSchoolRepository;
 
-	public function __construct(ITypeSchoolRepository $oTypeSchoolRepository)
+	public function __construct(
+		protected ITypeSchoolRepository $oTypeSchoolRepository
+	)
 	{
-		$this->oTypeSchoolRepository = $oTypeSchoolRepository;
 	}
 
 	public function execute(string $Display) : Result

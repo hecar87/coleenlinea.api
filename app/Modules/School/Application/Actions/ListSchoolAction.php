@@ -12,11 +12,11 @@ use App\Modules\School\Domain\Enums\SchoolFilterDisplay;
 
 class ListSchoolAction
 {
-	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(ISchoolRepository $oSchoolRepository)
+	public function __construct(
+		protected ISchoolRepository $oSchoolRepository
+	)
 	{
-		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
 	public function execute(string $Display) : Result

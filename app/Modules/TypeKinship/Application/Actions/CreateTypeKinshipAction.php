@@ -13,11 +13,11 @@ use App\Modules\TypeKinship\Application\DTOs\DuplicatedTypeKinshipDTO;
 
 class CreateTypeKinshipAction
 {
-	protected ITypeKinshipRepository $oTypeKinshipRepository;
 
-	public function __construct(ITypeKinshipRepository $oTypeKinshipRepository)
+	public function __construct(
+		protected ITypeKinshipRepository $oTypeKinshipRepository
+	)
 	{
-		$this->oTypeKinshipRepository = $oTypeKinshipRepository;
 	}
 
 	public function execute(CreateTypeKinshipDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypeKinshipAction
 			Id_TypeKinship		: 0,
 			TypeKinship_Name	: $oData->TypeKinship_Name,
 			TypeKinship_Abrv	: $oData->TypeKinship_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

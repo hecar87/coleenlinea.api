@@ -11,11 +11,11 @@ use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
 
 class DeleteTypeInstallmentAction
 {
-	protected ITypeInstallmentRepository $oTypeInstallmentRepository;
 
-	public function __construct(ITypeInstallmentRepository $oTypeInstallmentRepository)
+	public function __construct(
+		protected ITypeInstallmentRepository $oTypeInstallmentRepository
+	)
 	{
-		$this->oTypeInstallmentRepository = $oTypeInstallmentRepository;
 	}
 
 	public function execute(int $Id_TypeInstallment) : Result

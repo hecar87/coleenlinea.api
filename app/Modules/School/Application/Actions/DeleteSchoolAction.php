@@ -11,11 +11,11 @@ use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
 class DeleteSchoolAction
 {
-	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(ISchoolRepository $oSchoolRepository)
+	public function __construct(
+		protected ISchoolRepository $oSchoolRepository
+	)
 	{
-		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
 	public function execute(int $Id_School) : Result

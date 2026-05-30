@@ -11,11 +11,11 @@ use App\Modules\TypeSchool\Domain\Repositories\ITypeSchoolRepository;
 
 class IndexTypeSchoolAction
 {
-	protected ITypeSchoolRepository $oTypeSchoolRepository;
 
-	public function __construct(ITypeSchoolRepository $oTypeSchoolRepository)
+	public function __construct(
+		protected ITypeSchoolRepository $oTypeSchoolRepository
+	)
 	{
-		$this->oTypeSchoolRepository = $oTypeSchoolRepository;
 	}
 
 	public function execute(int $Id_TypeSchool) : Result

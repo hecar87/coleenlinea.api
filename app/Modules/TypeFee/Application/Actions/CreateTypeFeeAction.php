@@ -13,11 +13,11 @@ use App\Modules\TypeFee\Application\DTOs\DuplicatedTypeFeeDTO;
 
 class CreateTypeFeeAction
 {
-	protected ITypeFeeRepository $oTypeFeeRepository;
 
-	public function __construct(ITypeFeeRepository $oTypeFeeRepository)
+	public function __construct(
+		protected ITypeFeeRepository $oTypeFeeRepository
+	)
 	{
-		$this->oTypeFeeRepository = $oTypeFeeRepository;
 	}
 
 	public function execute(CreateTypeFeeDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypeFeeAction
 			Id_TypeFee		: 0,
 			TypeFee_Name	: $oData->TypeFee_Name,
 			TypeFee_Abrv	: $oData->TypeFee_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

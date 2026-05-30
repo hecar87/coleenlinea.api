@@ -13,11 +13,11 @@ use App\Modules\TypeGender\Application\DTOs\DuplicatedTypeGenderDTO;
 
 class UpdateTypeGenderAction
 {
-	protected ITypeGenderRepository $oTypeGenderRepository;
 
-	public function __construct(ITypeGenderRepository $oTypeGenderRepository)
+	public function __construct(
+		protected ITypeGenderRepository $oTypeGenderRepository
+	)
 	{
-		$this->oTypeGenderRepository = $oTypeGenderRepository;
 	}
 
 	public function execute(UpdateTypeGenderDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypeGenderAction
 			Id_TypeGender	: $oData->Id_TypeGender,
 			TypeGender_Name	: $oData->TypeGender_Name,
 			TypeGender_Abrv	: $oData->TypeGender_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

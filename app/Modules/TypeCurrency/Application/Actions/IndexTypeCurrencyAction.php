@@ -10,11 +10,11 @@ use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 
 class IndexTypeCurrencyAction
 {
-	protected ITypeCurrencyRepository $oTypeCurrencyRepository;
 
-	public function __construct(ITypeCurrencyRepository $oTypeCurrencyRepository)
+	public function __construct(
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+	)
 	{
-		$this->oTypeCurrencyRepository = $oTypeCurrencyRepository;
 	}
 
 	public function execute(int $Id_TypeCurrency) : Result

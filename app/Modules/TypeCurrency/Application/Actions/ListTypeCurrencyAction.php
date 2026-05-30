@@ -12,11 +12,11 @@ use App\Modules\TypeCurrency\Domain\Enums\TypeCurrencyFilterDisplay;
 
 class ListTypeCurrencyAction
 {
-	protected ITypeCurrencyRepository $oTypeCurrencyRepository;
 
-	public function __construct(ITypeCurrencyRepository $oTypeCurrencyRepository)
+	public function __construct(
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+	)
 	{
-		$this->oTypeCurrencyRepository = $oTypeCurrencyRepository;
 	}
 
 	public function execute(string $Display) : Result

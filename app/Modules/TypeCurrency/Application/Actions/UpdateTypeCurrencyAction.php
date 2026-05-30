@@ -13,11 +13,11 @@ use App\Modules\TypeCurrency\Application\DTOs\DuplicatedTypeCurrencyDTO;
 
 class UpdateTypeCurrencyAction
 {
-	protected ITypeCurrencyRepository $oTypeCurrencyRepository;
 
-	public function __construct(ITypeCurrencyRepository $oTypeCurrencyRepository)
+	public function __construct(
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+	)
 	{
-		$this->oTypeCurrencyRepository = $oTypeCurrencyRepository;
 	}
 
 	public function execute(UpdateTypeCurrencyDTO $oData) : Result
@@ -31,7 +31,7 @@ class UpdateTypeCurrencyAction
 			TypeCurrency_Code	: $oData->TypeCurrency_Code,
 			TypeCurrency_Name	: $oData->TypeCurrency_Name,
 			TypeCurrency_Symbol	: $oData->TypeCurrency_Symbol
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

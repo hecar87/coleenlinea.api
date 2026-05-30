@@ -13,11 +13,11 @@ use App\Modules\TypePopulation\Application\DTOs\DuplicatedTypePopulationDTO;
 
 class CreateTypePopulationAction
 {
-	protected ITypePopulationRepository $oTypePopulationRepository;
 
-	public function __construct(ITypePopulationRepository $oTypePopulationRepository)
+	public function __construct(
+		protected ITypePopulationRepository $oTypePopulationRepository
+	)
 	{
-		$this->oTypePopulationRepository = $oTypePopulationRepository;
 	}
 
 	public function execute(CreateTypePopulationDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypePopulationAction
 			Id_TypePopulation	: 0,
 			TypePopulation_Name	: $oData->TypePopulation_Name,
 			TypePopulation_Abrv	: $oData->TypePopulation_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

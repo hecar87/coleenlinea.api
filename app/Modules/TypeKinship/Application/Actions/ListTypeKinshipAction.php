@@ -12,11 +12,11 @@ use App\Modules\TypeKinship\Domain\Enums\TypeKinshipFilterDisplay;
 
 class ListTypeKinshipAction
 {
-	protected ITypeKinshipRepository $oTypeKinshipRepository;
 
-	public function __construct(ITypeKinshipRepository $oTypeKinshipRepository)
+	public function __construct(
+		protected ITypeKinshipRepository $oTypeKinshipRepository
+	)
 	{
-		$this->oTypeKinshipRepository = $oTypeKinshipRepository;
 	}
 
 	public function execute(string $Display) : Result

@@ -12,11 +12,11 @@ use App\Modules\TypeGender\Domain\Enums\TypeGenderFilterDisplay;
 
 class ListTypeGenderAction
 {
-	protected ITypeGenderRepository $oTypeGenderRepository;
 
-	public function __construct(ITypeGenderRepository $oTypeGenderRepository)
+	public function __construct(
+		protected ITypeGenderRepository $oTypeGenderRepository
+	)
 	{
-		$this->oTypeGenderRepository = $oTypeGenderRepository;
 	}
 
 	public function execute(string $Display) : Result

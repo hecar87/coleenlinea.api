@@ -12,11 +12,11 @@ use App\Modules\State\Application\DTOs\SearchStateDTO;
 
 class SearchStateAction
 {
-	protected IStateRepository $oStateRepository;
 
-	public function __construct(IStateRepository $oStateRepository)
+	public function __construct(
+		protected IStateRepository $oStateRepository
+	)
 	{
-		$this->oStateRepository = $oStateRepository;
 	}
 
 	public function execute(SearchStateDTO $oData) : Result

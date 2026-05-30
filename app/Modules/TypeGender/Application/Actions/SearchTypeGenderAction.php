@@ -12,11 +12,11 @@ use App\Modules\TypeGender\Application\DTOs\SearchTypeGenderDTO;
 
 class SearchTypeGenderAction
 {
-	protected ITypeGenderRepository $oTypeGenderRepository;
 
-	public function __construct(ITypeGenderRepository $oTypeGenderRepository)
+	public function __construct(
+		protected ITypeGenderRepository $oTypeGenderRepository
+	)
 	{
-		$this->oTypeGenderRepository = $oTypeGenderRepository;
 	}
 
 	public function execute(SearchTypeGenderDTO $oData) : Result

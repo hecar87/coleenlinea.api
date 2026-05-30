@@ -12,11 +12,11 @@ use App\Modules\TypePopulation\Application\DTOs\SearchTypePopulationDTO;
 
 class SearchTypePopulationAction
 {
-	protected ITypePopulationRepository $oTypePopulationRepository;
 
-	public function __construct(ITypePopulationRepository $oTypePopulationRepository)
+	public function __construct(
+		protected ITypePopulationRepository $oTypePopulationRepository
+	)
 	{
-		$this->oTypePopulationRepository = $oTypePopulationRepository;
 	}
 
 	public function execute(SearchTypePopulationDTO $oData) : Result

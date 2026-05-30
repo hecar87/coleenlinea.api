@@ -11,11 +11,11 @@ use App\Modules\TypeFee\Domain\Repositories\ITypeFeeRepository;
 
 class IndexTypeFeeAction
 {
-	protected ITypeFeeRepository $oTypeFeeRepository;
 
-	public function __construct(ITypeFeeRepository $oTypeFeeRepository)
+	public function __construct(
+		protected ITypeFeeRepository $oTypeFeeRepository
+	)
 	{
-		$this->oTypeFeeRepository = $oTypeFeeRepository;
 	}
 
 	public function execute(int $Id_TypeFee) : Result

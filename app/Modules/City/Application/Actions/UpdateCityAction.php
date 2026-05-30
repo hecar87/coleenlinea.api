@@ -7,17 +7,19 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\City\Domain\Repositories\ICityRepository;
+use App\Modules\State\Domain\Repositories\IStateRepository;
 use App\Modules\City\Application\DTOs\UpdateCityDTO;
 use App\Modules\City\Application\DTOs\DuplicatedCityDTO;
 
 
 class UpdateCityAction
 {
-	protected ICityRepository $oCityRepository;
 
-	public function __construct(ICityRepository $oCityRepository)
+	public function __construct(
+		protected ICityRepository $oCityRepository,
+		protected IStateRepository $oStateRepository
+	)
 	{
-		$this->oCityRepository = $oCityRepository;
 	}
 
 	public function execute(UpdateCityDTO $oData) : Result
@@ -31,7 +33,7 @@ class UpdateCityAction
 			City_Code	: $oData->City_Code,
 			City_Name	: $oData->City_Name,
 			Id_State	: $oData->Id_State
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------
@@ -43,6 +45,9 @@ class UpdateCityAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
+
+			$oResult = $this->oStateRepository->exists($oData->Id_State);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
 
 			$oResult = $this->oCityRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

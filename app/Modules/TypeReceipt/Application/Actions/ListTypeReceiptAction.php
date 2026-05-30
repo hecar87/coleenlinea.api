@@ -12,11 +12,11 @@ use App\modules\TypeReceipt\Domain\Enums\TypeReceiptFilterDisplay;
 
 class ListTypeReceiptAction
 {
-	protected ITypeReceiptRepository $oTypeReceiptRepository;
 
-	public function __construct(ITypeReceiptRepository $oTypeReceiptRepository)
+	public function __construct(
+		protected ITypeReceiptRepository $oTypeReceiptRepository
+	)
 	{
-		$this->oTypeReceiptRepository = $oTypeReceiptRepository;
 	}
 
 	public function execute(string $Display) : Result

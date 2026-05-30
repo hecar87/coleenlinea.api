@@ -11,11 +11,11 @@ use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
 
 class DeleteTypePopulationAction
 {
-	protected ITypePopulationRepository $oTypePopulationRepository;
 
-	public function __construct(ITypePopulationRepository $oTypePopulationRepository)
+	public function __construct(
+		protected ITypePopulationRepository $oTypePopulationRepository
+	)
 	{
-		$this->oTypePopulationRepository = $oTypePopulationRepository;
 	}
 
 	public function execute(int $Id_TypePopulation) : Result

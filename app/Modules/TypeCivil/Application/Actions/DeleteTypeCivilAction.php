@@ -11,11 +11,11 @@ use App\Modules\TypeCivil\Domain\Repositories\ITypeCivilRepository;
 
 class DeleteTypeCivilAction
 {
-	protected ITypeCivilRepository $oTypeCivilRepository;
 
-	public function __construct(ITypeCivilRepository $oTypeCivilRepository)
+	public function __construct(
+		protected ITypeCivilRepository $oTypeCivilRepository
+	)
 	{
-		$this->oTypeCivilRepository = $oTypeCivilRepository;
 	}
 
 	public function execute(int $Id_TypeCivil) : Result

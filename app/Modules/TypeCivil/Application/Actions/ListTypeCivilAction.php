@@ -12,11 +12,11 @@ use App\Modules\TypeCivil\Domain\Enums\TypeCivilFilterDisplay;
 
 class ListTypeCivilAction
 {
-	protected ITypeCivilRepository $oTypeCivilRepository;
 
-	public function __construct(ITypeCivilRepository $oTypeCivilRepository)
+	public function __construct(
+		protected ITypeCivilRepository $oTypeCivilRepository
+	)
 	{
-		$this->oTypeCivilRepository = $oTypeCivilRepository;
 	}
 
 	public function execute(string $Display) : Result

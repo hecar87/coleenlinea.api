@@ -12,11 +12,11 @@ use App\Modules\TypeDocument\Application\DTOs\SearchTypeDocumentDTO;
 
 class SearchTypeDocumentAction
 {
-	protected ITypeDocumentRepository $oTypeDocumentRepository;
 
-	public function __construct(ITypeDocumentRepository $oTypeDocumentRepository)
+	public function __construct(
+		protected ITypeDocumentRepository $oTypeDocumentRepository
+	)
 	{
-		$this->oTypeDocumentRepository = $oTypeDocumentRepository;
 	}
 
 	public function execute(SearchTypeDocumentDTO $oData) : Result

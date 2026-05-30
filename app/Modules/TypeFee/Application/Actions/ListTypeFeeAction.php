@@ -12,11 +12,11 @@ use App\Modules\TypeFee\Domain\Enums\TypeFeeFilterDisplay;
 
 class ListTypeFeeAction
 {
-	protected ITypeFeeRepository $oTypeFeeRepository;
 
-	public function __construct(ITypeFeeRepository $oTypeFeeRepository)
+	public function __construct(
+		protected ITypeFeeRepository $oTypeFeeRepository
+	)
 	{
-		$this->oTypeFeeRepository = $oTypeFeeRepository;
 	}
 
 	public function execute(string $Display) : Result

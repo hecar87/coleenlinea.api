@@ -12,11 +12,11 @@ use App\Modules\TypeBank\Application\DTOs\SearchTypeBankDTO;
 
 class SearchTypeBankAction
 {
-	protected ITypeBankRepository $oTypeBankRepository;
 
-	public function __construct(ITypeBankRepository $oTypeBankRepository)
+	public function __construct(
+		protected ITypeBankRepository $oTypeBankRepository
+	)
 	{
-		$this->oTypeBankRepository = $oTypeBankRepository;
 	}
 
 	public function execute(SearchTypeBankDTO $oData) : Result

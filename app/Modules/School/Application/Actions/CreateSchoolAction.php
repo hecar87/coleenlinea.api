@@ -13,11 +13,11 @@ use App\Modules\School\Application\DTOs\DuplicatedSchoolDTO;
 
 class CreateSchoolAction
 {
-	protected ISchoolRepository $oSchoolRepository;
 
-	public function __construct(ISchoolRepository $oSchoolRepository)
+	public function __construct(
+		protected ISchoolRepository $oSchoolRepository
+	)
 	{
-		$this->oSchoolRepository = $oSchoolRepository;
 	}
 
 	public function execute(CreateSchoolDTO $oData) : Result
@@ -28,10 +28,9 @@ class CreateSchoolAction
 		$oEntity = $this->oSchoolRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolDTO(
 			Id_School	: 0,
-			School_Code	: $oData->School_Code,
-			School_Name	: $oData->School_Name,
-			School_Abrv	: $oData->School_Abrv
-		);;
+			School_NoDocument : $oData->School_NoDocument,
+			Id_TypeDocument : $oData->Id_TypeDocument
+		);
 
 
 		//------------------------------------------------------------------------------

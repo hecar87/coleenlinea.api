@@ -11,11 +11,11 @@ use App\Modules\District\Domain\Repositories\IDistrictRepository;
 
 class DeleteDistrictAction
 {
-	protected IDistrictRepository $oDistrictRepository;
 
-	public function __construct(IDistrictRepository $oDistrictRepository)
+	public function __construct(
+		protected IDistrictRepository $oDistrictRepository
+	)
 	{
-		$this->oDistrictRepository = $oDistrictRepository;
 	}
 
 	public function execute(int $Id_District) : Result

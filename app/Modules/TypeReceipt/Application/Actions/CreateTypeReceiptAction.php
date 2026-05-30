@@ -13,11 +13,11 @@ use App\Modules\TypeReceipt\Application\DTOs\DuplicatedTypeReceiptDTO;
 
 class CreateTypeReceiptAction
 {
-	protected ITypeReceiptRepository $oTypeReceiptRepository;
 
-	public function __construct(ITypeReceiptRepository $oTypeReceiptRepository)
+	public function __construct(
+		protected ITypeReceiptRepository $oTypeReceiptRepository
+	)
 	{
-		$this->oTypeReceiptRepository = $oTypeReceiptRepository;
 	}
 
 	public function execute(CreateTypeReceiptDTO $oData) : Result
@@ -30,7 +30,7 @@ class CreateTypeReceiptAction
 			Id_TypeReceipt		: 0,
 			TypeReceipt_Name	: $oData->TypeReceipt_Name,
 			TypeReceipt_Abrv	: $oData->TypeReceipt_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------

@@ -12,11 +12,11 @@ use App\Modules\TypeDocument\Domain\Enums\TypeDocumentFilterDisplay;
 
 class ListTypeDocumentAction
 {
-	protected ITypeDocumentRepository $oTypeDocumentRepository;
 
-	public function __construct(ITypeDocumentRepository $oTypeDocumentRepository)
+	public function __construct(
+		protected ITypeDocumentRepository $oTypeDocumentRepository
+	)
 	{
-		$this->oTypeDocumentRepository = $oTypeDocumentRepository;
 	}
 
 	public function execute(string $Display) : Result

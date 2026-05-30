@@ -13,11 +13,11 @@ use App\Modules\TypeInstallment\Application\DTOs\DuplicatedTypeInstallmentDTO;
 
 class UpdateTypeInstallmentAction
 {
-	protected ITypeInstallmentRepository $oTypeInstallmentRepository;
 
-	public function __construct(ITypeInstallmentRepository $oTypeInstallmentRepository)
+	public function __construct(
+		protected ITypeInstallmentRepository $oTypeInstallmentRepository
+	)
 	{
-		$this->oTypeInstallmentRepository = $oTypeInstallmentRepository;
 	}
 
 	public function execute(UpdateTypeInstallmentDTO $oData) : Result
@@ -30,7 +30,7 @@ class UpdateTypeInstallmentAction
 			Id_TypeInstallment		: $oData->Id_TypeInstallment,
 			TypeInstallment_Name	: $oData->TypeInstallment_Name,
 			TypeInstallment_Abrv	: $oData->TypeInstallment_Abrv
-		);;
+		);
 
 
 		//------------------------------------------------------------------------------
