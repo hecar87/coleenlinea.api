@@ -10,7 +10,6 @@ class UpdateSchoolRequest extends ValidatedRequest
 	{
 		return [
 			"Id_School"				=> "required|int",
-			"School_Code"			=> "required|string|max:20",
 			"School_BusinessName"	=> "required|string|max:200",
 			"School_TradeName"		=> "required|string|max:200",
 			"School_NoDocument"		=> "required|string|max:30",
