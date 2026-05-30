@@ -1,28 +1,28 @@
 <?php
-namespace App\Modules\State\Application\DTOs;
+namespace App\Modules\SchoolAccount\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class UpdateStateDTO
+class UpdateSchoolAccountDTO
 {
     public function __construct(
-        public int $Id_State,
-        public string $State_Code,
-        public string $State_Name,
-        public string $State_Abrv,
-        public int $State_Public,
-        public int $State_Status
+        public int $Id_SchoolAccount,
+        public string $SchoolAccount_Code,
+        public string $SchoolAccount_Name,
+        public string $SchoolAccount_Abrv,
+        public int $SchoolAccount_Public,
+        public int $SchoolAccount_Status
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_State: (int) $oRequest->input('Id_State'),
-            State_Code: $oRequest->input('State_Code', ''),
-            State_Name: $oRequest->input('State_Name', ''),
-            State_Abrv: $oRequest->input('State_Abrv', ''),
-            State_Public: (int) $oRequest->input('State_Public', 2),
-            State_Status: (int) $oRequest->input('State_Status', 2)
+            Id_SchoolAccount: (int) $oRequest->input('Id_SchoolAccount'),
+            SchoolAccount_Code: $oRequest->input('SchoolAccount_Code', ''),
+            SchoolAccount_Name: $oRequest->input('SchoolAccount_Name', ''),
+            SchoolAccount_Abrv: $oRequest->input('SchoolAccount_Abrv', ''),
+            SchoolAccount_Public: (int) $oRequest->input('SchoolAccount_Public', 2),
+            SchoolAccount_Status: (int) $oRequest->input('SchoolAccount_Status', 2)
         );
     }
 }

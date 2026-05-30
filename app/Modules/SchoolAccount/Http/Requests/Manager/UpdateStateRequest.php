@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Modules\State\Http\Requests\Manager;
+namespace App\Modules\SchoolAccount\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class UpdateStateRequest extends ValidatedRequest
+class UpdateSchoolAccountRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{
 		return [
-			"Id_State"			=> "required|int",
-			"State_Code"		=> "required|string|max:2",
-			"State_Name"		=> "required|string|max:250",
-			"State_Abrv"		=> "required|string|max:4",
-			"State_Public"		=> "required|int|in:1,2",
-			"State_Status"		=> "required|int|in:1,2"
+			"Id_SchoolAccount"			=> "required|int",
+			"SchoolAccount_Code"		=> "required|string|max:2",
+			"SchoolAccount_Name"		=> "required|string|max:250",
+			"SchoolAccount_Abrv"		=> "required|string|max:4",
+			"SchoolAccount_Public"		=> "required|int|in:1,2",
+			"SchoolAccount_Status"		=> "required|int|in:1,2"
 		];
 	}
 

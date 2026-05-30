@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\State\Http\Controllers\Manager;
+namespace App\Modules\SchoolAccount\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
 
 
 // Requests
-use App\Modules\State\Http\Requests\Manager\CreateStateRequest;
-use App\Modules\State\Http\Requests\Manager\UpdateStateRequest;
-use App\Modules\State\Http\Requests\Manager\ListStateRequest;
-use App\Modules\State\Http\Requests\Manager\SearchStateRequest;
+use App\Modules\SchoolAccount\Http\Requests\Manager\CreateSchoolAccountRequest;
+use App\Modules\SchoolAccount\Http\Requests\Manager\UpdateSchoolAccountRequest;
+use App\Modules\SchoolAccount\Http\Requests\Manager\ListSchoolAccountRequest;
+use App\Modules\SchoolAccount\Http\Requests\Manager\SearchSchoolAccountRequest;
 
 // DTOs
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
 
 // Actions
-use App\Modules\State\Application\Actions\CreateStateAction;
-use App\Modules\State\Application\Actions\UpdateStateAction;
-use App\Modules\State\Application\Actions\DeleteStateAction;
-use App\Modules\State\Application\Actions\IndexStateAction;
-use App\Modules\State\Application\Actions\ListStateAction;
-use App\Modules\State\Application\Actions\SearchStateAction;
+use App\Modules\SchoolAccount\Application\Actions\CreateSchoolAccountAction;
+use App\Modules\SchoolAccount\Application\Actions\UpdateSchoolAccountAction;
+use App\Modules\SchoolAccount\Application\Actions\DeleteSchoolAccountAction;
+use App\Modules\SchoolAccount\Application\Actions\IndexSchoolAccountAction;
+use App\Modules\SchoolAccount\Application\Actions\ListSchoolAccountAction;
+use App\Modules\SchoolAccount\Application\Actions\SearchSchoolAccountAction;
 
 
-class StateController extends Controller
+class SchoolAccountController extends Controller
 {
-	protected IStateRepository $repository;
+	protected ISchoolAccountRepository $repository;
 
 	public function __construct(
-		IStateRepository $repository,
+		ISchoolAccountRepository $repository,
 
-		private CreateStateAction $oCreateStateAction,
-		private UpdateStateAction $oUpdateStateAction,
-		private DeleteStateAction $oDeleteStateAction,
-		private IndexStateAction $oIndexStateAction,
-		private ListStateAction $oListStateAction,
-		private SearchStateAction $oSearchStateAction
+		private CreateSchoolAccountAction $oCreateSchoolAccountAction,
+		private UpdateSchoolAccountAction $oUpdateSchoolAccountAction,
+		private DeleteSchoolAccountAction $oDeleteSchoolAccountAction,
+		private IndexSchoolAccountAction $oIndexSchoolAccountAction,
+		private ListSchoolAccountAction $oListSchoolAccountAction,
+		private SearchSchoolAccountAction $oSearchSchoolAccountAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateStateRequest $oRequest)
+	public function create(CreateSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateStateDTO::fromRequest($oRequest);
+		$oData = CreateSchoolAccountDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateStateAction->execute($oData);
+		$oResult	= $this->oCreateSchoolAccountAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateStateRequest $oRequest)
+	public function update(UpdateSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateStateDTO::fromRequest($oRequest);
+		$oData = UpdateSchoolAccountDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateStateAction->execute($oData);
+		$oResult	= $this->oUpdateSchoolAccountAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_State)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteStateAction->execute($Id_State);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_State)
+	public function delete(int $Id_SchoolAccount)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexStateAction->execute($Id_State);
+		$oResult	= $this->oDeleteSchoolAccountAction->execute($Id_SchoolAccount);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(ListStateRequest $oRequest)
+	public function index(int $Id_SchoolAccount)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexSchoolAccountAction->execute($Id_SchoolAccount);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(ListSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListStateAction->execute($Display);
+		$oResult	= $this->oListSchoolAccountAction->execute($Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchStateRequest $oRequest)
+	public function search(SearchSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchStateDTO::fromRequest($oRequest);
+		$oData = SearchSchoolAccountDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchStateAction->execute($oData);
+		$oResult	= $this->oSearchSchoolAccountAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

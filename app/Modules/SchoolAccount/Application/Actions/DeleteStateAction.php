@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\SchoolAccount\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
 
 
-class DeleteStateAction
+class DeleteSchoolAccountAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_State) : Result
+	public function execute(int $Id_SchoolAccount) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
+		$oEntity = $this->oSchoolAccountRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->exists($Id_State);
+			$oResult = $this->oSchoolAccountRepository->exists($Id_SchoolAccount);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->delete($Id_State);
+			$oResult = $this->oSchoolAccountRepository->delete($Id_SchoolAccount);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

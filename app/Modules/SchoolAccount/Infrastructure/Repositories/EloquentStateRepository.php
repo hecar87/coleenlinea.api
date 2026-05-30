@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Modules\State\Infrastructure\Repositories;
+namespace App\Modules\SchoolAccount\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Persistence\EloquentState as StateModel;
+use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\SchoolAccount\Infrastructure\Persistence\EloquentSchoolAccount as SchoolAccountModel;
 
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
 
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
-use App\Modules\State\Domain\Enums\StateFilterStatus;
-use App\Modules\State\Domain\Enums\StatePublic;
-use App\Modules\State\Domain\Enums\StateStatus;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountPublic;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountStatus;
 
 
-class EloquentStateRepository implements IStateRepository
+class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 {
 	public function getEntity(): string
 	{
-		return StateModel::getEntity();
+		return SchoolAccountModel::getEntity();
 	}
 
-	public function exists(int $Id_State): Result
+	public function exists(int $Id_SchoolAccount): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oResult	= [];
 		$exists		= 0;
 
@@ -45,10 +45,10 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
+			$oQuery->where("SchoolAccount_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -71,12 +71,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function duplicated(DuplicatedStateDTO $dto): Result
+	public function duplicated(DuplicatedSchoolAccountDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oResult	= [];
 		$Duplicate	= 0;
 
@@ -88,14 +88,14 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
-			$oQuery->where("Id_State", "<>", $dto->Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_SchoolAccount", "<>", $dto->Id_SchoolAccount);
+			$oQuery->where("SchoolAccount_Status", "<>", "0");
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("State_Code", "=", $dto->State_Code);
-				$oSubQuery->orWhere("State_Name", "=", $dto->State_Name);
-				$oSubQuery->orWhere("State_Abrv", "=", $dto->State_Abrv);
+				$oSubQuery->where("SchoolAccount_Code", "=", $dto->SchoolAccount_Code);
+				$oSubQuery->orWhere("SchoolAccount_Name", "=", $dto->SchoolAccount_Name);
+				$oSubQuery->orWhere("SchoolAccount_Abrv", "=", $dto->SchoolAccount_Abrv);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -119,12 +119,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function create(CreateStateDTO $dto): Result
+	public function create(CreateSchoolAccountDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -136,18 +136,18 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_State"		=> $dto->Id_State,
-				"State_Code"	=> trim(mb_strtoupper($dto->State_Code, "utf-8")),
-				"State_Name"	=> trim(mb_strtoupper($dto->State_Name, "utf-8")),
-				"State_Abrv"	=> trim(mb_strtoupper($dto->State_Abrv, "utf-8")),
-				"State_Public"	=> $dto->State_Public,
-				"State_Status"	=> $dto->State_Status
+				"Id_SchoolAccount"		=> $dto->Id_SchoolAccount,
+				"SchoolAccount_Code"	=> trim(mb_strtoupper($dto->SchoolAccount_Code, "utf-8")),
+				"SchoolAccount_Name"	=> trim(mb_strtoupper($dto->SchoolAccount_Name, "utf-8")),
+				"SchoolAccount_Abrv"	=> trim(mb_strtoupper($dto->SchoolAccount_Abrv, "utf-8")),
+				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
+				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status
 			]);
 
-			$oQuery->where("Id_State", "=", "$Id");
+			$oQuery->where("Id_SchoolAccount", "=", "$Id");
 			$oData	= $oQuery->get();
 
 
@@ -165,12 +165,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function update(UpdateStateDTO $dto): Result
+	public function update(UpdateSchoolAccountDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -182,15 +182,15 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
-			$oQuery->where("Id_State", "=", $dto->Id_State);
+			$oQuery->where("Id_SchoolAccount", "=", $dto->Id_SchoolAccount);
 			$oQuery->update([
-				"State_Code"	=> trim(mb_strtoupper($dto->State_Code, "utf-8")),
-				"State_Name"	=> trim(mb_strtoupper($dto->State_Name, "utf-8")),
-				"State_Abrv"	=> trim(mb_strtoupper($dto->State_Abrv, "utf-8")),
-				"State_Public"	=> $dto->State_Public,
-				"State_Status"	=> $dto->State_Status
+				"SchoolAccount_Code"	=> trim(mb_strtoupper($dto->SchoolAccount_Code, "utf-8")),
+				"SchoolAccount_Name"	=> trim(mb_strtoupper($dto->SchoolAccount_Name, "utf-8")),
+				"SchoolAccount_Abrv"	=> trim(mb_strtoupper($dto->SchoolAccount_Abrv, "utf-8")),
+				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
+				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status
 			]);
 
 			$oData	= $oQuery->get();
@@ -210,12 +210,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function delete(int $Id_State): Result
+	public function delete(int $Id_SchoolAccount): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oResult	= [];
 
 
@@ -226,12 +226,12 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
+			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
 			$oQuery->update([
-				"State_Name"	=> DB::raw("CONCAT('( DELETED ) ', State_Name)"),
-				"State_Status"	=> 0
+				"SchoolAccount_Name"	=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_Name)"),
+				"SchoolAccount_Status"	=> 0
 			]);
 
 
@@ -249,12 +249,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function index(int $Id_State): Result
+	public function index(int $Id_SchoolAccount): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -266,10 +266,10 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
+			$oQuery->where("SchoolAccount_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -288,12 +288,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(StateFilterDisplay $Display): Result
+	public function list(SchoolAccountFilterDisplay $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -306,22 +306,22 @@ class EloquentStateRepository implements IStateRepository
 			//	SET VARIABLES
 			//
 			$whereDisplay	= [
-				StateFilterDisplay::PUBLIC->value  => 2,
-				StateFilterDisplay::PRIVATE->value => 1
+				SchoolAccountFilterDisplay::PUBLIC->value  => 2,
+				SchoolAccountFilterDisplay::PRIVATE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
 			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('State_Public', $whereDisplay[$Display->value]);
+				$oQuery->where('SchoolAccount_Public', $whereDisplay[$Display->value]);
 			}
 
-			$oQuery->where('State_Status', '=', StateStatus::ACTIVE->value);
-			$oQuery->orderBy("State_Name", "ASC");
+			$oQuery->where('SchoolAccount_Status', '=', SchoolAccountStatus::ACTIVE->value);
+			$oQuery->orderBy("SchoolAccount_Name", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -342,12 +342,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(SearchStateDTO $dto): Result
+	public function search(SearchSchoolAccountDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= SchoolAccountModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -364,41 +364,41 @@ class EloquentStateRepository implements IStateRepository
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
 			$whereDisplay	= [
-				StateFilterDisplay::PUBLIC->value  => 2,
-				StateFilterDisplay::PRIVATE->value => 1
+				SchoolAccountFilterDisplay::PUBLIC->value  => 2,
+				SchoolAccountFilterDisplay::PRIVATE->value => 1
 			];
 			$whereStatus	= [
-				StateFilterStatus::ACTIVE->value   => 2,
-				StateFilterStatus::INACTIVE->value => 1
+				SchoolAccountFilterStatus::ACTIVE->value   => 2,
+				SchoolAccountFilterStatus::INACTIVE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= SchoolAccountModel::query();
 
 			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('State_Public', $whereDisplay[$dto->Display->value]);
+				$oQuery->where('SchoolAccount_Public', $whereDisplay[$dto->Display->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('State_Status', $whereStatus[$dto->Status->value]);
+				$oQuery->where('SchoolAccount_Status', $whereStatus[$dto->Status->value]);
 			} else {
-				$oQuery->where('State_Status', '<>', 0);
+				$oQuery->where('SchoolAccount_Status', '<>', 0);
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("State_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("State_Name", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("State_Abrv", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where("SchoolAccount_Code", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("SchoolAccount_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("SchoolAccount_Abrv", "LIKE", "%" . $dto->Text . "%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("State_Name", "ASC");
+			$oQuery->orderBy("SchoolAccount_Name", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

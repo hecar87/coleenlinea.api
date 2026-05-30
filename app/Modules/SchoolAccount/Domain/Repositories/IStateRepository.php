@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Modules\State\Domain\Repositories;
+namespace App\Modules\SchoolAccount\Domain\Repositories;
 
 use App\Helpers\Result;
-//use App\Domain\State\Entities\State;
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
+//use App\Domain\SchoolAccount\Entities\SchoolAccount;
+use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
 
 
-interface IStateRepository
+interface ISchoolAccountRepository
 {
     public function getEntity(): string;
 
-    public function exists(int $Id_State) : Result;
+    public function exists(int $Id_SchoolAccount) : Result;
 
-    public function duplicated(DuplicatedStateDTO $dto) : Result;
+    public function duplicated(DuplicatedSchoolAccountDTO $dto) : Result;
 
-    public function create(CreateStateDTO $dto) : Result;
+    public function create(CreateSchoolAccountDTO $dto) : Result;
 
-    public function update(UpdateStateDTO $dto) : Result;
+    public function update(UpdateSchoolAccountDTO $dto) : Result;
 
-    public function delete(int $Id_State) : Result;
+    public function delete(int $Id_SchoolAccount) : Result;
 
-    public function index(int $Id_State) : Result;
+    public function index(int $Id_SchoolAccount) : Result;
 
-    public function list(StateFilterDisplay $Display) : Result;
+    public function list(SchoolAccountFilterDisplay $Display) : Result;
 
-    public function search(SearchStateDTO $dto) : Result;
+    public function search(SearchSchoolAccountDTO $dto) : Result;
 }

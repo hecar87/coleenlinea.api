@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\State\Domain\Enums;
+namespace App\Modules\SchoolAccount\Domain\Enums;
 
-enum StatePublic : int
+enum SchoolAccountPublic : int
 {
 	case PRIVATE = 1;
 	case PUBLIC = 2;

@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\SchoolAccount\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
+use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
 
 
-class UpdateStateAction
+class UpdateSchoolAccountAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository
 	)
 	{
 	}
 
-	public function execute(UpdateStateDTO $oData) : Result
+	public function execute(UpdateSchoolAccountDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
-		$oDataDuplicated = new DuplicatedStateDTO(
-			Id_State	: $oData->Id_State,
-			State_Code	: $oData->State_Code,
-			State_Name	: $oData->State_Name,
-			State_Abrv	: $oData->State_Abrv
+		$oEntity = $this->oSchoolAccountRepository->getEntity();
+		$oDataDuplicated = new DuplicatedSchoolAccountDTO(
+			Id_SchoolAccount	: $oData->Id_SchoolAccount,
+			SchoolAccount_Code	: $oData->SchoolAccount_Code,
+			SchoolAccount_Name	: $oData->SchoolAccount_Name,
+			SchoolAccount_Abrv	: $oData->SchoolAccount_Abrv
 		);
 
 
@@ -44,10 +44,10 @@ class UpdateStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oSchoolAccountRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->update($oData);
+			$oResult = $this->oSchoolAccountRepository->update($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

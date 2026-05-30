@@ -1,55 +1,55 @@
 <?php
 
-namespace App\Modules\State\Domain\Entities;
+namespace App\Modules\SchoolAccount\Domain\Entities;
 
-use App\Modules\State\Domain\Enums\StatePublic;
-use App\Modules\State\Domain\Enums\StateStatus;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountPublic;
+use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountStatus;
 
 
-class State
+class SchoolAccount
 {
     public function __construct(
-        public readonly int $Id_State,
-        public readonly string $State_Code,
-        public readonly string $State_Name,
-        public readonly string $State_Abrv,
-        public readonly StatePublic $State_Public,
-        public readonly StateStatus $State_Status
+        public readonly int $Id_SchoolAccount,
+        public readonly string $SchoolAccount_Code,
+        public readonly string $SchoolAccount_Name,
+        public readonly string $SchoolAccount_Abrv,
+        public readonly SchoolAccountPublic $SchoolAccount_Public,
+        public readonly SchoolAccountStatus $SchoolAccount_Status
     ) {}
 
 
     public static function create(
-        string $State_Code,
-        string $State_Name,
-        string $State_Abrv,
-        StatePublic $State_Public,
-        StateStatus $State_Status = StateStatus::ACTIVE
+        string $SchoolAccount_Code,
+        string $SchoolAccount_Name,
+        string $SchoolAccount_Abrv,
+        SchoolAccountPublic $SchoolAccount_Public,
+        SchoolAccountStatus $SchoolAccount_Status = SchoolAccountStatus::ACTIVE
     ): self {
         return new self(
-            Id_State: 0,
-            State_Code: mb_strtoupper(trim($State_Code)),
-            State_Name: mb_strtoupper(trim($State_Name)),
-            State_Abrv: mb_strtoupper(trim($State_Abrv)),
-            State_Public: $State_Public,
-            State_Status: $State_Status
+            Id_SchoolAccount: 0,
+            SchoolAccount_Code: mb_strtoupper(trim($SchoolAccount_Code)),
+            SchoolAccount_Name: mb_strtoupper(trim($SchoolAccount_Name)),
+            SchoolAccount_Abrv: mb_strtoupper(trim($SchoolAccount_Abrv)),
+            SchoolAccount_Public: $SchoolAccount_Public,
+            SchoolAccount_Status: $SchoolAccount_Status
         );
     }
 
 
     public function isDeleted(): bool
     {
-        return $this->State_Status === StateStatus::DELETED;
+        return $this->SchoolAccount_Status === SchoolAccountStatus::DELETED;
     }
 
 
     public function isActive(): bool
     {
-        return $this->State_Status === StateStatus::ACTIVE;
+        return $this->SchoolAccount_Status === SchoolAccountStatus::ACTIVE;
     }
 
 
     public function isPublic(): bool
     {
-        return $this->State_Public === StatePublic::PUBLIC;
+        return $this->SchoolAccount_Public === SchoolAccountPublic::PUBLIC;
     }
 }

@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\SchoolAccount\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
 
 
-class SearchStateAction
+class SearchSchoolAccountAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository
 	)
 	{
 	}
 
-	public function execute(SearchStateDTO $oData) : Result
+	public function execute(SearchSchoolAccountDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
+		$oEntity = $this->oSchoolAccountRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class SearchStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->search($oData);
+			$oResult = $this->oSchoolAccountRepository->search($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

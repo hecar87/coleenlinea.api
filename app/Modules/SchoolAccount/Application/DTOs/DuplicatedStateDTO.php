@@ -1,24 +1,24 @@
 <?php
-namespace App\Modules\State\Application\DTOs;
+namespace App\Modules\SchoolAccount\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class DuplicatedStateDTO
+class DuplicatedSchoolAccountDTO
 {
     public function __construct(
-        public int $Id_State,
-        public string $State_Code,
-        public string $State_Name,
-        public string $State_Abrv
+        public int $Id_SchoolAccount,
+        public string $SchoolAccount_Code,
+        public string $SchoolAccount_Name,
+        public string $SchoolAccount_Abrv
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_State: (int) $oRequest->input('Id_State', 0),
-            State_Code: $oRequest->input('State_Code', ''),
-            State_Name: $oRequest->input('State_Name', ''),
-            State_Abrv: $oRequest->input('State_Abrv', '')
+            Id_SchoolAccount: (int) $oRequest->input('Id_SchoolAccount', 0),
+            SchoolAccount_Code: $oRequest->input('SchoolAccount_Code', ''),
+            SchoolAccount_Name: $oRequest->input('SchoolAccount_Name', ''),
+            SchoolAccount_Abrv: $oRequest->input('SchoolAccount_Abrv', '')
         );
     }
 }
