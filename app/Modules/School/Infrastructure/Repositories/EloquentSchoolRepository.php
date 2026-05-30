@@ -92,11 +92,8 @@ class EloquentSchoolRepository implements ISchoolRepository
 
 			$oQuery->where("Id_School", "<>", $dto->Id_School);
 			$oQuery->where("School_Status", "<>", "0");
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("School_Code", "=", $dto->School_Code);
-				$oSubQuery->orWhere("School_Name", "=", $dto->School_Name);
-				$oSubQuery->orWhere("School_Abrv", "=", $dto->School_Abrv);
-			});
+			$oQuery->where("School_NoDocument", "=", $dto->School_NoDocument);
+			$oQuery->where("Id_TypeDocument", "=", $dto->Id_TypeDocument);
 
 			$Duplicate	= $oQuery->count();
 
@@ -139,12 +136,21 @@ class EloquentSchoolRepository implements ISchoolRepository
 			$oQuery	= SchoolModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_School"		=> $dto->Id_School,
-				"School_Code"	=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
-				"School_Name"	=> trim(mb_strtoupper($dto->School_Name, "utf-8")),
-				"School_Abrv"	=> trim(mb_strtoupper($dto->School_Abrv, "utf-8")),
-				"School_Public"	=> $dto->School_Public,
-				"School_Status"	=> $dto->School_Status
+				"Id_School"				=> $dto->Id_School,
+				"School_Code"			=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
+				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
+				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
+				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
+				"School_Address"		=> trim(mb_strtoupper($dto->School_Address, "utf-8" ) ),
+				"School_Phone"			=> trim(mb_strtoupper($dto->School_Phone, "utf-8" ) ),
+				"School_Public"			=> $dto->School_Public,
+				"School_Status"			=> $dto->School_Status,
+				"Id_State"				=> $dto->Id_State,
+				"Id_City"				=> $dto->Id_City,
+				"Id_District"			=> $dto->Id_District,
+				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
+				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
+				"Id_TypeSchool"			=> $dto->Id_TypeSchool
 			]);
 
 			$oQuery->where("Id_School", "=", "$Id");
@@ -186,11 +192,20 @@ class EloquentSchoolRepository implements ISchoolRepository
 
 			$oQuery->where("Id_School", "=", $dto->Id_School);
 			$oQuery->update([
-				"School_Code"	=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
-				"School_Name"	=> trim(mb_strtoupper($dto->School_Name, "utf-8")),
-				"School_Abrv"	=> trim(mb_strtoupper($dto->School_Abrv, "utf-8")),
-				"School_Public"	=> $dto->School_Public,
-				"School_Status"	=> $dto->School_Status
+				"School_Code"			=> trim(mb_strtoupper($dto->School_Code, "utf-8")),
+				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
+				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
+				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
+				"School_Address"		=> trim(mb_strtoupper($dto->School_Address, "utf-8" ) ),
+				"School_Phone"			=> trim(mb_strtoupper($dto->School_Phone, "utf-8" ) ),
+				"School_Public"			=> $dto->School_Public,
+				"School_Status"			=> $dto->School_Status,
+				"Id_State"				=> $dto->Id_State,
+				"Id_City"				=> $dto->Id_City,
+				"Id_District"			=> $dto->Id_District,
+				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
+				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
+				"Id_TypeSchool"			=> $dto->Id_TypeSchool
 			]);
 
 			$oData	= $oQuery->get();
@@ -390,15 +405,16 @@ class EloquentSchoolRepository implements ISchoolRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
 				$oSubQuery->where("School_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("School_Name", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("School_Abrv", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("School_BusinessName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("School_TradeName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("School_NoDocument", "LIKE", "%" . $dto->Text . "%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("School_Name", "ASC");
+			$oQuery->orderBy("School_BusinessName", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

@@ -421,7 +421,6 @@ class EloquentTypeReceiptRepository implements ITypeReceiptRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeReceipt_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeReceipt_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeReceipt_Abrv", "LIKE", "%".$dto->Text."%");
 			});

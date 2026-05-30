@@ -421,7 +421,6 @@ class EloquentTypeKinshipRepository implements ITypeKinshipRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeKinship_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeKinship_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeKinship_Abrv", "LIKE", "%".$dto->Text."%");
 			});

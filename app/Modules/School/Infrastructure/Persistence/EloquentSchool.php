@@ -8,16 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentSchool extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_state";
-	protected $entity		= "STATE";
+	protected $table 		= "t_school";
+	protected $entity		= "SCHOOL";
 	protected $primaryKey 	= "Id_School";
 	protected $fillable 	= [
 		"Id_School",
 		"School_Code",
-		"School_Name",
-		"School_Abrv",
+		"School_BusinessName",
+		"School_TradeName",
+		"School_NoDocument",
+		"School_Address",
+		"School_Phone",
 		"School_Public",
-		"School_Status"
+		"School_Status",
+		"Id_State",
+		"Id_City",
+		"Id_District",
+		"Id_TypeDocument",
+		"Id_TypePopulation",
+		"Id_TypeSchool"
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

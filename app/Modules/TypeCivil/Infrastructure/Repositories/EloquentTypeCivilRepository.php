@@ -420,7 +420,6 @@ class EloquentTypeCivilRepository implements ITypeCivilRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeCivil_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeCivil_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeCivil_Abrv", "LIKE", "%".$dto->Text."%");
 			});

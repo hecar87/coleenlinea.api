@@ -421,7 +421,6 @@ class EloquentTypeGenderRepository implements ITypeGenderRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeGender_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeGender_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeGender_Abrv", "LIKE", "%".$dto->Text."%");
 			});

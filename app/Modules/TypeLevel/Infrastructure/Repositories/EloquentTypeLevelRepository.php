@@ -421,7 +421,6 @@ class EloquentTypeLevelRepository implements ITypeLevelRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeLevel_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeLevel_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeLevel_Abrv", "LIKE", "%".$dto->Text."%");
 			});

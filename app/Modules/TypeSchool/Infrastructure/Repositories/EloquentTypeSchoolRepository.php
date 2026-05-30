@@ -421,7 +421,6 @@ class EloquentTypeSchoolRepository implements ITypeSchoolRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeSchool_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeSchool_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeSchool_Abrv", "LIKE", "%".$dto->Text."%");
 			});

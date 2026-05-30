@@ -20,6 +20,8 @@ use App\Modules\TypePopulation\Providers\TypePopulationServiceProvider;
 use App\Modules\TypeReceipt\Providers\TypeReceiptServiceProvider;
 use App\Modules\TypeSchool\Providers\TypeSchoolServiceProvider;
 
+use App\Modules\School\Providers\SchoolServiceProvider;
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -40,6 +42,8 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypePopulationServiceProvider::class);
 		$this->app->register(TypeReceiptServiceProvider::class);
 		$this->app->register(TypeSchoolServiceProvider::class);
+
+		$this->app->register(SchoolServiceProvider::class);
 	}
 
 	public function boot(): void

@@ -421,7 +421,6 @@ class EloquentTypeInstallmentRepository implements ITypeInstallmentRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeInstallment_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeInstallment_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeInstallment_Abrv", "LIKE", "%".$dto->Text."%");
 			});

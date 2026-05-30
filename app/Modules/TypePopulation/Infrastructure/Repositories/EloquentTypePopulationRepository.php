@@ -421,7 +421,6 @@ class EloquentTypePopulationRepository implements ITypePopulationRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypePopulation_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypePopulation_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypePopulation_Abrv", "LIKE", "%".$dto->Text."%");
 			});

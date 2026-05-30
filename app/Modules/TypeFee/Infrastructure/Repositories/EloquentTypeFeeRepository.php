@@ -421,7 +421,6 @@ class EloquentTypeFeeRepository implements ITypeFeeRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeFee_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeFee_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeFee_Abrv", "LIKE", "%".$dto->Text."%");
 			});

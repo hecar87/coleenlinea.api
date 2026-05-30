@@ -421,7 +421,6 @@ class EloquentTypeDocumentRepository implements ITypeDocumentRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypeDocument_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeDocument_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeDocument_Abrv", "LIKE", "%".$dto->Text."%");
 			});

@@ -421,7 +421,6 @@ class EloquentTypePaymentRepository implements ITypePaymentRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto)
 			{
-				$oSubQuery->where	("TypePayment_Code", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypePayment_Name", "LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypePayment_Abrv", "LIKE", "%".$dto->Text."%");
 			});
