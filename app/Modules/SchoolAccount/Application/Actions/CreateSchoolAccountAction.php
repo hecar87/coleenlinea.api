@@ -7,11 +7,11 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
+use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
 use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
 
 
-class UpdateSchoolAccountAction
+class CreateSchoolAccountAction
 {
 
 	public function __construct(
@@ -20,17 +20,19 @@ class UpdateSchoolAccountAction
 	{
 	}
 
-	public function execute(UpdateSchoolAccountDTO $oData) : Result
+	public function execute(CreateSchoolAccountDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity = $this->oSchoolAccountRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolAccountDTO(
-			Id_SchoolAccount	: $oData->Id_SchoolAccount,
-			SchoolAccount_Code	: $oData->SchoolAccount_Code,
-			SchoolAccount_Name	: $oData->SchoolAccount_Name,
-			SchoolAccount_Abrv	: $oData->SchoolAccount_Abrv
+			Id_SchoolAccount		: 0,
+			SchoolAccount_Number	: $oData->SchoolAccount_Number,
+            SchoolAccount_CCI		: $oData->SchoolAccount_CCI,
+            Id_School				: $oData->Id_School,
+            Id_TypeBank				: $oData->Id_TypeBank,
+            Id_TypeCurrency			: $oData->Id_TypeCurrency
 		);
 
 
@@ -47,7 +49,7 @@ class UpdateSchoolAccountAction
 			$oResult = $this->oSchoolAccountRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->update($oData);
+			$oResult = $this->oSchoolAccountRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
