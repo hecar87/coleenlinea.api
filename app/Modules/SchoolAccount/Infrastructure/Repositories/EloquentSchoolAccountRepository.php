@@ -92,10 +92,13 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 
 			$oQuery->where("Id_SchoolAccount", "<>", $dto->Id_SchoolAccount);
 			$oQuery->where("SchoolAccount_Status", "<>", "0");
+			$oQuery->where("Id_School", "=", $dto->Id_School);
+			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
+			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
+
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolAccount_Code", "=", $dto->SchoolAccount_Code);
-				$oSubQuery->orWhere("SchoolAccount_Name", "=", $dto->SchoolAccount_Name);
-				$oSubQuery->orWhere("SchoolAccount_Abrv", "=", $dto->SchoolAccount_Abrv);
+				$oSubQuery->where("SchoolAccount_Number", "=", $dto->SchoolAccount_Number);
+				$oSubQuery->orWhere("SchoolAccount_CCI", "=", $dto->SchoolAccount_CCI);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -140,11 +143,15 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 
 			$Id 	= $oQuery->insertGetId([
 				"Id_SchoolAccount"		=> $dto->Id_SchoolAccount,
-				"SchoolAccount_Code"	=> trim(mb_strtoupper($dto->SchoolAccount_Code, "utf-8")),
-				"SchoolAccount_Name"	=> trim(mb_strtoupper($dto->SchoolAccount_Name, "utf-8")),
-				"SchoolAccount_Abrv"	=> trim(mb_strtoupper($dto->SchoolAccount_Abrv, "utf-8")),
+				"SchoolAccount_Number"	=> trim( mb_strtoupper( $dto->SchoolAccount_Number, "utf-8" ) ),
+				"SchoolAccount_CCI"		=> trim( mb_strtoupper( $dto->SchoolAccount_CCI, "utf-8" ) ),
+				"SchoolAccount_Remark"	=> trim( mb_strtoupper( $dto->SchoolAccount_Remark, "utf-8" ) ),
+				"SchoolAccount_Default"	=> 1,
 				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
-				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status
+				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status,
+				"Id_School"				=> $dto->Id_School,
+				"Id_TypeBank"			=> $dto->Id_TypeBank,
+				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
 			]);
 
 			$oQuery->where("Id_SchoolAccount", "=", "$Id");
@@ -186,11 +193,14 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 
 			$oQuery->where("Id_SchoolAccount", "=", $dto->Id_SchoolAccount);
 			$oQuery->update([
-				"SchoolAccount_Code"	=> trim(mb_strtoupper($dto->SchoolAccount_Code, "utf-8")),
-				"SchoolAccount_Name"	=> trim(mb_strtoupper($dto->SchoolAccount_Name, "utf-8")),
-				"SchoolAccount_Abrv"	=> trim(mb_strtoupper($dto->SchoolAccount_Abrv, "utf-8")),
+				"SchoolAccount_Number"	=> trim( mb_strtoupper( $dto->SchoolAccount_Number, "utf-8" ) ),
+				"SchoolAccount_CCI"		=> trim( mb_strtoupper( $dto->SchoolAccount_CCI, "utf-8" ) ),
+				"SchoolAccount_Remark"	=> trim( mb_strtoupper( $dto->SchoolAccount_Remark, "utf-8" ) ),
+				"SchoolAccount_Default"	=> 1,
 				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
-				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status
+				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status,
+				"Id_TypeBank"			=> $dto->Id_TypeBank,
+				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
 			]);
 
 			$oData	= $oQuery->get();
@@ -230,7 +240,8 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 
 			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
 			$oQuery->update([
-				"SchoolAccount_Name"	=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_Name)"),
+				"SchoolAccount_Number"	=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_Number)"),
+				"SchoolAccount_CCI"		=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_CCI)"),
 				"SchoolAccount_Status"	=> 0
 			]);
 
@@ -268,6 +279,8 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			$oQuery	= SchoolAccountModel::query();
 
+			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
+			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
 			$oQuery->where("SchoolAccount_Status", "<>", "0");
 
@@ -288,7 +301,7 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(SchoolAccountFilterDisplay $Display): Result
+	public function list(int $Id_School, SchoolAccountFilterDisplay $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -316,12 +329,17 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			$oQuery	= SchoolAccountModel::query();
 
+			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
+			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->where("Id_School", "=", $Id_School);
+
 			if (isset($whereDisplay[$Display->value])) {
 				$oQuery->where('SchoolAccount_Public', $whereDisplay[$Display->value]);
 			}
 
 			$oQuery->where('SchoolAccount_Status', '=', SchoolAccountStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolAccount_Name", "ASC");
+			$oQuery->orderBy("SchoolAccount_Default", "DESC");
+			$oQuery->orderBy("Id_SchoolAccount", "DESC");
 
 			$oData	= $oQuery->get();
 
@@ -342,7 +360,7 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(SearchSchoolAccountDTO $dto): Result
+	public function search(int $Id_School, SearchSchoolAccountDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -378,6 +396,10 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			$oQuery	= SchoolAccountModel::query();
 
+			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
+			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->where("Id_School", "=", $Id_School);
+
 			if (isset($whereDisplay[$dto->Display->value])) {
 				$oQuery->where('SchoolAccount_Public', $whereDisplay[$dto->Display->value]);
 			}
@@ -389,16 +411,18 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolAccount_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("SchoolAccount_Name", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("SchoolAccount_Abrv", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where	("SchoolAccount_Number", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolAccount_CCI", 		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolAccount_Remark", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolAccount_Name", "ASC");
+			$oQuery->orderBy("SchoolAccount_Default", "DESC");
+			$oQuery->orderBy("Id_SchoolAccount", "DESC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

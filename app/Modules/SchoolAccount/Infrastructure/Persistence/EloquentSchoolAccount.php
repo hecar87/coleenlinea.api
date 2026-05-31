@@ -8,16 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentSchoolAccount extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_state";
-	protected $entity		= "STATE";
+	protected $table 		= "t_school_account";
+	protected $entity		= "SCHOOL-ACCOUNT";
 	protected $primaryKey 	= "Id_SchoolAccount";
 	protected $fillable 	= [
 		"Id_SchoolAccount",
-		"SchoolAccount_Code",
-		"SchoolAccount_Name",
-		"SchoolAccount_Abrv",
+		"SchoolAccount_Number",
+		"SchoolAccount_CCI",
+		"SchoolAccount_Remark",
+		"SchoolAccount_Default",
 		"SchoolAccount_Public",
-		"SchoolAccount_Status"
+		"SchoolAccount_Status",
+		"Id_School",
+		"Id_TypeBank",
+		"Id_TypeCurrency"
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

@@ -117,7 +117,7 @@ class SchoolAccountController extends Controller
 
 	}
 
-	public function list(ListSchoolAccountRequest $oRequest)
+	public function list(int $Id_School, ListSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,13 +128,13 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListSchoolAccountAction->execute($Display);
+		$oResult	= $this->oListSchoolAccountAction->execute($Id_School, $Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchSchoolAccountRequest $oRequest)
+	public function search(int $Id_School, SearchSchoolAccountRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -145,7 +145,7 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchSchoolAccountAction->execute($oData);
+		$oResult	= $this->oSearchSchoolAccountAction->execute($Id_School, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

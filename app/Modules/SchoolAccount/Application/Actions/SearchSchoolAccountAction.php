@@ -19,7 +19,7 @@ class SearchSchoolAccountAction
 	{
 	}
 
-	public function execute(SearchSchoolAccountDTO $oData) : Result
+	public function execute(int $Id_School, SearchSchoolAccountDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -37,7 +37,7 @@ class SearchSchoolAccountAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolAccountRepository->search($oData);
+			$oResult = $this->oSchoolAccountRepository->search($Id_School, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

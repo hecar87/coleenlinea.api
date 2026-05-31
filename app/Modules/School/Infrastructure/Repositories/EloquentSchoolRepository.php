@@ -284,6 +284,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
+			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
+			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
+			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
 			$oQuery->where("Id_School", "=", $Id_School);
 			$oQuery->where("School_Status", "<>", "0");
 
@@ -332,12 +338,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
-			$oQuery->join("t_state", 			"t_school.Id_State", 			"=", "t_state.Id_State");
-			$oQuery->join("t_city", 			"t_school.Id_City", 			"=", "t_city.Id_City");
-			$oQuery->join("t_district", 		"t_school.Id_District", 		"=", "t_district.Id_District");
-			$oQuery->join("t_type_document", 	"t_school.Id_TypeDocument", 	"=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", 	"t_school.Id_TypePopulation", 	"=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", 		"t_school.Id_TypeSchool", 		"=", "t_type_school.Id_TypeSchool");
+			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
+			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
+			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
 
 			if (isset($whereDisplay[$Display->value])) {
 				$oQuery->where('School_Public', $whereDisplay[$Display->value]);
@@ -401,12 +407,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			$oQuery	= SchoolModel::query();
 
-			$oQuery->join("t_state", 			"t_school.Id_State", 			"=", "t_state.Id_State");
-			$oQuery->join("t_city", 			"t_school.Id_City", 			"=", "t_city.Id_City");
-			$oQuery->join("t_district", 		"t_school.Id_District", 		"=", "t_district.Id_District");
-			$oQuery->join("t_type_document", 	"t_school.Id_TypeDocument", 	"=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", 	"t_school.Id_TypePopulation", 	"=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", 		"t_school.Id_TypeSchool", 		"=", "t_type_school.Id_TypeSchool");
+			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
+			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
+			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
 
 			if (isset($whereDisplay[$dto->Display->value])) {
 				$oQuery->where('School_Public', $whereDisplay[$dto->Display->value]);

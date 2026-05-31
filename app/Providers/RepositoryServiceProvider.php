@@ -21,6 +21,7 @@ use App\Modules\TypeReceipt\Providers\TypeReceiptServiceProvider;
 use App\Modules\TypeSchool\Providers\TypeSchoolServiceProvider;
 
 use App\Modules\School\Providers\SchoolServiceProvider;
+use App\Modules\SchoolAccount\Providers\SchoolAccountServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -44,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(TypeSchoolServiceProvider::class);
 
 		$this->app->register(SchoolServiceProvider::class);
+		$this->app->register(SchoolAccountServiceProvider::class);
 	}
 
 	public function boot(): void

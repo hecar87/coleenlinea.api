@@ -27,7 +27,7 @@ interface ISchoolAccountRepository
 
     public function index(int $Id_SchoolAccount) : Result;
 
-    public function list(SchoolAccountFilterDisplay $Display) : Result;
+    public function list(int $Id_School, SchoolAccountFilterDisplay $Display) : Result;
 
-    public function search(SearchSchoolAccountDTO $dto) : Result;
+    public function search(int $Id_School, SearchSchoolAccountDTO $dto) : Result;
 }

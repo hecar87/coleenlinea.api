@@ -19,7 +19,7 @@ class ListSchoolAccountAction
 	{
 	}
 
-	public function execute(string $Display) : Result
+	public function execute(int $Id_School, string $Display) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -38,7 +38,7 @@ class ListSchoolAccountAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolAccountRepository->list($oDisplay);
+			$oResult = $this->oSchoolAccountRepository->list($Id_School, $oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
