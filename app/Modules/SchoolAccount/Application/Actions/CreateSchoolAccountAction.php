@@ -7,6 +7,10 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
+USE App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+
 use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
 use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
 
@@ -15,7 +19,10 @@ class CreateSchoolAccountAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected ISchoolRepository $oSchoolRepository,
+		protected ITypeBankRepository $oTypeBankRepository,
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository
 	)
 	{
 	}
@@ -45,6 +52,16 @@ class CreateSchoolAccountAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
+
+			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oTypeBankRepository->exists($oData->Id_TypeBank);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
 
 			$oResult = $this->oSchoolAccountRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

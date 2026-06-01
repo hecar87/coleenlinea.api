@@ -7,6 +7,8 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
+
 use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
 
 
@@ -14,7 +16,8 @@ class ListSchoolAccountAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected ISchoolRepository $oSchoolRepository
 	)
 	{
 	}
@@ -37,6 +40,9 @@ class ListSchoolAccountAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
+
+			$oresult = $this->oSchoolRepository->exists($Id_School);
+			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
 			$oResult = $this->oSchoolAccountRepository->list($Id_School, $oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

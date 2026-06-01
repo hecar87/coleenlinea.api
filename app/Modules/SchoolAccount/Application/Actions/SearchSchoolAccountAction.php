@@ -7,6 +7,8 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\School\Domain\Repositories\ISchoolRepository;
+
 use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
 
 
@@ -14,7 +16,8 @@ class SearchSchoolAccountAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected ISchoolRepository $oSchoolRepository
 	)
 	{
 	}
@@ -36,6 +39,9 @@ class SearchSchoolAccountAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
+
+			$oresult = $this->oSchoolRepository->exists($Id_School);
+			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
 			$oResult = $this->oSchoolAccountRepository->search($Id_School, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
