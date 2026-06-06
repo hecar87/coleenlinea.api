@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Http\Requests\Manager;
+namespace App\Modules\SchoolBranch\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class CreateSchoolAccountRequest extends ValidatedRequest
+class CreateSchoolBranchRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{
 		return [
-			"SchoolAccount_Number"		=> "required|string|max:50",
-			"SchoolAccount_CCI"			=> "required|string|max:50",
-			"SchoolAccount_Remark"		=> "required|string|max:250",
-			"SchoolAccount_Public"		=> "required|int|in:1,2",
-			"SchoolAccount_Status"		=> "required|int|in:1,2",
+			"SchoolBranch_Number"		=> "required|string|max:50",
+			"SchoolBranch_CCI"			=> "required|string|max:50",
+			"SchoolBranch_Remark"		=> "required|string|max:250",
+			"SchoolBranch_Public"		=> "required|int|in:1,2",
+			"SchoolBranch_Status"		=> "required|int|in:1,2",
 			"Id_School"					=> "required|int",
 			"Id_TypeBank"				=> "required|int",
 			"Id_TypeCurrency"			=> "required|int"

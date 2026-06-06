@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\SchoolBranch\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
+use App\Modules\SchoolBranch\Domain\Enums\SchoolBranchFilterDisplay;
+use App\Modules\SchoolBranch\Domain\Enums\SchoolBranchFilterStatus;
 
 
-class SearchSchoolAccountDTO
+class SearchSchoolBranchDTO
 {
     public function __construct(
         public string $Text = "",
-        public SchoolAccountFilterDisplay $Display = SchoolAccountFilterDisplay::ALL,
-        public SchoolAccountFilterStatus $Status = SchoolAccountFilterStatus::ALL,
+        public SchoolBranchFilterDisplay $Display = SchoolBranchFilterDisplay::ALL,
+        public SchoolBranchFilterStatus $Status = SchoolBranchFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolAccountFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolAccountFilterDisplay::PRIVATE,
-            default => SchoolAccountFilterDisplay::ALL,
+            'PUBLIC' => SchoolBranchFilterDisplay::PUBLIC,
+            'PRIVATE' => SchoolBranchFilterDisplay::PRIVATE,
+            default => SchoolBranchFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolAccountFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolAccountFilterStatus::INACTIVE,
-            default => SchoolAccountFilterStatus::ALL,
+            'ACTIVE' => SchoolBranchFilterStatus::ACTIVE,
+            'INACTIVE' => SchoolBranchFilterStatus::INACTIVE,
+            default => SchoolBranchFilterStatus::ALL,
         };
 
         return new self(

@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\SchoolBranch\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\SchoolBranch\Domain\Repositories\ISchoolBranchRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 USE App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
+use App\Modules\SchoolBranch\Application\DTOs\UpdateSchoolBranchDTO;
+use App\Modules\SchoolBranch\Application\DTOs\DuplicatedSchoolBranchDTO;
 
 
-class UpdateSchoolAccountAction
+class UpdateSchoolBranchAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected ISchoolBranchRepository $oSchoolBranchRepository,
 		protected ISchoolRepository $oSchoolRepository,
 		protected ITypeBankRepository $oTypeBankRepository,
 		protected ITypeCurrencyRepository $oTypeCurrencyRepository
@@ -27,16 +27,16 @@ class UpdateSchoolAccountAction
 	{
 	}
 
-	public function execute(UpdateSchoolAccountDTO $oData) : Result
+	public function execute(UpdateSchoolBranchDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
-		$oDataDuplicated = new DuplicatedSchoolAccountDTO(
-			Id_SchoolAccount		: $oData->Id_SchoolAccount,
-			SchoolAccount_Number	: $oData->SchoolAccount_Number,
-            SchoolAccount_CCI		: $oData->SchoolAccount_CCI,
+		$oEntity = $this->oSchoolBranchRepository->getEntity();
+		$oDataDuplicated = new DuplicatedSchoolBranchDTO(
+			Id_SchoolBranch		: $oData->Id_SchoolBranch,
+			SchoolBranch_Number	: $oData->SchoolBranch_Number,
+            SchoolBranch_CCI		: $oData->SchoolBranch_CCI,
             Id_School				: $oData->Id_School,
             Id_TypeBank				: $oData->Id_TypeBank,
             Id_TypeCurrency			: $oData->Id_TypeCurrency
@@ -62,14 +62,14 @@ class UpdateSchoolAccountAction
 			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->exists($oData->Id_SchoolAccount);
+			$oResult = $this->oSchoolBranchRepository->exists($oData->Id_SchoolBranch);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 
-			$oResult = $this->oSchoolAccountRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oSchoolBranchRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->update($oData);
+			$oResult = $this->oSchoolBranchRepository->update($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
