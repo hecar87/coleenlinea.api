@@ -9,15 +9,19 @@ class UpdateSchoolBranchRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"Id_SchoolBranch"			=> "required|int",
-			"SchoolBranch_Number"		=> "required|string|max:50",
-			"SchoolBranch_CCI"			=> "required|string|max:50",
-			"SchoolBranch_Remark"		=> "required|string|max:250",
-			"SchoolBranch_Public"		=> "required|int|in:1,2",
-			"SchoolBranch_Status"		=> "required|int|in:1,2",
-			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"Id_SchoolBranch"		=> "required|int",
+			"SchoolBranch_Code"		=> "required|string|max:30",
+			"SchoolBranch_Name"		=> "required|string|max:250",
+			"SchoolBranch_Address"	=> "required|string|max:250",
+			"SchoolBranch_Phone"	=> "required|string|max:30",
+			"SchoolBranch_LAT"		=> "required|numeric",
+			"SchoolBranch_LNG"		=> "required|numeric",
+			"SchoolBranch_Public"	=> "required|int|in:1,2",
+			"SchoolBranch_Status"	=> "required|int|in:1,2",
+			"Id_School"				=> "required|int",
+			"Id_State"				=> "required|int",
+			"Id_City"				=> "required|int",
+			"Id_District"			=> "required|int"
 		];
 	}
 

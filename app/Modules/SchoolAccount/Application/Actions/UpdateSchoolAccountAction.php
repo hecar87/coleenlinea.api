@@ -8,7 +8,7 @@ use App\Helpers\ResultManager;
 
 use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
-USE App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
+use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 
 use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;

@@ -5,29 +5,29 @@ use App\Modules\SchoolBranch\Http\Controllers\Manager\SchoolBranchController;
 
 
 Route::middleware('manager.access')
-	->name('school-account.create')
-	->post("/school-accounts", [ SchoolBranchController::class, "create" ]);
+	->name('school-branch.create')
+	->post("/school-branches", [ SchoolBranchController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.update')
-	->put("/school-accounts", [ SchoolBranchController::class, "update" ]);
+	->name('school-branch.update')
+	->put("/school-branches", [ SchoolBranchController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.delete')
-	->delete("/school-accounts/{Id_SchoolBranch}", [ SchoolBranchController::class, "delete" ])
+	->name('school-branch.delete')
+	->delete("/school-branches/{Id_SchoolBranch}", [ SchoolBranchController::class, "delete" ])
 	->where("Id_SchoolBranch", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.index')
-	->get("/school-accounts/{Id_SchoolBranch}", [ SchoolBranchController::class, "index" ])
+	->name('school-branch.index')
+	->get("/school-branches/{Id_SchoolBranch}", [ SchoolBranchController::class, "index" ])
 	->where("Id_SchoolBranch", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.list')
-	->get("/schools/{Id_School}/school-accounts", [ SchoolBranchController::class, "list" ])
+	->name('school-branch.list')
+	->get("/schools/{Id_School}/school-branches", [ SchoolBranchController::class, "list" ])
 	->where("Id_School", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.search')
-	->get("/schools/{Id_School}/school-accounts/search", [ SchoolBranchController::class, "search" ])
+	->name('school-branch.search')
+	->get("/schools/{Id_School}/school-branches/search", [ SchoolBranchController::class, "search" ])
 	->where("Id_School", "[0-9]+");

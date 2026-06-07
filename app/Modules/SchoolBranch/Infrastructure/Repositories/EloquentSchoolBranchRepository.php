@@ -93,12 +93,11 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			$oQuery->where("Id_SchoolBranch", "<>", $dto->Id_SchoolBranch);
 			$oQuery->where("SchoolBranch_Status", "<>", "0");
 			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
-			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolBranch_Number", "=", $dto->SchoolBranch_Number);
-				$oSubQuery->orWhere("SchoolBranch_CCI", "=", $dto->SchoolBranch_CCI);
+				$oSubQuery->where("SchoolBranch_Code", "=", $dto->SchoolBranch_Code);
+				$oSubQuery->orWhere("SchoolBranch_Name", "=", $dto->SchoolBranch_Name);
+				$oSubQuery->orWhere("SchoolBranch_Address", "=", $dto->SchoolBranch_Address);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -143,15 +142,18 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 
 			$Id 	= $oQuery->insertGetId([
 				"Id_SchoolBranch"		=> $dto->Id_SchoolBranch,
-				"SchoolBranch_Number"	=> trim( mb_strtoupper( $dto->SchoolBranch_Number, "utf-8" ) ),
-				"SchoolBranch_CCI"		=> trim( mb_strtoupper( $dto->SchoolBranch_CCI, "utf-8" ) ),
-				"SchoolBranch_Remark"	=> trim( mb_strtoupper( $dto->SchoolBranch_Remark, "utf-8" ) ),
-				"SchoolBranch_Default"	=> 1,
+				"SchoolBranch_Code"		=> trim( mb_strtoupper( $dto->SchoolBranch_Code, "utf-8" ) ),
+				"SchoolBranch_Name"		=> trim( mb_strtoupper( $dto->SchoolBranch_Name, "utf-8" ) ),
+				"SchoolBranch_Address"	=> trim( mb_strtoupper( $dto->SchoolBranch_Address, "utf-8" ) ),
+				"SchoolBranch_Phone"	=> trim( mb_strtoupper( $dto->SchoolBranch_Phone, "utf-8" ) ),
+				"SchoolBranch_LAT"		=> $dto->SchoolBranch_LAT,
+				"SchoolBranch_LNG"		=> $dto->SchoolBranch_LNG,
 				"SchoolBranch_Public"	=> $dto->SchoolBranch_Public,
 				"SchoolBranch_Status"	=> $dto->SchoolBranch_Status,
 				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_State"				=> $dto->Id_State,
+				"Id_City"				=> $dto->Id_City,
+				"Id_District"			=> $dto->Id_District
 			]);
 
 			$oQuery->where("Id_SchoolBranch", "=", "$Id");
@@ -193,14 +195,18 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 
 			$oQuery->where("Id_SchoolBranch", "=", $dto->Id_SchoolBranch);
 			$oQuery->update([
-				"SchoolBranch_Number"	=> trim( mb_strtoupper( $dto->SchoolBranch_Number, "utf-8" ) ),
-				"SchoolBranch_CCI"		=> trim( mb_strtoupper( $dto->SchoolBranch_CCI, "utf-8" ) ),
-				"SchoolBranch_Remark"	=> trim( mb_strtoupper( $dto->SchoolBranch_Remark, "utf-8" ) ),
-				"SchoolBranch_Default"	=> 1,
+				"SchoolBranch_Code"		=> trim( mb_strtoupper( $dto->SchoolBranch_Code, "utf-8" ) ),
+				"SchoolBranch_Name"		=> trim( mb_strtoupper( $dto->SchoolBranch_Name, "utf-8" ) ),
+				"SchoolBranch_Address"	=> trim( mb_strtoupper( $dto->SchoolBranch_Address, "utf-8" ) ),
+				"SchoolBranch_Phone"	=> trim( mb_strtoupper( $dto->SchoolBranch_Phone, "utf-8" ) ),
+				"SchoolBranch_LAT"		=> $dto->SchoolBranch_LAT,
+				"SchoolBranch_LNG"		=> $dto->SchoolBranch_LNG,
 				"SchoolBranch_Public"	=> $dto->SchoolBranch_Public,
 				"SchoolBranch_Status"	=> $dto->SchoolBranch_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_School"				=> $dto->Id_School,
+				"Id_State"				=> $dto->Id_State,
+				"Id_City"				=> $dto->Id_City,
+				"Id_District"			=> $dto->Id_District
 			]);
 
 			$oData	= $oQuery->get();
@@ -240,8 +246,7 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 
 			$oQuery->where("Id_SchoolBranch", "=", $Id_SchoolBranch);
 			$oQuery->update([
-				"SchoolBranch_Number"	=> DB::raw("CONCAT('( DELETED ) ', SchoolBranch_Number)"),
-				"SchoolBranch_CCI"		=> DB::raw("CONCAT('( DELETED ) ', SchoolBranch_CCI)"),
+				"SchoolBranch_Name"		=> DB::raw("CONCAT('( DELETED ) ', SchoolBranch_Name)"),
 				"SchoolBranch_Status"	=> 0
 			]);
 
@@ -279,8 +284,9 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			//
 			$oQuery	= SchoolBranchModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_state", "t_school_branch.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school_branch.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school_branch.Id_District", "=", "t_district.Id_District");
 			$oQuery->where("Id_SchoolBranch", "=", $Id_SchoolBranch);
 			$oQuery->where("SchoolBranch_Status", "<>", "0");
 
@@ -329,8 +335,9 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			//
 			$oQuery	= SchoolBranchModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_state", "t_school_branch.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school_branch.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school_branch.Id_District", "=", "t_district.Id_District");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$Display->value])) {
@@ -338,8 +345,7 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			}
 
 			$oQuery->where('SchoolBranch_Status', '=', SchoolBranchStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolBranch_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolBranch", "DESC");
+			$oQuery->orderBy("SchoolBranch_Name", "DESC");
 
 			$oData	= $oQuery->get();
 
@@ -396,8 +402,9 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			//
 			$oQuery	= SchoolBranchModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_state", "t_school_branch.Id_State", "=", "t_state.Id_State");
+			$oQuery->join("t_city", "t_school_branch.Id_City", "=", "t_city.Id_City");
+			$oQuery->join("t_district", "t_school_branch.Id_District", "=", "t_district.Id_District");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$dto->Display->value])) {
@@ -411,18 +418,15 @@ class EloquentSchoolBranchRepository implements ISchoolBranchRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("SchoolBranch_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolBranch_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolBranch_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("SchoolBranch_Code", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolBranch_Name",	"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolBranch_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolBranch", "DESC");
+			$oQuery->orderBy("SchoolBranch_Name", "DESC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
