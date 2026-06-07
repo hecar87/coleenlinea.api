@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\SchoolLevel\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\SchoolLevel\Domain\Repositories\ISchoolLevelRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
+use App\Modules\SchoolLevel\Application\DTOs\CreateSchoolLevelDTO;
+use App\Modules\SchoolLevel\Application\DTOs\DuplicatedSchoolLevelDTO;
 
 
-class CreateSchoolAccountAction
+class CreateSchoolLevelAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected ISchoolLevelRepository $oSchoolLevelRepository,
 		protected ISchoolRepository $oSchoolRepository,
 		protected ITypeBankRepository $oTypeBankRepository,
 		protected ITypeCurrencyRepository $oTypeCurrencyRepository
@@ -27,16 +27,16 @@ class CreateSchoolAccountAction
 	{
 	}
 
-	public function execute(CreateSchoolAccountDTO $oData) : Result
+	public function execute(CreateSchoolLevelDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
-		$oDataDuplicated = new DuplicatedSchoolAccountDTO(
-			Id_SchoolAccount		: 0,
-			SchoolAccount_Number	: $oData->SchoolAccount_Number,
-            SchoolAccount_CCI		: $oData->SchoolAccount_CCI,
+		$oEntity = $this->oSchoolLevelRepository->getEntity();
+		$oDataDuplicated = new DuplicatedSchoolLevelDTO(
+			Id_SchoolLevel		: 0,
+			SchoolLevel_Number	: $oData->SchoolLevel_Number,
+            SchoolLevel_CCI		: $oData->SchoolLevel_CCI,
             Id_School				: $oData->Id_School,
             Id_TypeBank				: $oData->Id_TypeBank,
             Id_TypeCurrency			: $oData->Id_TypeCurrency
@@ -63,10 +63,10 @@ class CreateSchoolAccountAction
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 
-			$oResult = $this->oSchoolAccountRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oSchoolLevelRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->create($oData);
+			$oResult = $this->oSchoolLevelRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
