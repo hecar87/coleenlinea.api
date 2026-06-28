@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Modules\School\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\School\Application\DTOs\SearchSchoolDTO;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
 
 
-class SearchSchoolAction
+class SearchGuardianAction
 {
 
 	public function __construct(
-		protected ISchoolRepository $oSchoolRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
 
-	public function execute(SearchSchoolDTO $oData) : Result
+	public function execute(SearchGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolRepository->getEntity();
+		$oEntity = $this->oGuardianRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class SearchSchoolAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolRepository->search($oData);
+			$oResult = $this->oGuardianRepository->search($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

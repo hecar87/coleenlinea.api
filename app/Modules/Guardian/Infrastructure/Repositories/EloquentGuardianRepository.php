@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Modules\School\Infrastructure\Repositories;
+namespace App\Modules\Guardian\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\School\Infrastructure\Persistence\EloquentSchool as SchoolModel;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Guardian\Infrastructure\Persistence\EloquentGuardian as GuardianModel;
 
-use App\Modules\School\Application\DTOs\CreateSchoolDTO;
-use App\Modules\School\Application\DTOs\UpdateSchoolDTO;
-use App\Modules\School\Application\DTOs\DuplicatedSchoolDTO;
-use App\Modules\School\Application\DTOs\SearchSchoolDTO;
+use App\Modules\Guardian\Application\DTOs\CreateGuardianDTO;
+use App\Modules\Guardian\Application\DTOs\UpdateGuardianDTO;
+use App\Modules\Guardian\Application\DTOs\DuplicatedGuardianDTO;
+use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
 
-use App\Modules\School\Domain\Enums\SchoolFilterDisplay;
-use App\Modules\School\Domain\Enums\SchoolFilterStatus;
-use App\Modules\School\Domain\Enums\SchoolPublic;
-use App\Modules\School\Domain\Enums\SchoolStatus;
+use App\Modules\Guardian\Domain\Enums\GuardianFilterDisplay;
+use App\Modules\Guardian\Domain\Enums\GuardianFilterStatus;
+use App\Modules\Guardian\Domain\Enums\GuardianPublic;
+use App\Modules\Guardian\Domain\Enums\GuardianStatus;
 
 
-class EloquentSchoolRepository implements ISchoolRepository
+class EloquentGuardianRepository implements IGuardianRepository
 {
 	public function getEntity(): string
 	{
-		return SchoolModel::getEntity();
+		return GuardianModel::getEntity();
 	}
 
-	public function exists(int $Id_School): Result
+	public function exists(int $Id_Guardian): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oResult	= [];
 		$exists		= 0;
 
@@ -45,10 +45,10 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
-			$oQuery->where("Id_School", "=", $Id_School);
-			$oQuery->where("School_Status", "<>", "0");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Guardian_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -71,12 +71,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function duplicated(DuplicatedSchoolDTO $dto): Result
+	public function duplicated(DuplicatedGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oResult	= [];
 		$Duplicate	= 0;
 
@@ -88,11 +88,11 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
-			$oQuery->where("Id_School", "<>", $dto->Id_School);
-			$oQuery->where("School_Status", "<>", "0");
-			$oQuery->where("School_NoDocument", "=", $dto->School_NoDocument);
+			$oQuery->where("Id_Guardian", "<>", $dto->Id_Guardian);
+			$oQuery->where("Guardian_Status", "<>", "0");
+			$oQuery->where("Guardian_NoDocument", "=", $dto->Guardian_NoDocument);
 			$oQuery->where("Id_TypeDocument", "=", $dto->Id_TypeDocument);
 
 			$Duplicate	= $oQuery->count();
@@ -116,12 +116,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function create(CreateSchoolDTO $dto): Result
+	public function create(CreateGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -133,29 +133,29 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
-			$pSchool_Code = $this->generateCode($dto->Id_State, $dto->Id_City, $dto->Id_District, $dto->Id_TypeSchool);
+			$pGuardian_Code = $this->generateCode($dto->Id_State, $dto->Id_City, $dto->Id_District, $dto->Id_TypeGuardian);
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_School"				=> $dto->Id_School,
-				"School_Code"			=> $pSchool_Code,
-				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
-				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
-				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
-				"School_Address"		=> trim(mb_strtoupper($dto->School_Address, "utf-8" ) ),
-				"School_Phone"			=> trim(mb_strtoupper($dto->School_Phone, "utf-8" ) ),
-				"School_Public"			=> $dto->School_Public,
-				"School_Status"			=> $dto->School_Status,
+				"Id_Guardian"				=> $dto->Id_Guardian,
+				"Guardian_Code"			=> $pGuardian_Code,
+				"Guardian_BusinessName"	=> trim(mb_strtoupper($dto->Guardian_BusinessName, "utf-8" ) ),
+				"Guardian_TradeName"		=> trim(mb_strtoupper($dto->Guardian_TradeName, "utf-8" ) ),
+				"Guardian_NoDocument"		=> trim(mb_strtoupper($dto->Guardian_NoDocument, "utf-8" ) ),
+				"Guardian_Address"		=> trim(mb_strtoupper($dto->Guardian_Address, "utf-8" ) ),
+				"Guardian_Phone"			=> trim(mb_strtoupper($dto->Guardian_Phone, "utf-8" ) ),
+				"Guardian_Public"			=> $dto->Guardian_Public,
+				"Guardian_Status"			=> $dto->Guardian_Status,
 				"Id_State"				=> $dto->Id_State,
 				"Id_City"				=> $dto->Id_City,
 				"Id_District"			=> $dto->Id_District,
 				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
 				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeSchool"			=> $dto->Id_TypeSchool
+				"Id_TypeGuardian"			=> $dto->Id_TypeGuardian
 			]);
 
-			$oQuery->where("Id_School", "=", "$Id");
+			$oQuery->where("Id_Guardian", "=", "$Id");
 			$oData	= $oQuery->get();
 
 
@@ -173,12 +173,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function update(UpdateSchoolDTO $dto): Result
+	public function update(UpdateGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -190,23 +190,23 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
-			$oQuery->where("Id_School", "=", $dto->Id_School);
+			$oQuery->where("Id_Guardian", "=", $dto->Id_Guardian);
 			$oQuery->update([
-				"School_BusinessName"	=> trim(mb_strtoupper($dto->School_BusinessName, "utf-8" ) ),
-				"School_TradeName"		=> trim(mb_strtoupper($dto->School_TradeName, "utf-8" ) ),
-				"School_NoDocument"		=> trim(mb_strtoupper($dto->School_NoDocument, "utf-8" ) ),
-				"School_Address"		=> trim(mb_strtoupper($dto->School_Address, "utf-8" ) ),
-				"School_Phone"			=> trim(mb_strtoupper($dto->School_Phone, "utf-8" ) ),
-				"School_Public"			=> $dto->School_Public,
-				"School_Status"			=> $dto->School_Status,
+				"Guardian_BusinessName"	=> trim(mb_strtoupper($dto->Guardian_BusinessName, "utf-8" ) ),
+				"Guardian_TradeName"		=> trim(mb_strtoupper($dto->Guardian_TradeName, "utf-8" ) ),
+				"Guardian_NoDocument"		=> trim(mb_strtoupper($dto->Guardian_NoDocument, "utf-8" ) ),
+				"Guardian_Address"		=> trim(mb_strtoupper($dto->Guardian_Address, "utf-8" ) ),
+				"Guardian_Phone"			=> trim(mb_strtoupper($dto->Guardian_Phone, "utf-8" ) ),
+				"Guardian_Public"			=> $dto->Guardian_Public,
+				"Guardian_Status"			=> $dto->Guardian_Status,
 				"Id_State"				=> $dto->Id_State,
 				"Id_City"				=> $dto->Id_City,
 				"Id_District"			=> $dto->Id_District,
 				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
 				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeSchool"			=> $dto->Id_TypeSchool
+				"Id_TypeGuardian"			=> $dto->Id_TypeGuardian
 			]);
 
 			$oData	= $oQuery->get();
@@ -226,12 +226,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function delete(int $Id_School): Result
+	public function delete(int $Id_Guardian): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oResult	= [];
 
 
@@ -242,12 +242,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 			$oQuery->update([
-				"School_Name"	=> DB::raw("CONCAT('( DELETED ) ', School_Name)"),
-				"School_Status"	=> 0
+				"Guardian_Name"	=> DB::raw("CONCAT('( DELETED ) ', Guardian_Name)"),
+				"Guardian_Status"	=> 0
 			]);
 
 
@@ -265,12 +265,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function index(int $Id_School): Result
+	public function index(int $Id_Guardian): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -282,16 +282,16 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
 			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
 			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
 			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
 			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
-			$oQuery->where("Id_School", "=", $Id_School);
-			$oQuery->where("School_Status", "<>", "0");
+			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Guardian_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -310,12 +310,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(SchoolFilterDisplay $Display): Result
+	public function list(GuardianFilterDisplay $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -328,29 +328,29 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//	SET VARIABLES
 			//
 			$whereDisplay	= [
-				SchoolFilterDisplay::PUBLIC->value  => 2,
-				SchoolFilterDisplay::PRIVATE->value => 1
+				GuardianFilterDisplay::PUBLIC->value  => 2,
+				GuardianFilterDisplay::PRIVATE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
 			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
 			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
 			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
 			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
+			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
 
 			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('School_Public', $whereDisplay[$Display->value]);
+				$oQuery->where('Guardian_Public', $whereDisplay[$Display->value]);
 			}
 
-			$oQuery->where('School_Status', '=', SchoolStatus::ACTIVE->value);
-			$oQuery->orderBy("School_TradeName", "ASC");
+			$oQuery->where('Guardian_Status', '=', GuardianStatus::ACTIVE->value);
+			$oQuery->orderBy("Guardian_TradeName", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -371,12 +371,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(SearchSchoolDTO $dto): Result
+	public function search(SearchGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -393,49 +393,49 @@ class EloquentSchoolRepository implements ISchoolRepository
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
 			$whereDisplay	= [
-				SchoolFilterDisplay::PUBLIC->value  => 2,
-				SchoolFilterDisplay::PRIVATE->value => 1
+				GuardianFilterDisplay::PUBLIC->value  => 2,
+				GuardianFilterDisplay::PRIVATE->value => 1
 			];
 			$whereStatus	= [
-				SchoolFilterStatus::ACTIVE->value   => 2,
-				SchoolFilterStatus::INACTIVE->value => 1
+				GuardianFilterStatus::ACTIVE->value   => 2,
+				GuardianFilterStatus::INACTIVE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolModel::query();
+			$oQuery	= GuardianModel::query();
 
 			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
 			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
 			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
 			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeSchool", "=", "t_type_school.Id_TypeSchool");
+			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
 
 			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('School_Public', $whereDisplay[$dto->Display->value]);
+				$oQuery->where('Guardian_Public', $whereDisplay[$dto->Display->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('School_Status', $whereStatus[$dto->Status->value]);
+				$oQuery->where('Guardian_Status', $whereStatus[$dto->Status->value]);
 			} else {
-				$oQuery->where('School_Status', '<>', 0);
+				$oQuery->where('Guardian_Status', '<>', 0);
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("School_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("School_BusinessName", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("School_TradeName", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("School_NoDocument", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where("Guardian_Code", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Guardian_BusinessName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Guardian_TradeName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Guardian_NoDocument", "LIKE", "%" . $dto->Text . "%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("School_TradeName", "ASC");
+			$oQuery->orderBy("Guardian_TradeName", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
@@ -459,12 +459,12 @@ class EloquentSchoolRepository implements ISchoolRepository
 	}
 
 
-	private function generateCode(int $Id_State, int $Id_City, int $Id_District, int $Id_TypeSchool): string
+	private function generateCode(int $Id_State, int $Id_City, int $Id_District, int $Id_TypeGuardian): string
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolModel::getEntity();
+		$oEntity	= GuardianModel::getEntity();
 		$oResult	= "";
 
 
@@ -475,16 +475,16 @@ class EloquentSchoolRepository implements ISchoolRepository
 			//
 			//	TRANSACTION
 			//
-			$oRow				= SchoolModel::orderBy("Id_School", "DESC")->get()->first();
-			$New_Id				= $oRow == null ? 1 : $oRow->Id_School + 1;
+			$oRow				= GuardianModel::orderBy("Id_Guardian", "DESC")->get()->first();
+			$New_Id				= $oRow == null ? 1 : $oRow->Id_Guardian + 1;
 
-			$Code_School		= str_pad( $New_Id, 6, "0", STR_PAD_LEFT );
+			$Code_Guardian		= str_pad( $New_Id, 6, "0", STR_PAD_LEFT );
 			$Code_State			= str_pad( $Id_State, 2, "0", STR_PAD_LEFT );
 			$Code_City			= str_pad( $Id_City, 3, "0", STR_PAD_LEFT );
 			$Code_District		= str_pad( $Id_District, 4, "0", STR_PAD_LEFT );
-			$Code_TypeSchool	= str_pad( $Id_TypeSchool, 2, "0", STR_PAD_LEFT );
+			$Code_TypeGuardian	= str_pad( $Id_TypeGuardian, 2, "0", STR_PAD_LEFT );
 
-			$oResult			= "SC".$Code_TypeSchool.$Code_State.$Code_City.$Code_District.$Code_School;
+			$oResult			= "SC".$Code_TypeGuardian.$Code_State.$Code_City.$Code_District.$Code_Guardian;
 		} catch (\Exception $oException) {
 			$oResult = "ERCODE";
 		}

@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\School\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
 
 
-class DeleteSchoolAction
+class DeleteGuardianAction
 {
 
 	public function __construct(
-		protected ISchoolRepository $oSchoolRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School) : Result
+	public function execute(int $Id_Guardian) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolRepository->getEntity();
+		$oEntity = $this->oGuardianRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteSchoolAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolRepository->exists($Id_School);
+			$oResult = $this->oGuardianRepository->exists($Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolRepository->delete($Id_School);
+			$oResult = $this->oGuardianRepository->delete($Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

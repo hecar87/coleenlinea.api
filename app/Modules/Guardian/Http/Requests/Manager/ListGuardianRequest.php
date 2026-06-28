@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\School\Http\Requests\Manager;
+namespace App\Modules\Guardian\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class ListSchoolRequest extends ValidatedRequest
+class ListGuardianRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{

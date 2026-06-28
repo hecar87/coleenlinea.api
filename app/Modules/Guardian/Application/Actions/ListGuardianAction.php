@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Modules\School\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\School\Domain\Enums\SchoolFilterDisplay;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Guardian\Domain\Enums\GuardianFilterDisplay;
 
 
-class ListSchoolAction
+class ListGuardianAction
 {
 
 	public function __construct(
-		protected ISchoolRepository $oSchoolRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
@@ -24,8 +24,8 @@ class ListSchoolAction
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oSchoolRepository->getEntity();
-		$oDisplay 	= SchoolFilterDisplay::from(strtoupper($Display));
+		$oEntity 	= $this->oGuardianRepository->getEntity();
+		$oDisplay 	= GuardianFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class ListSchoolAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolRepository->list($oDisplay);
+			$oResult = $this->oGuardianRepository->list($oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
