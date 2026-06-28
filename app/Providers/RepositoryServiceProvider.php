@@ -29,7 +29,7 @@ use App\Modules\SchoolYear\Providers\SchoolYearServiceProvider;
 use App\modules\schoolinstallment\Providers\SchoolInstallmentServiceProvider;
 
 use App\Modules\Contract\Providers\ContractServiceProvider;
-
+use App\Modules\ContractFee\Providers\ContractFeeServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -60,7 +60,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(SchoolInstallmentServiceProvider::class);
 
 		$this->app->register(ContractServiceProvider::class);
-
+		$this->app->register(ContractFeeServiceProvider::class);
 	}
 
 	public function boot(): void

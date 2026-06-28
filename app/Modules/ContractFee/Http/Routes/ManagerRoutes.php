@@ -24,10 +24,10 @@ Route::middleware('manager.access')
 
 Route::middleware('manager.access')
 	->name('contract-fee.list')
-	->get("/schools/{Id_School}/contract-fees", [ ContractFeeController::class, "list" ])
-	->where("Id_School", "[0-9]+");
+	->get("/contracts/{Id_Contract}/contract-fees", [ ContractFeeController::class, "list" ])
+	->where("Id_Contract", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('contract-fee.search')
-	->get("/schools/{Id_School}/contract-fees/search", [ ContractFeeController::class, "search" ])
-	->where("Id_School", "[0-9]+");
+	->get("/contracts/{Id_Contract}/contract-fees/search", [ ContractFeeController::class, "search" ])
+	->where("Id_Contract", "[0-9]+");
