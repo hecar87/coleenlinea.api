@@ -5,29 +5,29 @@ use App\Modules\Contract\Http\Controllers\Manager\ContractController;
 
 
 Route::middleware('manager.access')
-	->name('school-account.create')
-	->post("/school-accounts", [ ContractController::class, "create" ]);
+	->name('contract.create')
+	->post("/contracts", [ ContractController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.update')
-	->put("/school-accounts", [ ContractController::class, "update" ]);
+	->name('contract.update')
+	->put("/contracts", [ ContractController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.delete')
-	->delete("/school-accounts/{Id_Contract}", [ ContractController::class, "delete" ])
+	->name('contract.delete')
+	->delete("/contracts/{Id_Contract}", [ ContractController::class, "delete" ])
 	->where("Id_Contract", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.index')
-	->get("/school-accounts/{Id_Contract}", [ ContractController::class, "index" ])
+	->name('contract.index')
+	->get("/contracts/{Id_Contract}", [ ContractController::class, "index" ])
 	->where("Id_Contract", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.list')
-	->get("/schools/{Id_School}/school-accounts", [ ContractController::class, "list" ])
+	->name('contract.list')
+	->get("/schools/{Id_School}/contracts", [ ContractController::class, "list" ])
 	->where("Id_School", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.search')
-	->get("/schools/{Id_School}/school-accounts/search", [ ContractController::class, "search" ])
+	->name('contract.search')
+	->get("/schools/{Id_School}/contracts/search", [ ContractController::class, "search" ])
 	->where("Id_School", "[0-9]+");

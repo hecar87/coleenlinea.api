@@ -27,7 +27,7 @@ interface IContractRepository
 
     public function index(int $Id_Contract) : Result;
 
-    public function list(int $Id_School, ContractFilterDisplay $Display) : Result;
+    public function list(int $Id_School) : Result;
 
     public function search(int $Id_School, SearchContractDTO $dto) : Result;
 }

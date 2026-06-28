@@ -22,13 +22,12 @@ class ListContractAction
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_School) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oContractRepository->getEntity();
-		$oDisplay 	= ContractFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -44,7 +43,7 @@ class ListContractAction
 			$oresult = $this->oSchoolRepository->exists($Id_School);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oContractRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oContractRepository->list($Id_School);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -8,8 +8,7 @@ use App\Helpers\ResultManager;
 
 use App\Modules\Contract\Domain\Repositories\IContractRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
-use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\typeDocument\Domain\Repositories\ITypeDocumentRepository;
 
 use App\Modules\Contract\Application\DTOs\CreateContractDTO;
 use App\Modules\Contract\Application\DTOs\DuplicatedContractDTO;
@@ -21,8 +20,7 @@ class CreateContractAction
 	public function __construct(
 		protected IContractRepository $oContractRepository,
 		protected ISchoolRepository $oSchoolRepository,
-		protected ITypeBankRepository $oTypeBankRepository,
-		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+		protected ITypeDocumentRepository $oTypeDocumentRepository
 	)
 	{
 	}
@@ -34,12 +32,10 @@ class CreateContractAction
 		//------------------------------------------------------------------------------
 		$oEntity = $this->oContractRepository->getEntity();
 		$oDataDuplicated = new DuplicatedContractDTO(
-			Id_Contract		: 0,
-			Contract_Number	: $oData->Contract_Number,
-            Contract_CCI		: $oData->Contract_CCI,
-            Id_School				: $oData->Id_School,
-            Id_TypeBank				: $oData->Id_TypeBank,
-            Id_TypeCurrency			: $oData->Id_TypeCurrency
+			Id_Contract				: 0,
+			Contract_Date_Start		: $oData->Contract_Date_Start,
+			Contract_Date_End		: $oData->Contract_Date_End,
+			Id_School				: $oData->Id_School
 		);
 
 
@@ -56,10 +52,7 @@ class CreateContractAction
 			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oTypeBankRepository->exists($oData->Id_TypeBank);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
-
-			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
+			$oResult = $this->oTypeDocumentRepository->exists($oData->Id_TypeDocument);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 

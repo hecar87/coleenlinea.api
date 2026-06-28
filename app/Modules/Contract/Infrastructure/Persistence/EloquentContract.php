@@ -8,23 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentContract extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school_account";
-	protected $entity		= "SCHOOL-ACCOUNT";
+	protected $table 		= "t_contract";
+	protected $entity		= "CONTRACT";
 	protected $primaryKey 	= "Id_Contract";
 	protected $fillable 	= [
 		"Id_Contract",
-		"Contract_Number",
-		"Contract_CCI",
-		"Contract_Remark",
-		"Contract_Default",
-		"Contract_Public",
+		"Contract_Date_Created",
+		"Contract_Date_Approved",
+		"Contract_Date_Nullified",
+		"Contract_Date_Closed",
+		"Contract_Code",
+		"Contract_Title",
+		"Contract_Date_Start",
+		"Contract_Date_End",
+		"Contract_Manager_Name",
+		"Contract_Manager_LastName",
+		"Contract_Manager_Position",
+		"Contract_Manager_Document",
 		"Contract_Status",
-		"Id_School",
-		"Id_TypeBank",
-		"Id_TypeCurrency"
+		"Id_TypeDocument",
+		"Id_School"
 	];
 	protected $hidden 		= [];
-	protected $casts 		= [];
+	protected $casts 		= [
+		"Contract_Date_Created"		=> "datetime:c",
+		"Contract_Date_Approved"	=> "datetime:c",
+		"Contract_Date_Nullified"	=> "datetime:c",
+		"Contract_Date_Closed"		=> "datetime:c"
+	];
 
 
 	public static function getEntity()

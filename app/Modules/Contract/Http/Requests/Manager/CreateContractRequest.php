@@ -9,14 +9,15 @@ class CreateContractRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"Contract_Number"		=> "required|string|max:50",
-			"Contract_CCI"			=> "required|string|max:50",
-			"Contract_Remark"		=> "required|string|max:250",
-			"Contract_Public"		=> "required|int|in:1,2",
-			"Contract_Status"		=> "required|int|in:1,2",
-			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"Contract_Title"				=> "required|string|max:250",
+			"Contract_Date_Start"			=> "required|date_format:Y-m-d",
+			"Contract_Date_End"				=> "required|date_format:Y-m-d",
+			"Contract_Manager_Name"			=> "required|string|max:200",
+			"Contract_Manager_LastName"		=> "required|string|max:200",
+			"Contract_Manager_Position"		=> "required|string|max:200",
+			"Contract_Manager_Document"		=> "required|string|max:20",
+			"Id_School"						=> "required|int",
+			"Id_TypeDocument"				=> "required|int"
 		];
 	}
 
