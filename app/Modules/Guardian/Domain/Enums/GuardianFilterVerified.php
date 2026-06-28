@@ -5,6 +5,6 @@ namespace App\Modules\Guardian\Domain\Enums;
 enum GuardianFilterVerified : string
 {
     case ALL = 'ALL';
-    case PUBLIC = 'PUBLIC';
-    case PRIVATE = 'PRIVATE';
+    case PENDING = 'PENDING';
+    case VERIFIED = 'VERIFIED';
 }

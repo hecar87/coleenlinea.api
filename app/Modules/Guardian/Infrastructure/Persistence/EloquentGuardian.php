@@ -8,28 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentGuardian extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school";
-	protected $entity		= "SCHOOL";
+	protected $table 		= "t_guardian";
+	protected $entity		= "GUARDIAN";
 	protected $primaryKey 	= "Id_Guardian";
 	protected $fillable 	= [
 		"Id_Guardian",
+		"Guardian_Date_Created",
+		"Guardian_Date_Updated",
+		"Guardian_Date_Deleted",
+		"Guardian_Date_Verified",
 		"Guardian_Code",
-		"Guardian_BusinessName",
-		"Guardian_TradeName",
+		"Guardian_Name",
+		"Guardian_LastName",
 		"Guardian_NoDocument",
-		"Guardian_Address",
-		"Guardian_Phone",
-		"Guardian_Public",
+		"Guardian_DOB",
+		"Guardian_Verified",
 		"Guardian_Status",
-		"Id_State",
-		"Id_City",
-		"Id_District",
 		"Id_TypeDocument",
-		"Id_TypePopulation",
-		"Id_TypeGuardian"
+		"Id_TypeGender",
 	];
 	protected $hidden 		= [];
-	protected $casts 		= [];
+	protected $casts 		= [
+		"Guardian_Date_Updated"		=> "datetime:c",
+		"Guardian_Date_Deleted"		=> "datetime:c",
+		"Guardian_Date_Created"		=> "datetime:c",
+		"Guardian_Date_Verified"	=> "datetime:c"
+	];
 
 
 	public static function getEntity()

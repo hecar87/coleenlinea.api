@@ -10,7 +10,7 @@ class SearchGuardianRequest extends ValidatedRequest
 	{
 		return [
 			//"Text"				=> "string",
-			"Display"			=> "required|string|max:50|in:ALL,PUBLIC,PRIVATE",
+			"Verified"			=> "required|string|max:50|in:ALL,PENDING,VERIFIED",
 			"Status"			=> "required|string|max:50|in:ALL,ACTIVE,INACTIVE",
 			"Page_Size"			=> "required|int|min:1",
 			"Page_Current"		=> "required|int|min:1"

@@ -3,6 +3,7 @@
 namespace App\Modules\Guardian\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
@@ -15,9 +16,9 @@ use App\Modules\Guardian\Application\DTOs\UpdateGuardianDTO;
 use App\Modules\Guardian\Application\DTOs\DuplicatedGuardianDTO;
 use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
 
-use App\Modules\Guardian\Domain\Enums\GuardianFilterDisplay;
+use App\Modules\Guardian\Domain\Enums\GuardianFilterVerified;
 use App\Modules\Guardian\Domain\Enums\GuardianFilterStatus;
-use App\Modules\Guardian\Domain\Enums\GuardianPublic;
+use App\Modules\Guardian\Domain\Enums\GuardianVerified;
 use App\Modules\Guardian\Domain\Enums\GuardianStatus;
 
 
@@ -135,24 +136,23 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			$oQuery	= GuardianModel::query();
 
-			$pGuardian_Code = $this->generateCode($dto->Id_State, $dto->Id_City, $dto->Id_District, $dto->Id_TypeGuardian);
+			$pGuardian_Code = $this->generateCode();
 
 			$Id 	= $oQuery->insertGetId([
 				"Id_Guardian"				=> $dto->Id_Guardian,
-				"Guardian_Code"			=> $pGuardian_Code,
-				"Guardian_BusinessName"	=> trim(mb_strtoupper($dto->Guardian_BusinessName, "utf-8" ) ),
-				"Guardian_TradeName"		=> trim(mb_strtoupper($dto->Guardian_TradeName, "utf-8" ) ),
-				"Guardian_NoDocument"		=> trim(mb_strtoupper($dto->Guardian_NoDocument, "utf-8" ) ),
-				"Guardian_Address"		=> trim(mb_strtoupper($dto->Guardian_Address, "utf-8" ) ),
-				"Guardian_Phone"			=> trim(mb_strtoupper($dto->Guardian_Phone, "utf-8" ) ),
-				"Guardian_Public"			=> $dto->Guardian_Public,
-				"Guardian_Status"			=> $dto->Guardian_Status,
-				"Id_State"				=> $dto->Id_State,
-				"Id_City"				=> $dto->Id_City,
-				"Id_District"			=> $dto->Id_District,
-				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
-				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeGuardian"			=> $dto->Id_TypeGuardian
+				"Guardian_Date_Created"		=> date("Y-m-d H:i:s"),
+				"Guardian_Date_Updated"		=> date("Y-m-d H:i:s"),
+				"Guardian_Date_Deleted"		=> date("Y-m-d H:i:s"),
+				"Guardian_Date_Verified"	=> date("Y-m-d H:i:s"),
+				"Guardian_Code"				=> $pGuardian_Code,
+				"Guardian_Name"				=> trim( mb_strtoupper( $dto->Guardian_Name, "utf-8" ) ),
+				"Guardian_LastName"			=> trim( mb_strtoupper( $dto->Guardian_LastName, "utf-8" ) ),
+				"Guardian_NoDocument"		=> trim( mb_strtoupper( $dto->Guardian_NoDocument, "utf-8" ) ),
+				"Guardian_DOB"				=> $dto->Guardian_DOB,
+				"Guardian_Verified"			=> 1,
+				"Guardian_Status"			=> 2,
+				"Id_TypeDocument"			=> $dto->Id_TypeDocument,
+				"Id_TypeGender"				=> $dto->Id_TypeGender
 			]);
 
 			$oQuery->where("Id_Guardian", "=", "$Id");
@@ -194,19 +194,13 @@ class EloquentGuardianRepository implements IGuardianRepository
 
 			$oQuery->where("Id_Guardian", "=", $dto->Id_Guardian);
 			$oQuery->update([
-				"Guardian_BusinessName"	=> trim(mb_strtoupper($dto->Guardian_BusinessName, "utf-8" ) ),
-				"Guardian_TradeName"		=> trim(mb_strtoupper($dto->Guardian_TradeName, "utf-8" ) ),
-				"Guardian_NoDocument"		=> trim(mb_strtoupper($dto->Guardian_NoDocument, "utf-8" ) ),
-				"Guardian_Address"		=> trim(mb_strtoupper($dto->Guardian_Address, "utf-8" ) ),
-				"Guardian_Phone"			=> trim(mb_strtoupper($dto->Guardian_Phone, "utf-8" ) ),
-				"Guardian_Public"			=> $dto->Guardian_Public,
-				"Guardian_Status"			=> $dto->Guardian_Status,
-				"Id_State"				=> $dto->Id_State,
-				"Id_City"				=> $dto->Id_City,
-				"Id_District"			=> $dto->Id_District,
-				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
-				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeGuardian"			=> $dto->Id_TypeGuardian
+				"Guardian_Date_Updated"		=> date("Y-m-d H:i:s"),
+				"Guardian_Name"				=> trim( mb_strtoupper( $dto->Guardian_Name, "utf-8" ) ),
+				"Guardian_LastName"			=> trim( mb_strtoupper( $dto->Guardian_LastName, "utf-8" ) ),
+				"Guardian_NoDocument"		=> trim( mb_strtoupper( $dto->Guardian_NoDocument, "utf-8" ) ),
+				"Guardian_DOB"				=> $dto->Guardian_DOB,
+				"Id_TypeDocument"			=> $dto->Id_TypeDocument,
+				"Id_TypeGender"				=> $dto->Id_TypeGender
 			]);
 
 			$oData	= $oQuery->get();
@@ -246,7 +240,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 
 			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 			$oQuery->update([
-				"Guardian_Name"	=> DB::raw("CONCAT('( DELETED ) ', Guardian_Name)"),
+				"Guardian_Code"	=> DB::raw("CONCAT('( DELETED ) ', Guardian_Code)"),
 				"Guardian_Status"	=> 0
 			]);
 
@@ -284,12 +278,8 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			$oQuery	= GuardianModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
+			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 			$oQuery->where("Guardian_Status", "<>", "0");
 
@@ -310,7 +300,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(GuardianFilterDisplay $Display): Result
+	public function list(GuardianFilterVerified $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -327,9 +317,9 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	SET VARIABLES
 			//
-			$whereDisplay	= [
-				GuardianFilterDisplay::PUBLIC->value  => 2,
-				GuardianFilterDisplay::PRIVATE->value => 1
+			$whereVerified	= [
+				GuardianFilterVerified::VERIFIED->value  => 2,
+				GuardianFilterVerified::PENDING->value => 1
 			];
 
 
@@ -338,15 +328,11 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			$oQuery	= GuardianModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
+			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('Guardian_Public', $whereDisplay[$Display->value]);
+			if (isset($whereVerified[$Display->value])) {
+				$oQuery->where('Guardian_Verified', $whereVerified[$Display->value]);
 			}
 
 			$oQuery->where('Guardian_Status', '=', GuardianStatus::ACTIVE->value);
@@ -392,9 +378,9 @@ class EloquentGuardianRepository implements IGuardianRepository
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				GuardianFilterDisplay::PUBLIC->value  => 2,
-				GuardianFilterDisplay::PRIVATE->value => 1
+			$whereVerified	= [
+				GuardianFilterVerified::VERIFIED->value  => 2,
+				GuardianFilterVerified::PENDING->value => 1
 			];
 			$whereStatus	= [
 				GuardianFilterStatus::ACTIVE->value   => 2,
@@ -407,15 +393,11 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			$oQuery	= GuardianModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeGuardian", "=", "t_type_school.Id_TypeGuardian");
+			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('Guardian_Public', $whereDisplay[$dto->Display->value]);
+			if (isset($whereVerified[$dto->Verified->value])) {
+				$oQuery->where('Guardian_Verified', $whereVerified[$dto->Verified->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
@@ -425,9 +407,8 @@ class EloquentGuardianRepository implements IGuardianRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("Guardian_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Guardian_BusinessName", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Guardian_TradeName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where("Guardian_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Guardian_LastName", "LIKE", "%" . $dto->Text . "%");
 				$oSubQuery->orWhere("Guardian_NoDocument", "LIKE", "%" . $dto->Text . "%");
 			});
 
@@ -435,7 +416,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("Guardian_TradeName", "ASC");
+			$oQuery->orderBy("Guardian_LastName", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
@@ -459,7 +440,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 	}
 
 
-	private function generateCode(int $Id_State, int $Id_City, int $Id_District, int $Id_TypeGuardian): string
+	private function generateCode(): string
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -475,16 +456,8 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oRow				= GuardianModel::orderBy("Id_Guardian", "DESC")->get()->first();
-			$New_Id				= $oRow == null ? 1 : $oRow->Id_Guardian + 1;
 
-			$Code_Guardian		= str_pad( $New_Id, 6, "0", STR_PAD_LEFT );
-			$Code_State			= str_pad( $Id_State, 2, "0", STR_PAD_LEFT );
-			$Code_City			= str_pad( $Id_City, 3, "0", STR_PAD_LEFT );
-			$Code_District		= str_pad( $Id_District, 4, "0", STR_PAD_LEFT );
-			$Code_TypeGuardian	= str_pad( $Id_TypeGuardian, 2, "0", STR_PAD_LEFT );
-
-			$oResult			= "SC".$Code_TypeGuardian.$Code_State.$Code_City.$Code_District.$Code_Guardian;
+			$oResult = Str::orderedUuid()->getHex()->toString();
 		} catch (\Exception $oException) {
 			$oResult = "ERCODE";
 		}

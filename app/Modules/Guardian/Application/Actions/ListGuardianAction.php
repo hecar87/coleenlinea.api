@@ -7,7 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
-use App\Modules\Guardian\Domain\Enums\GuardianFilterDisplay;
+use App\Modules\Guardian\Domain\Enums\GuardianFilterVerified;
 
 
 class ListGuardianAction
@@ -19,13 +19,13 @@ class ListGuardianAction
 	{
 	}
 
-	public function execute(string $Display) : Result
+	public function execute(string $Verified) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oGuardianRepository->getEntity();
-		$oDisplay 	= GuardianFilterDisplay::from(strtoupper($Display));
+		$oVerified 	= GuardianFilterVerified::from(strtoupper($Verified));
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class ListGuardianAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oGuardianRepository->list($oDisplay);
+			$oResult = $this->oGuardianRepository->list($oVerified);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
