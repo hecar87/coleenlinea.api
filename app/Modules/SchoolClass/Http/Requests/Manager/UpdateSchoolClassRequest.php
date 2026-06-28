@@ -15,7 +15,7 @@ class UpdateSchoolClassRequest extends ValidatedRequest
 			"SchoolLevel_Public"		=> "required|int|in:1,2",
 			"SchoolLevel_Status"		=> "required|int|in:1,2",
 			"Id_School"					=> "required|int",
-			"Id_TypeLevel"				=> "required|int"
+			"Id_SchoolLevel"			=> "required|int"
 		];
 	}
 

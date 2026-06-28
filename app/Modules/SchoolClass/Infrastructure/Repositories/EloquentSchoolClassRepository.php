@@ -272,7 +272,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//
 			$oQuery	= SchoolClassModel::query();
 
-			$oQuery->join("t_school_level", "t_school_class.Id_TypeLevel", "=", "t_school_level.Id_TypeLevel");
+			$oQuery->join("t_school_level", "t_school_class.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->where("Id_SchoolClass", "=", $Id_SchoolClass);
 			$oQuery->where("SchoolClass_Status", "<>", "0");
 
@@ -321,8 +321,8 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//
 			$oQuery	= SchoolClassModel::query();
 
-			$oQuery->join("t_school_level", "t_school_class.Id_TypeLevel", "=", "t_school_level.Id_TypeLevel");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_school_level", "t_school_class.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
+			$oQuery->where("t_school_class.Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$Display->value])) {
 				$oQuery->where('SchoolClass_Public', $whereDisplay[$Display->value]);
@@ -386,8 +386,8 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//
 			$oQuery	= SchoolClassModel::query();
 
-			$oQuery->join("t_school_level", "t_school_class.Id_TypeLevel", "=", "t_school_level.Id_TypeLevel");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_school_level", "t_school_class.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
+			$oQuery->where("t_school_class.Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$dto->Display->value])) {
 				$oQuery->where('SchoolClass_Public', $whereDisplay[$dto->Display->value]);
