@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\Contract\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\Contract\Domain\Repositories\IContractRepository;
 
 
-class DeleteSchoolAccountAction
+class DeleteContractAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected IContractRepository $oContractRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_SchoolAccount) : Result
+	public function execute(int $Id_Contract) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
+		$oEntity = $this->oContractRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteSchoolAccountAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolAccountRepository->exists($Id_SchoolAccount);
+			$oResult = $this->oContractRepository->exists($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->delete($Id_SchoolAccount);
+			$oResult = $this->oContractRepository->delete($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
