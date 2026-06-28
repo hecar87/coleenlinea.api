@@ -18,24 +18,24 @@ class SearchSchoolLevelDTO
 
     public static function fromRequest(Request $oRequest) : self
     {
-        $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolLevelFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolLevelFilterDisplay::PRIVATE,
+        $display = match (strtoupper($oRequest->input("Display", "ALL"))) {
+            "PUBLIC" => SchoolLevelFilterDisplay::PUBLIC,
+            "PRIVATE" => SchoolLevelFilterDisplay::PRIVATE,
             default => SchoolLevelFilterDisplay::ALL,
         };
 
-        $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolLevelFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolLevelFilterStatus::INACTIVE,
+        $status = match (strtoupper($oRequest->input("Status", "ALL"))) {
+            "ACTIVE" => SchoolLevelFilterStatus::ACTIVE,
+            "INACTIVE" => SchoolLevelFilterStatus::INACTIVE,
             default => SchoolLevelFilterStatus::ALL,
         };
 
         return new self(
-            Text: (string) $oRequest->input('Text', ''),
+            Text: (string) $oRequest->input("Text", ""),
             Display: $display,
             Status: $status,
-            Page_Size: (int) $oRequest->input('Page_Size', 10),
-            Page_Current: (int) $oRequest->input('Page_Current', 1)
+            Page_Size: (int) $oRequest->input("Page_Size", 10),
+            Page_Current: (int) $oRequest->input("Page_Current", 1)
         );
     }
 }

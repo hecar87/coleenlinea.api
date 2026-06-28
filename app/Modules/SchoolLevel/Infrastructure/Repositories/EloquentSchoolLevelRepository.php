@@ -93,12 +93,10 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			$oQuery->where("Id_SchoolLevel", "<>", $dto->Id_SchoolLevel);
 			$oQuery->where("SchoolLevel_Status", "<>", "0");
 			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
-			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
+			$oQuery->where("Id_TypeLevel", "=", $dto->Id_TypeLevel);
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolLevel_Number", "=", $dto->SchoolLevel_Number);
-				$oSubQuery->orWhere("SchoolLevel_CCI", "=", $dto->SchoolLevel_CCI);
+				$oSubQuery->where("SchoolLevel_Code", "=", $dto->SchoolLevel_Code);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -143,15 +141,12 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 
 			$Id 	= $oQuery->insertGetId([
 				"Id_SchoolLevel"		=> $dto->Id_SchoolLevel,
-				"SchoolLevel_Number"	=> trim( mb_strtoupper( $dto->SchoolLevel_Number, "utf-8" ) ),
-				"SchoolLevel_CCI"		=> trim( mb_strtoupper( $dto->SchoolLevel_CCI, "utf-8" ) ),
-				"SchoolLevel_Remark"	=> trim( mb_strtoupper( $dto->SchoolLevel_Remark, "utf-8" ) ),
-				"SchoolLevel_Default"	=> 1,
+				"SchoolLevel_Code"		=> trim( mb_strtoupper( $dto->SchoolLevel_Code, "utf-8" ) ),
+				"SchoolLevel_Shift"		=> trim( mb_strtoupper( $dto->SchoolLevel_Shift, "utf-8" ) ),
 				"SchoolLevel_Public"	=> $dto->SchoolLevel_Public,
 				"SchoolLevel_Status"	=> $dto->SchoolLevel_Status,
 				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_TypeLevel"			=> $dto->Id_TypeLevel
 			]);
 
 			$oQuery->where("Id_SchoolLevel", "=", "$Id");
@@ -193,14 +188,12 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 
 			$oQuery->where("Id_SchoolLevel", "=", $dto->Id_SchoolLevel);
 			$oQuery->update([
-				"SchoolLevel_Number"	=> trim( mb_strtoupper( $dto->SchoolLevel_Number, "utf-8" ) ),
-				"SchoolLevel_CCI"		=> trim( mb_strtoupper( $dto->SchoolLevel_CCI, "utf-8" ) ),
-				"SchoolLevel_Remark"	=> trim( mb_strtoupper( $dto->SchoolLevel_Remark, "utf-8" ) ),
-				"SchoolLevel_Default"	=> 1,
+				"SchoolLevel_Code"		=> trim( mb_strtoupper( $dto->SchoolLevel_Code, "utf-8" ) ),
+				"SchoolLevel_Shift"		=> trim( mb_strtoupper( $dto->SchoolLevel_Shift, "utf-8" ) ),
 				"SchoolLevel_Public"	=> $dto->SchoolLevel_Public,
 				"SchoolLevel_Status"	=> $dto->SchoolLevel_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_School"				=> $dto->Id_School,
+				"Id_TypeLevel"			=> $dto->Id_TypeLevel
 			]);
 
 			$oData	= $oQuery->get();
@@ -240,8 +233,7 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 
 			$oQuery->where("Id_SchoolLevel", "=", $Id_SchoolLevel);
 			$oQuery->update([
-				"SchoolLevel_Number"	=> DB::raw("CONCAT('( DELETED ) ', SchoolLevel_Number)"),
-				"SchoolLevel_CCI"		=> DB::raw("CONCAT('( DELETED ) ', SchoolLevel_CCI)"),
+				"SchoolLevel_Shift"		=> DB::raw("CONCAT('( DELETED ) ', SchoolLevel_Shift)"),
 				"SchoolLevel_Status"	=> 0
 			]);
 
@@ -279,8 +271,7 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			//
 			$oQuery	= SchoolLevelModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_level", "t_school_level.Id_TypeLevel", "=", "t_type_level.Id_TypeLevel");
 			$oQuery->where("Id_SchoolLevel", "=", $Id_SchoolLevel);
 			$oQuery->where("SchoolLevel_Status", "<>", "0");
 
@@ -329,8 +320,7 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			//
 			$oQuery	= SchoolLevelModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_level", "t_school_level.Id_TypeLevel", "=", "t_type_level.Id_TypeLevel");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$Display->value])) {
@@ -338,8 +328,7 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			}
 
 			$oQuery->where('SchoolLevel_Status', '=', SchoolLevelStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolLevel_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolLevel", "DESC");
+			$oQuery->orderBy("SchoolLevel_Shift", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -396,8 +385,7 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			//
 			$oQuery	= SchoolLevelModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_level", "t_school_level.Id_TypeLevel", "=", "t_type_level.Id_TypeLevel");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$dto->Display->value])) {
@@ -411,18 +399,15 @@ class EloquentSchoolLevelRepository implements ISchoolLevelRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("SchoolLevel_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolLevel_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolLevel_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("SchoolLevel_Code", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolLevel_Shift", 	"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolLevel_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolLevel", "DESC");
+			$oQuery->orderBy("SchoolLevel_Shift", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

@@ -8,20 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentSchoolLevel extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school_account";
-	protected $entity		= "SCHOOL-ACCOUNT";
+	protected $table 		= "t_school_level";
+	protected $entity		= "SCHOOL-LEVEL";
 	protected $primaryKey 	= "Id_SchoolLevel";
 	protected $fillable 	= [
 		"Id_SchoolLevel",
-		"SchoolLevel_Number",
-		"SchoolLevel_CCI",
-		"SchoolLevel_Remark",
-		"SchoolLevel_Default",
+		"SchoolLevel_Code",
+		"SchoolLevel_Shift",
 		"SchoolLevel_Public",
 		"SchoolLevel_Status",
 		"Id_School",
-		"Id_TypeBank",
-		"Id_TypeCurrency"
+		"Id_TypeLevel"
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

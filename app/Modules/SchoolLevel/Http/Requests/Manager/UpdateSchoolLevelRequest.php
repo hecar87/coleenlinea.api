@@ -10,14 +10,12 @@ class UpdateSchoolLevelRequest extends ValidatedRequest
 	{
 		return [
 			"Id_SchoolLevel"			=> "required|int",
-			"SchoolLevel_Number"		=> "required|string|max:50",
-			"SchoolLevel_CCI"			=> "required|string|max:50",
-			"SchoolLevel_Remark"		=> "required|string|max:250",
+			"SchoolLevel_Code"			=> "required|string|max:50",
+			"SchoolLevel_Shift"			=> "required|string|max:250",
 			"SchoolLevel_Public"		=> "required|int|in:1,2",
 			"SchoolLevel_Status"		=> "required|int|in:1,2",
 			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"Id_TypeLevel"				=> "required|int"
 		];
 	}
 
