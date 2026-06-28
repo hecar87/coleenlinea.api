@@ -27,7 +27,7 @@ interface IContractFeeRepository
 
     public function index(int $Id_ContractFee) : Result;
 
-    public function list(int $Id_School, ContractFeeFilterDisplay $Display) : Result;
+    public function list(int $Id_Contract) : Result;
 
-    public function search(int $Id_School, SearchContractFeeDTO $dto) : Result;
+    public function search(int $Id_Contract, SearchContractFeeDTO $dto) : Result;
 }

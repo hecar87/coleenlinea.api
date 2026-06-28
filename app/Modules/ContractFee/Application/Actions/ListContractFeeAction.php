@@ -7,9 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\ContractFee\Domain\Repositories\IContractFeeRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-
-use App\Modules\ContractFee\Domain\Enums\ContractFeeFilterDisplay;
+use App\Modules\Contract\Domain\Repositories\IContractRepository;
 
 
 class ListContractFeeAction
@@ -17,18 +15,17 @@ class ListContractFeeAction
 
 	public function __construct(
 		protected IContractFeeRepository $oContractFeeRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected IContractRepository $oContractRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_Contract, string $Display) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oContractFeeRepository->getEntity();
-		$oDisplay 	= ContractFeeFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -41,10 +38,10 @@ class ListContractFeeAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oContractRepository->exists($Id_Contract);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oContractFeeRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oContractFeeRepository->list($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

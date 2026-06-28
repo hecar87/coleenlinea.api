@@ -9,14 +9,13 @@ class CreateContractFeeRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"ContractFee_Number"		=> "required|string|max:50",
-			"ContractFee_CCI"			=> "required|string|max:50",
-			"ContractFee_Remark"		=> "required|string|max:250",
-			"ContractFee_Public"		=> "required|int|in:1,2",
-			"ContractFee_Status"		=> "required|int|in:1,2",
-			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"ContractFee_Fee_Amount"		=> "required|numeric",
+			"ContractFee_Fee_Percentage"	=> "required|numeric",
+			"ContractFee_Fee_Payer"			=> "required|int",
+			"ContractFee_Remark" 			=> "required|string|max:250",
+			"Id_Contract"					=> "required|int",
+			"Id_TypeCurrency"				=> "required|int",
+			"Id_TypeFee"					=> "required|int"
 		];
 	}
 

@@ -48,7 +48,6 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			$oQuery	= ContractFeeModel::query();
 
 			$oQuery->where("Id_ContractFee", "=", $Id_ContractFee);
-			$oQuery->where("ContractFee_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -91,15 +90,9 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			$oQuery	= ContractFeeModel::query();
 
 			$oQuery->where("Id_ContractFee", "<>", $dto->Id_ContractFee);
-			$oQuery->where("ContractFee_Status", "<>", "0");
-			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
+			$oQuery->where("Id_Contract", "=", $dto->Id_Contract);
 			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
-
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("ContractFee_Number", "=", $dto->ContractFee_Number);
-				$oSubQuery->orWhere("ContractFee_CCI", "=", $dto->ContractFee_CCI);
-			});
+			$oQuery->where("Id_TypeFee", "=", $dto->Id_TypeFee);
 
 			$Duplicate	= $oQuery->count();
 
@@ -142,16 +135,14 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			$oQuery	= ContractFeeModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_ContractFee"		=> $dto->Id_ContractFee,
-				"ContractFee_Number"	=> trim( mb_strtoupper( $dto->ContractFee_Number, "utf-8" ) ),
-				"ContractFee_CCI"		=> trim( mb_strtoupper( $dto->ContractFee_CCI, "utf-8" ) ),
-				"ContractFee_Remark"	=> trim( mb_strtoupper( $dto->ContractFee_Remark, "utf-8" ) ),
-				"ContractFee_Default"	=> 1,
-				"ContractFee_Public"	=> $dto->ContractFee_Public,
-				"ContractFee_Status"	=> $dto->ContractFee_Status,
-				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_ContractFee"				=> $dto->Id_ContractFee,
+				"ContractFee_Fee_Amount"		=> $dto->ContractFee_Fee_Amount,
+				"ContractFee_Fee_Percentage"	=> $dto->ContractFee_Fee_Percentage,
+				"ContractFee_Fee_Payer"			=> $dto->ContractFee_Fee_Payer,
+				"ContractFee_Remark"			=> trim( mb_strtoupper( $dto->ContractFee_Remark, "utf-8" ) ),
+				"Id_Contract"					=> $dto->Id_Contract,
+				"Id_TypeCurrency"				=> $dto->Id_TypeCurrency,
+				"Id_TypeFee"					=> $dto->Id_TypeFee
 			]);
 
 			$oQuery->where("Id_ContractFee", "=", "$Id");
@@ -193,14 +184,12 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 
 			$oQuery->where("Id_ContractFee", "=", $dto->Id_ContractFee);
 			$oQuery->update([
-				"ContractFee_Number"	=> trim( mb_strtoupper( $dto->ContractFee_Number, "utf-8" ) ),
-				"ContractFee_CCI"		=> trim( mb_strtoupper( $dto->ContractFee_CCI, "utf-8" ) ),
-				"ContractFee_Remark"	=> trim( mb_strtoupper( $dto->ContractFee_Remark, "utf-8" ) ),
-				"ContractFee_Default"	=> 1,
-				"ContractFee_Public"	=> $dto->ContractFee_Public,
-				"ContractFee_Status"	=> $dto->ContractFee_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"ContractFee_Fee_Amount"		=> $dto->ContractFee_Fee_Amount,
+				"ContractFee_Fee_Percentage"	=> $dto->ContractFee_Fee_Percentage,
+				"ContractFee_Fee_Payer"			=> $dto->ContractFee_Fee_Payer,
+				"ContractFee_Remark"			=> trim( mb_strtoupper( $dto->ContractFee_Remark, "utf-8" ) ),
+				"Id_TypeCurrency"				=> $dto->Id_TypeCurrency,
+				"Id_TypeFee"					=> $dto->Id_TypeFee
 			]);
 
 			$oData	= $oQuery->get();
@@ -239,11 +228,7 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			$oQuery	= ContractFeeModel::query();
 
 			$oQuery->where("Id_ContractFee", "=", $Id_ContractFee);
-			$oQuery->update([
-				"ContractFee_Number"	=> DB::raw("CONCAT('( DELETED ) ', ContractFee_Number)"),
-				"ContractFee_CCI"		=> DB::raw("CONCAT('( DELETED ) ', ContractFee_CCI)"),
-				"ContractFee_Status"	=> 0
-			]);
+			$oQuery->delete();
 
 
 			//
@@ -279,10 +264,9 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			//
 			$oQuery	= ContractFeeModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_currency", "t_contract_fee.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_fee", "t_contract_fee.Id_TypeFee", "=", "t_type_fee.Id_TypeFee");
 			$oQuery->where("Id_ContractFee", "=", $Id_ContractFee);
-			$oQuery->where("ContractFee_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -301,7 +285,7 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_School, ContractFeeFilterDisplay $Display): Result
+	public function list(int $Id_Contract): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -318,10 +302,6 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			//
 			//	SET VARIABLES
 			//
-			$whereDisplay	= [
-				ContractFeeFilterDisplay::PUBLIC->value  => 2,
-				ContractFeeFilterDisplay::PRIVATE->value => 1
-			];
 
 
 			//
@@ -329,17 +309,10 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			//
 			$oQuery	= ContractFeeModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
-
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('ContractFee_Public', $whereDisplay[$Display->value]);
-			}
-
-			$oQuery->where('ContractFee_Status', '=', ContractFeeStatus::ACTIVE->value);
-			$oQuery->orderBy("ContractFee_Default", "DESC");
-			$oQuery->orderBy("Id_ContractFee", "DESC");
+			$oQuery->join("t_type_currency", "t_contract_fee.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_fee", "t_contract_fee.Id_TypeFee", "=", "t_type_fee.Id_TypeFee");
+			$oQuery->where("Id_Contract", "=", $Id_Contract);
+			$oQuery->orderBy("Id_ContractFee", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -360,7 +333,7 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(int $Id_School, SearchContractFeeDTO $dto): Result
+	public function search(int $Id_Contract, SearchContractFeeDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -381,48 +354,25 @@ class EloquentContractFeeRepository implements IContractFeeRepository
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				ContractFeeFilterDisplay::PUBLIC->value  => 2,
-				ContractFeeFilterDisplay::PRIVATE->value => 1
-			];
-			$whereStatus	= [
-				ContractFeeFilterStatus::ACTIVE->value   => 2,
-				ContractFeeFilterStatus::INACTIVE->value => 1
-			];
-
 
 			//
 			//	TRANSACTION
 			//
 			$oQuery	= ContractFeeModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
-
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('ContractFee_Public', $whereDisplay[$dto->Display->value]);
-			}
-
-			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('ContractFee_Status', $whereStatus[$dto->Status->value]);
-			} else {
-				$oQuery->where('ContractFee_Status', '<>', 0);
-			}
-
+			$oQuery->join("t_type_currency", "t_contract_fee.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_fee", "t_contract_fee.Id_TypeFee", "=", "t_type_fee.Id_TypeFee");
+			$oQuery->where("Id_Contract", "=", $Id_Contract);
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("ContractFee_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("ContractFee_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("ContractFee_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("TypeFee_Name", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("TypeFee_Abrv", 		"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("ContractFee_Default", "DESC");
-			$oQuery->orderBy("Id_ContractFee", "DESC");
+			$oQuery->orderBy("Id_ContractFee", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
