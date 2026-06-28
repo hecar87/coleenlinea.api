@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Domain\Enums;
+namespace App\Modules\ContractFee\Domain\Enums;
 
-enum SchoolAccountStatus : int
+enum ContractFeeStatus : int
 {
 	case DELETED = 0;
 	case INACTIVE = 1;

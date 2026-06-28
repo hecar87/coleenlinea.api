@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\ContractFee\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\ContractFee\Domain\Repositories\IContractFeeRepository;
 
 
-class DeleteSchoolAccountAction
+class DeleteContractFeeAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected IContractFeeRepository $oContractFeeRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_SchoolAccount) : Result
+	public function execute(int $Id_ContractFee) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
+		$oEntity = $this->oContractFeeRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteSchoolAccountAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolAccountRepository->exists($Id_SchoolAccount);
+			$oResult = $this->oContractFeeRepository->exists($Id_ContractFee);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->delete($Id_SchoolAccount);
+			$oResult = $this->oContractFeeRepository->delete($Id_ContractFee);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\ContractFee\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class CreateSchoolAccountDTO
+class CreateContractFeeDTO
 {
     public function __construct(
-        public int $Id_SchoolAccount,
-        public string $SchoolAccount_Number,
-		public string $SchoolAccount_CCI,
-		public string $SchoolAccount_Remark,
-		public int $SchoolAccount_Public,
-		public int $SchoolAccount_Status,
+        public int $Id_ContractFee,
+        public string $ContractFee_Number,
+		public string $ContractFee_CCI,
+		public string $ContractFee_Remark,
+		public int $ContractFee_Public,
+		public int $ContractFee_Status,
 		public int $Id_School,
 		public int $Id_TypeBank,
 		public int $Id_TypeCurrency
@@ -20,12 +20,12 @@ class CreateSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_SchoolAccount: (int) $oRequest->input('Id_SchoolAccount', 0),
-            SchoolAccount_Number: $oRequest->input('SchoolAccount_Number', ''),
-            SchoolAccount_CCI: $oRequest->input('SchoolAccount_CCI', ''),
-            SchoolAccount_Remark: $oRequest->input('SchoolAccount_Remark', ''),
-            SchoolAccount_Public: (int) $oRequest->input('SchoolAccount_Public', 2),
-            SchoolAccount_Status: (int) $oRequest->input('SchoolAccount_Status', 2),
+            Id_ContractFee: (int) $oRequest->input('Id_ContractFee', 0),
+            ContractFee_Number: $oRequest->input('ContractFee_Number', ''),
+            ContractFee_CCI: $oRequest->input('ContractFee_CCI', ''),
+            ContractFee_Remark: $oRequest->input('ContractFee_Remark', ''),
+            ContractFee_Public: (int) $oRequest->input('ContractFee_Public', 2),
+            ContractFee_Status: (int) $oRequest->input('ContractFee_Status', 2),
             Id_School: (int) $oRequest->input('Id_School', 0),
             Id_TypeBank: (int) $oRequest->input('Id_TypeBank', 0),
             Id_TypeCurrency: (int) $oRequest->input('Id_TypeCurrency', 0)

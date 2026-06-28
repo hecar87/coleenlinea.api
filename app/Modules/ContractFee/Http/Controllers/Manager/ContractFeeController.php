@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\SchoolAccount\Http\Controllers\Manager;
+namespace App\Modules\ContractFee\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\ContractFee\Domain\Repositories\IContractFeeRepository;
 
 
 // Requests
-use App\Modules\SchoolAccount\Http\Requests\Manager\CreateSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\UpdateSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\ListSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\SearchSchoolAccountRequest;
+use App\Modules\ContractFee\Http\Requests\Manager\CreateContractFeeRequest;
+use App\Modules\ContractFee\Http\Requests\Manager\UpdateContractFeeRequest;
+use App\Modules\ContractFee\Http\Requests\Manager\ListContractFeeRequest;
+use App\Modules\ContractFee\Http\Requests\Manager\SearchContractFeeRequest;
 
 // DTOs
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
+use App\Modules\ContractFee\Application\DTOs\CreateContractFeeDTO;
+use App\Modules\ContractFee\Application\DTOs\UpdateContractFeeDTO;
+use App\Modules\ContractFee\Application\DTOs\SearchContractFeeDTO;
 
 // Actions
-use App\Modules\SchoolAccount\Application\Actions\CreateSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\UpdateSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\DeleteSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\IndexSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\ListSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\SearchSchoolAccountAction;
+use App\Modules\ContractFee\Application\Actions\CreateContractFeeAction;
+use App\Modules\ContractFee\Application\Actions\UpdateContractFeeAction;
+use App\Modules\ContractFee\Application\Actions\DeleteContractFeeAction;
+use App\Modules\ContractFee\Application\Actions\IndexContractFeeAction;
+use App\Modules\ContractFee\Application\Actions\ListContractFeeAction;
+use App\Modules\ContractFee\Application\Actions\SearchContractFeeAction;
 
 
-class SchoolAccountController extends Controller
+class ContractFeeController extends Controller
 {
-	protected ISchoolAccountRepository $repository;
+	protected IContractFeeRepository $repository;
 
 	public function __construct(
-		ISchoolAccountRepository $repository,
+		IContractFeeRepository $repository,
 
-		private CreateSchoolAccountAction $oCreateSchoolAccountAction,
-		private UpdateSchoolAccountAction $oUpdateSchoolAccountAction,
-		private DeleteSchoolAccountAction $oDeleteSchoolAccountAction,
-		private IndexSchoolAccountAction $oIndexSchoolAccountAction,
-		private ListSchoolAccountAction $oListSchoolAccountAction,
-		private SearchSchoolAccountAction $oSearchSchoolAccountAction
+		private CreateContractFeeAction $oCreateContractFeeAction,
+		private UpdateContractFeeAction $oUpdateContractFeeAction,
+		private DeleteContractFeeAction $oDeleteContractFeeAction,
+		private IndexContractFeeAction $oIndexContractFeeAction,
+		private ListContractFeeAction $oListContractFeeAction,
+		private SearchContractFeeAction $oSearchContractFeeAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateSchoolAccountRequest $oRequest)
+	public function create(CreateContractFeeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateSchoolAccountDTO::fromRequest($oRequest);
+		$oData = CreateContractFeeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateSchoolAccountAction->execute($oData);
+		$oResult	= $this->oCreateContractFeeAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateSchoolAccountRequest $oRequest)
+	public function update(UpdateContractFeeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateSchoolAccountDTO::fromRequest($oRequest);
+		$oData = UpdateContractFeeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateSchoolAccountAction->execute($oData);
+		$oResult	= $this->oUpdateContractFeeAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_SchoolAccount)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteSchoolAccountAction->execute($Id_SchoolAccount);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_SchoolAccount)
+	public function delete(int $Id_ContractFee)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexSchoolAccountAction->execute($Id_SchoolAccount);
+		$oResult	= $this->oDeleteContractFeeAction->execute($Id_ContractFee);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(int $Id_School, ListSchoolAccountRequest $oRequest)
+	public function index(int $Id_ContractFee)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexContractFeeAction->execute($Id_ContractFee);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(int $Id_School, ListContractFeeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListSchoolAccountAction->execute($Id_School, $Display);
+		$oResult	= $this->oListContractFeeAction->execute($Id_School, $Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(int $Id_School, SearchSchoolAccountRequest $oRequest)
+	public function search(int $Id_School, SearchContractFeeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchSchoolAccountDTO::fromRequest($oRequest);
+		$oData = SearchContractFeeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchSchoolAccountAction->execute($Id_School, $oData);
+		$oResult	= $this->oSearchContractFeeAction->execute($Id_School, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

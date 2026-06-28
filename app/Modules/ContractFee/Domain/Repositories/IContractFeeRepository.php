@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Domain\Repositories;
+namespace App\Modules\ContractFee\Domain\Repositories;
 
 use App\Helpers\Result;
-//use App\Domain\SchoolAccount\Entities\SchoolAccount;
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
+//use App\Domain\ContractFee\Entities\ContractFee;
+use App\Modules\ContractFee\Application\DTOs\CreateContractFeeDTO;
+use App\Modules\ContractFee\Application\DTOs\UpdateContractFeeDTO;
+use App\Modules\ContractFee\Application\DTOs\DuplicatedContractFeeDTO;
+use App\Modules\ContractFee\Application\DTOs\SearchContractFeeDTO;
+use App\Modules\ContractFee\Domain\Enums\ContractFeeFilterDisplay;
 
 
-interface ISchoolAccountRepository
+interface IContractFeeRepository
 {
     public function getEntity(): string;
 
-    public function exists(int $Id_SchoolAccount) : Result;
+    public function exists(int $Id_ContractFee) : Result;
 
-    public function duplicated(DuplicatedSchoolAccountDTO $dto) : Result;
+    public function duplicated(DuplicatedContractFeeDTO $dto) : Result;
 
-    public function create(CreateSchoolAccountDTO $dto) : Result;
+    public function create(CreateContractFeeDTO $dto) : Result;
 
-    public function update(UpdateSchoolAccountDTO $dto) : Result;
+    public function update(UpdateContractFeeDTO $dto) : Result;
 
-    public function delete(int $Id_SchoolAccount) : Result;
+    public function delete(int $Id_ContractFee) : Result;
 
-    public function index(int $Id_SchoolAccount) : Result;
+    public function index(int $Id_ContractFee) : Result;
 
-    public function list(int $Id_School, SchoolAccountFilterDisplay $Display) : Result;
+    public function list(int $Id_School, ContractFeeFilterDisplay $Display) : Result;
 
-    public function search(int $Id_School, SearchSchoolAccountDTO $dto) : Result;
+    public function search(int $Id_School, SearchContractFeeDTO $dto) : Result;
 }

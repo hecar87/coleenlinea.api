@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Providers;
+namespace App\Modules\ContractFee\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
-use App\Modules\SchoolAccount\Infrastructure\Repositories\EloquentSchoolAccountRepository;
+use App\Modules\ContractFee\Domain\Repositories\IContractFeeRepository;
+use App\Modules\ContractFee\Infrastructure\Repositories\EloquentContractFeeRepository;
 
 
-class SchoolAccountServiceProvider extends ServiceProvider
+class ContractFeeServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(ISchoolAccountRepository::class, EloquentSchoolAccountRepository::class);
+		$this->app->bind(IContractFeeRepository::class, EloquentContractFeeRepository::class);
 	}
 
 	public function boot(): void
