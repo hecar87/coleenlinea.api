@@ -329,7 +329,7 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
 			$oQuery->where("Id_SchoolYear", "=", $Id_SchoolYear);
 			$oQuery->where('SchoolInstallment_Status', '=', SchoolInstallmentStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolInstallment_Name", "DESC");
+			$oQuery->orderBy("SchoolInstallment_Date_Start", "DESC");
 
 			$oData	= $oQuery->get();
 
@@ -394,15 +394,16 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("SchoolInstallment_Code", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolInstallment_Name",	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("SchoolLevel_Code", 		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("TypeInstallment_Name", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("TypeInstallment_Abrv",	"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolInstallment_Name", "DESC");
+			$oQuery->orderBy("SchoolInstallment_Date_Start", "DESC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
