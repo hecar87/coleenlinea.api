@@ -9,7 +9,6 @@ class CreateGuardianRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"Guardian_Code"			=> "required|string|max:50",
 			"Guardian_Name"			=> "required|string|max:100",
 			"Guardian_LastName"		=> "required|string|max:100",
 			"Guardian_NoDocument"	=> "required|string|max:100",

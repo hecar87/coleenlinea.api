@@ -31,6 +31,8 @@ use App\modules\schoolinstallment\Providers\SchoolInstallmentServiceProvider;
 use App\Modules\Contract\Providers\ContractServiceProvider;
 use App\Modules\ContractFee\Providers\ContractFeeServiceProvider;
 
+use App\Modules\Guardian\Providers\GuardianServiceProvider;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
 	public function register(): void
@@ -61,6 +63,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
 		$this->app->register(ContractServiceProvider::class);
 		$this->app->register(ContractFeeServiceProvider::class);
+
+		$this->app->register(GuardianServiceProvider::class);
 	}
 
 	public function boot(): void
