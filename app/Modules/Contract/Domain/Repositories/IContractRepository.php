@@ -19,6 +19,16 @@ interface IContractRepository
 
     public function duplicated(DuplicatedContractDTO $dto) : Result;
 
+    public function validate(int $Id_Contract) : Result;
+
+    public function canUpdate(int $Id_Contract) : Result;
+
+    public function canApprove(int $Id_Contract) : Result;
+
+    public function canNullify(int $Id_Contract) : Result;
+
+    public function canClose(int $Id_Contract) : Result;
+
     public function create(CreateContractDTO $dto) : Result;
 
     public function update(UpdateContractDTO $dto) : Result;
@@ -30,4 +40,10 @@ interface IContractRepository
     public function list(int $Id_School) : Result;
 
     public function search(int $Id_School, SearchContractDTO $dto) : Result;
+
+    public function approve(int $Id_Contract) : Result;
+
+    public function nullify(int $Id_Contract) : Result;
+
+    public function close(int $Id_Contract) : Result;
 }
