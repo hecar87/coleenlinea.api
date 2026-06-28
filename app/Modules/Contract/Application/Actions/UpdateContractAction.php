@@ -8,7 +8,7 @@ use App\Helpers\ResultManager;
 
 use App\Modules\Contract\Domain\Repositories\IContractRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\typeDocument\Domain\Repositories\ITypeDocumentRepository;
+use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 
 use App\Modules\Contract\Application\DTOs\UpdateContractDTO;
 use App\Modules\Contract\Application\DTOs\DuplicatedContractDTO;
