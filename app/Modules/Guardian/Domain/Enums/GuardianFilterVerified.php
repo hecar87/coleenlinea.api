@@ -2,7 +2,7 @@
 
 namespace App\Modules\Guardian\Domain\Enums;
 
-enum GuardianFilterDisplay : string
+enum GuardianFilterVerified : string
 {
     case ALL = 'ALL';
     case PUBLIC = 'PUBLIC';
