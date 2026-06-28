@@ -20,7 +20,6 @@ class EloquentSchoolInstallment extends Model
 		"SchoolInstallment_Repeated",
 		"SchoolInstallment_Newed",
 		"SchoolInstallment_Status",
-		"Id_School",
 		"Id_SchoolYear",
 		"Id_SchoolLevel",
 		"Id_TypeCurrency",

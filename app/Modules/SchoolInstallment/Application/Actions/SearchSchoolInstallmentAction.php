@@ -7,7 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
 
 use App\Modules\SchoolInstallment\Application\DTOs\SearchSchoolInstallmentDTO;
 
@@ -17,12 +17,12 @@ class SearchSchoolInstallmentAction
 
 	public function __construct(
 		protected ISchoolInstallmentRepository $oSchoolInstallmentRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected ISchoolYearRepository $oSchoolYearRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, SearchSchoolInstallmentDTO $oData) : Result
+	public function execute(int $Id_SchoolYear, SearchSchoolInstallmentDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -40,10 +40,10 @@ class SearchSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolYear);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolInstallmentRepository->search($Id_School, $oData);
+			$oResult = $this->oSchoolInstallmentRepository->search($Id_SchoolYear, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -16,7 +16,6 @@ class CreateSchoolInstallmentRequest extends ValidatedRequest
 			"SchoolInstallment_Repeated"		=> "required|int|in:1,2",
 			"SchoolInstallment_Newed"			=> "required|int|in:1,2",
 			"SchoolInstallment_Status"			=> "required|int|in:1,2",
-			"Id_School"							=> "required|int",
 			"Id_SchoolYear"						=> "required|int",
 			"Id_SchoolLevel"					=> "required|int",
 			"Id_TypeCurrency"					=> "required|int",

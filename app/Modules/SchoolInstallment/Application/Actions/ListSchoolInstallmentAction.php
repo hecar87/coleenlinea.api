@@ -7,7 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
 
 use App\Modules\SchoolInstallment\Domain\Enums\SchoolInstallmentFilterDisplay;
 
@@ -17,12 +17,12 @@ class ListSchoolInstallmentAction
 
 	public function __construct(
 		protected ISchoolInstallmentRepository $oSchoolInstallmentRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected ISchoolYearRepository $oSchoolYearRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_SchoolYear, string $Display) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -41,10 +41,10 @@ class ListSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolYear);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolInstallmentRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oSchoolInstallmentRepository->list($Id_SchoolYear, $oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

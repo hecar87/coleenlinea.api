@@ -39,7 +39,6 @@ class CreateSchoolInstallmentAction
 		$oEntity = $this->oSchoolInstallmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolInstallmentDTO(
 			Id_SchoolInstallment		: 0,
-			Id_School					: $oData->Id_School,
 			Id_SchoolYear				: $oData->Id_SchoolYear,
 			Id_SchoolLevel				: $oData->Id_SchoolLevel,
 			Id_TypeInstallment			: $oData->Id_TypeInstallment
@@ -55,9 +54,6 @@ class CreateSchoolInstallmentAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
-
-			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolYear);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

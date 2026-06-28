@@ -7,7 +7,6 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
 use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
 use App\Modules\SchoolLevel\Domain\Repositories\ISchoolLevelRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
@@ -22,7 +21,6 @@ class UpdateSchoolInstallmentAction
 
 	public function __construct(
 		protected ISchoolInstallmentRepository $oSchoolInstallmentRepository,
-		protected ISchoolRepository $oSchoolRepository,
 		protected ISchoolYearRepository $oSchoolYearRepository,
 		protected ISchoolLevelRepository $oSchoolLevelRepository,
 		protected ITypeCurrencyRepository $oTypeCurrencyRepository,
@@ -39,7 +37,6 @@ class UpdateSchoolInstallmentAction
 		$oEntity = $this->oSchoolInstallmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolInstallmentDTO(
 			Id_SchoolInstallment		: $oData->Id_SchoolInstallment,
-			Id_School					: $oData->Id_School,
 			Id_SchoolYear				: $oData->Id_SchoolYear,
 			Id_SchoolLevel				: $oData->Id_SchoolLevel,
 			Id_TypeInstallment			: $oData->Id_TypeInstallment
@@ -55,9 +52,6 @@ class UpdateSchoolInstallmentAction
 			//	TRANSACTION
 			//
 			DB::beginTransaction();
-
-			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolYear);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

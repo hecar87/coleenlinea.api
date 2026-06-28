@@ -27,7 +27,7 @@ interface ISchoolInstallmentRepository
 
     public function index(int $Id_SchoolInstallment) : Result;
 
-    public function list(int $Id_School, SchoolInstallmentFilterDisplay $Display) : Result;
+    public function list(int $Id_SchoolYear, SchoolInstallmentFilterDisplay $Display) : Result;
 
-    public function search(int $Id_School, SearchSchoolInstallmentDTO $dto) : Result;
+    public function search(int $Id_SchoolYear, SearchSchoolInstallmentDTO $dto) : Result;
 }
