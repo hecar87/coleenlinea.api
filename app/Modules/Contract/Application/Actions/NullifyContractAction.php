@@ -9,7 +9,7 @@ use App\Helpers\ResultManager;
 use App\Modules\Contract\Domain\Repositories\IContractRepository;
 
 
-class ApproveContractAction
+class NullifyContractAction
 {
 
 	public function __construct(
@@ -39,10 +39,10 @@ class ApproveContractAction
 			$oResult = $this->oContractRepository->exists($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oContractRepository->canApprove($Id_Contract);
+			$oResult = $this->oContractRepository->canNullify($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oContractRepository->approve($Id_Contract);
+			$oResult = $this->oContractRepository->nullify($Id_Contract);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

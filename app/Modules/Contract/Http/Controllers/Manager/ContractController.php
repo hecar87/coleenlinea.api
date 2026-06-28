@@ -26,6 +26,9 @@ use App\Modules\Contract\Application\Actions\DeleteContractAction;
 use App\Modules\Contract\Application\Actions\IndexContractAction;
 use App\Modules\Contract\Application\Actions\ListContractAction;
 use App\Modules\Contract\Application\Actions\SearchContractAction;
+use App\Modules\Contract\Application\Actions\ApproveContractAction;
+use App\Modules\Contract\Application\Actions\NullifyContractAction;
+use App\Modules\Contract\Application\Actions\CloseContractAction;
 
 
 class ContractController extends Controller
@@ -40,7 +43,10 @@ class ContractController extends Controller
 		private DeleteContractAction $oDeleteContractAction,
 		private IndexContractAction $oIndexContractAction,
 		private ListContractAction $oListContractAction,
-		private SearchContractAction $oSearchContractAction
+		private SearchContractAction $oSearchContractAction,
+		private ApproveContractAction $oApproveContractAction,
+		private NullifyContractAction $oNullifyContractAction,
+		private CloseContractAction $oCloseContractAction
 	)
 	{
 		$this->repository = $repository;
@@ -148,6 +154,57 @@ class ContractController extends Controller
 		$oResult	= $this->oSearchContractAction->execute($Id_School, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function approve(int $Id_Contract)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oApproveContractAction->execute($Id_Contract);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function nullify(int $Id_Contract)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oNullifyContractAction->execute($Id_Contract);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function close(int $Id_Contract)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oCloseContractAction->execute($Id_Contract);
+		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
