@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Domain\Enums;
+namespace App\Modules\Enrollment\Domain\Enums;
 
-enum SchoolAccountStatus : int
+enum EnrollmentStatus : int
 {
 	case DELETED = 0;
 	case INACTIVE = 1;

@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\SchoolAccount\Http\Controllers\Manager;
+namespace App\Modules\Enrollment\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
 
 
 // Requests
-use App\Modules\SchoolAccount\Http\Requests\Manager\CreateSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\UpdateSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\ListSchoolAccountRequest;
-use App\Modules\SchoolAccount\Http\Requests\Manager\SearchSchoolAccountRequest;
+use App\Modules\Enrollment\Http\Requests\Manager\CreateEnrollmentRequest;
+use App\Modules\Enrollment\Http\Requests\Manager\UpdateEnrollmentRequest;
+use App\Modules\Enrollment\Http\Requests\Manager\ListEnrollmentRequest;
+use App\Modules\Enrollment\Http\Requests\Manager\SearchEnrollmentRequest;
 
 // DTOs
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
+use App\Modules\Enrollment\Application\DTOs\CreateEnrollmentDTO;
+use App\Modules\Enrollment\Application\DTOs\UpdateEnrollmentDTO;
+use App\Modules\Enrollment\Application\DTOs\SearchEnrollmentDTO;
 
 // Actions
-use App\Modules\SchoolAccount\Application\Actions\CreateSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\UpdateSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\DeleteSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\IndexSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\ListSchoolAccountAction;
-use App\Modules\SchoolAccount\Application\Actions\SearchSchoolAccountAction;
+use App\Modules\Enrollment\Application\Actions\CreateEnrollmentAction;
+use App\Modules\Enrollment\Application\Actions\UpdateEnrollmentAction;
+use App\Modules\Enrollment\Application\Actions\DeleteEnrollmentAction;
+use App\Modules\Enrollment\Application\Actions\IndexEnrollmentAction;
+use App\Modules\Enrollment\Application\Actions\ListEnrollmentAction;
+use App\Modules\Enrollment\Application\Actions\SearchEnrollmentAction;
 
 
-class SchoolAccountController extends Controller
+class EnrollmentController extends Controller
 {
-	protected ISchoolAccountRepository $repository;
+	protected IEnrollmentRepository $repository;
 
 	public function __construct(
-		ISchoolAccountRepository $repository,
+		IEnrollmentRepository $repository,
 
-		private CreateSchoolAccountAction $oCreateSchoolAccountAction,
-		private UpdateSchoolAccountAction $oUpdateSchoolAccountAction,
-		private DeleteSchoolAccountAction $oDeleteSchoolAccountAction,
-		private IndexSchoolAccountAction $oIndexSchoolAccountAction,
-		private ListSchoolAccountAction $oListSchoolAccountAction,
-		private SearchSchoolAccountAction $oSearchSchoolAccountAction
+		private CreateEnrollmentAction $oCreateEnrollmentAction,
+		private UpdateEnrollmentAction $oUpdateEnrollmentAction,
+		private DeleteEnrollmentAction $oDeleteEnrollmentAction,
+		private IndexEnrollmentAction $oIndexEnrollmentAction,
+		private ListEnrollmentAction $oListEnrollmentAction,
+		private SearchEnrollmentAction $oSearchEnrollmentAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateSchoolAccountRequest $oRequest)
+	public function create(CreateEnrollmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateSchoolAccountDTO::fromRequest($oRequest);
+		$oData = CreateEnrollmentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateSchoolAccountAction->execute($oData);
+		$oResult	= $this->oCreateEnrollmentAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateSchoolAccountRequest $oRequest)
+	public function update(UpdateEnrollmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateSchoolAccountDTO::fromRequest($oRequest);
+		$oData = UpdateEnrollmentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateSchoolAccountAction->execute($oData);
+		$oResult	= $this->oUpdateEnrollmentAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_SchoolAccount)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteSchoolAccountAction->execute($Id_SchoolAccount);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_SchoolAccount)
+	public function delete(int $Id_Enrollment)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexSchoolAccountAction->execute($Id_SchoolAccount);
+		$oResult	= $this->oDeleteEnrollmentAction->execute($Id_Enrollment);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(int $Id_School, ListSchoolAccountRequest $oRequest)
+	public function index(int $Id_Enrollment)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexEnrollmentAction->execute($Id_Enrollment);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(int $Id_School, ListEnrollmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class SchoolAccountController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListSchoolAccountAction->execute($Id_School, $Display);
+		$oResult	= $this->oListEnrollmentAction->execute($Id_School, $Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(int $Id_School, SearchSchoolAccountRequest $oRequest)
+	public function search(int $Id_School, SearchEnrollmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchSchoolAccountDTO::fromRequest($oRequest);
+		$oData = SearchEnrollmentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchSchoolAccountAction->execute($Id_School, $oData);
+		$oResult	= $this->oSearchEnrollmentAction->execute($Id_School, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

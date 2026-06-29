@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\Enrollment\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
+use App\Modules\Enrollment\Application\DTOs\SearchEnrollmentDTO;
 
 
-class SearchSchoolAccountAction
+class SearchEnrollmentAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected IEnrollmentRepository $oEnrollmentRepository,
 		protected ISchoolRepository $oSchoolRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, SearchSchoolAccountDTO $oData) : Result
+	public function execute(int $Id_School, SearchEnrollmentDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
+		$oEntity = $this->oEnrollmentRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class SearchSchoolAccountAction
 			$oresult = $this->oSchoolRepository->exists($Id_School);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolAccountRepository->search($Id_School, $oData);
+			$oResult = $this->oEnrollmentRepository->search($Id_School, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
