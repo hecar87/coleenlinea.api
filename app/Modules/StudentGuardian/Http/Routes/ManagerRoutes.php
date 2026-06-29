@@ -1,33 +1,33 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Modules\SchoolAccount\Http\Controllers\Manager\SchoolAccountController;
+use App\Modules\StudentGuardian\Http\Controllers\Manager\StudentGuardianController;
 
 
 Route::middleware('manager.access')
 	->name('school-account.create')
-	->post("/school-accounts", [ SchoolAccountController::class, "create" ]);
+	->post("/school-accounts", [ StudentGuardianController::class, "create" ]);
 
 Route::middleware('manager.access')
 	->name('school-account.update')
-	->put("/school-accounts", [ SchoolAccountController::class, "update" ]);
+	->put("/school-accounts", [ StudentGuardianController::class, "update" ]);
 
 Route::middleware('manager.access')
 	->name('school-account.delete')
-	->delete("/school-accounts/{Id_SchoolAccount}", [ SchoolAccountController::class, "delete" ])
-	->where("Id_SchoolAccount", "[0-9]+");
+	->delete("/school-accounts/{Id_StudentGuardian}", [ StudentGuardianController::class, "delete" ])
+	->where("Id_StudentGuardian", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('school-account.index')
-	->get("/school-accounts/{Id_SchoolAccount}", [ SchoolAccountController::class, "index" ])
-	->where("Id_SchoolAccount", "[0-9]+");
+	->get("/school-accounts/{Id_StudentGuardian}", [ StudentGuardianController::class, "index" ])
+	->where("Id_StudentGuardian", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('school-account.list')
-	->get("/schools/{Id_School}/school-accounts", [ SchoolAccountController::class, "list" ])
+	->get("/schools/{Id_School}/school-accounts", [ StudentGuardianController::class, "list" ])
 	->where("Id_School", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('school-account.search')
-	->get("/schools/{Id_School}/school-accounts/search", [ SchoolAccountController::class, "search" ])
+	->get("/schools/{Id_School}/school-accounts/search", [ StudentGuardianController::class, "search" ])
 	->where("Id_School", "[0-9]+");

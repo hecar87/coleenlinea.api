@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Domain\Repositories;
+namespace App\Modules\StudentGuardian\Domain\Repositories;
 
 use App\Helpers\Result;
-//use App\Domain\SchoolAccount\Entities\SchoolAccount;
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
+//use App\Domain\StudentGuardian\Entities\StudentGuardian;
+use App\Modules\StudentGuardian\Application\DTOs\CreateStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\UpdateStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\DuplicatedStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianDTO;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
 
 
-interface ISchoolAccountRepository
+interface IStudentGuardianRepository
 {
     public function getEntity(): string;
 
-    public function exists(int $Id_SchoolAccount) : Result;
+    public function exists(int $Id_StudentGuardian) : Result;
 
-    public function duplicated(DuplicatedSchoolAccountDTO $dto) : Result;
+    public function duplicated(DuplicatedStudentGuardianDTO $dto) : Result;
 
-    public function create(CreateSchoolAccountDTO $dto) : Result;
+    public function create(CreateStudentGuardianDTO $dto) : Result;
 
-    public function update(UpdateSchoolAccountDTO $dto) : Result;
+    public function update(UpdateStudentGuardianDTO $dto) : Result;
 
-    public function delete(int $Id_SchoolAccount) : Result;
+    public function delete(int $Id_StudentGuardian) : Result;
 
-    public function index(int $Id_SchoolAccount) : Result;
+    public function index(int $Id_StudentGuardian) : Result;
 
-    public function list(int $Id_School, SchoolAccountFilterDisplay $Display) : Result;
+    public function list(int $Id_School, StudentGuardianFilterDisplay $Display) : Result;
 
-    public function search(int $Id_School, SearchSchoolAccountDTO $dto) : Result;
+    public function search(int $Id_School, SearchStudentGuardianDTO $dto) : Result;
 }

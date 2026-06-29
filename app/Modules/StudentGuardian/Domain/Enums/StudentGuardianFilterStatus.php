@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Domain\Enums;
+namespace App\Modules\StudentGuardian\Domain\Enums;
 
-enum SchoolAccountFilterStatus : string
+enum StudentGuardianFilterStatus : string
 {
     case ALL = 'ALL';
     case ACTIVE = 'ACTIVE';

@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\StudentGuardian\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterStatus;
 
 
-class SearchSchoolAccountDTO
+class SearchStudentGuardianDTO
 {
     public function __construct(
         public string $Text = "",
-        public SchoolAccountFilterDisplay $Display = SchoolAccountFilterDisplay::ALL,
-        public SchoolAccountFilterStatus $Status = SchoolAccountFilterStatus::ALL,
+        public StudentGuardianFilterDisplay $Display = StudentGuardianFilterDisplay::ALL,
+        public StudentGuardianFilterStatus $Status = StudentGuardianFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolAccountFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolAccountFilterDisplay::PRIVATE,
-            default => SchoolAccountFilterDisplay::ALL,
+            'PUBLIC' => StudentGuardianFilterDisplay::PUBLIC,
+            'PRIVATE' => StudentGuardianFilterDisplay::PRIVATE,
+            default => StudentGuardianFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolAccountFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolAccountFilterStatus::INACTIVE,
-            default => SchoolAccountFilterStatus::ALL,
+            'ACTIVE' => StudentGuardianFilterStatus::ACTIVE,
+            'INACTIVE' => StudentGuardianFilterStatus::INACTIVE,
+            default => StudentGuardianFilterStatus::ALL,
         };
 
         return new self(

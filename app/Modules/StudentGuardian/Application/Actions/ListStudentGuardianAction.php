@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\StudentGuardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\StudentGuardian\Domain\Repositories\IStudentGuardianRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
 
 
-class ListSchoolAccountAction
+class ListStudentGuardianAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository,
+		protected IStudentGuardianRepository $oStudentGuardianRepository,
 		protected ISchoolRepository $oSchoolRepository
 	)
 	{
@@ -27,8 +27,8 @@ class ListSchoolAccountAction
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oSchoolAccountRepository->getEntity();
-		$oDisplay 	= SchoolAccountFilterDisplay::from(strtoupper($Display));
+		$oEntity 	= $this->oStudentGuardianRepository->getEntity();
+		$oDisplay 	= StudentGuardianFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class ListSchoolAccountAction
 			$oresult = $this->oSchoolRepository->exists($Id_School);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolAccountRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oStudentGuardianRepository->list($Id_School, $oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
