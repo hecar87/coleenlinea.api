@@ -465,7 +465,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 			}
 
 			$oQuery->where('Guardian_Status', '=', GuardianStatus::ACTIVE->value);
-			$oQuery->orderBy("Guardian_TradeName", "ASC");
+			$oQuery->orderBy("Guardian_LastName", "ASC");
 
 			$oData	= $oQuery->get();
 

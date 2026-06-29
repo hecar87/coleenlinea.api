@@ -407,8 +407,8 @@ class EloquentStudentRepository implements IStudentRepository
 			//
 			$oQuery	= StudentModel::query();
 
-			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
+			$oQuery->join("t_type_document", "t_student.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_student.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 			$oQuery->where("Id_Student", "=", $Id_Student);
 			$oQuery->where("Student_Status", "<>", "0");
 
@@ -457,15 +457,15 @@ class EloquentStudentRepository implements IStudentRepository
 			//
 			$oQuery	= StudentModel::query();
 
-			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
+			$oQuery->join("t_type_document", "t_student.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_student.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
 			if (isset($whereVerified[$Display->value])) {
 				$oQuery->where('Student_Verified', $whereVerified[$Display->value]);
 			}
 
 			$oQuery->where('Student_Status', '=', StudentStatus::ACTIVE->value);
-			$oQuery->orderBy("Student_TradeName", "ASC");
+			$oQuery->orderBy("Student_LastName", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -522,8 +522,8 @@ class EloquentStudentRepository implements IStudentRepository
 			//
 			$oQuery	= StudentModel::query();
 
-			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
+			$oQuery->join("t_type_document", "t_student.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
+			$oQuery->join("t_type_gender", "t_student.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
 			if (isset($whereVerified[$dto->Verified->value])) {
 				$oQuery->where('Student_Verified', $whereVerified[$dto->Verified->value]);
