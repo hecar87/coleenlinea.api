@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Modules\Student\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\Student\Domain\Repositories\IStudentRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
 use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 
-use App\Modules\Student\Application\DTOs\UpdateStudentDTO;
-use App\Modules\Student\Application\DTOs\DuplicatedStudentDTO;
+use App\Modules\Guardian\Application\DTOs\UpdateGuardianDTO;
+use App\Modules\Guardian\Application\DTOs\DuplicatedGuardianDTO;
 
 
-class UpdateStudentAction
+class UpdateGuardianAction
 {
 
 	public function __construct(
-		protected IStudentRepository $oStudentRepository,
+		protected IGuardianRepository $oGuardianRepository,
 		protected ITypeDocumentRepository $oTypeDocumentRepository
 	)
 	{
 	}
 
-	public function execute(UpdateStudentDTO $oData) : Result
+	public function execute(UpdateGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStudentRepository->getEntity();
-		$oDataDuplicated = new DuplicatedStudentDTO(
-			Id_Student : $oData->Id_Student,
-			Student_NoDocument : $oData->Student_NoDocument,
+		$oEntity = $this->oGuardianRepository->getEntity();
+		$oDataDuplicated = new DuplicatedGuardianDTO(
+			Id_Guardian : $oData->Id_Guardian,
+			Guardian_NoDocument : $oData->Guardian_NoDocument,
 			Id_TypeDocument : $oData->Id_TypeDocument
 		);
 
@@ -49,14 +49,14 @@ class UpdateStudentAction
 			$oResult = $this->oTypeDocumentRepository->exists($oData->Id_TypeDocument);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oStudentRepository->exists($oData->Id_Student);
+			$oResult = $this->oGuardianRepository->exists($oData->Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
 
-			$oResult = $this->oStudentRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oGuardianRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStudentRepository->update($oData);
+			$oResult = $this->oGuardianRepository->update($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

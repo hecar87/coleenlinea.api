@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\Student\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\Student\Domain\Repositories\IStudentRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
 
 
-class DeleteStudentAction
+class IndexGuardianAction
 {
 
 	public function __construct(
-		protected IStudentRepository $oStudentRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_Student) : Result
+	public function execute(int $Id_Guardian) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStudentRepository->getEntity();
+		$oEntity = $this->oGuardianRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class DeleteStudentAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStudentRepository->exists($Id_Student);
+			$oResult = $this->oGuardianRepository->exists($Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStudentRepository->delete($Id_Student);
+			$oResult = $this->oGuardianRepository->index($Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

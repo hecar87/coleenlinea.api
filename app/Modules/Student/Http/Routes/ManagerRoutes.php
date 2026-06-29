@@ -1,31 +1,46 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Modules\Student\Http\Controllers\Manager\StudentController;
+use App\Modules\Guardian\Http\Controllers\Manager\GuardianController;
 
 
 Route::middleware('manager.access')
-	->name('student.create')
-	->post("/students", [ StudentController::class, "create" ]);
+	->name('guardian.create')
+	->post("/guardians", [ GuardianController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('student.update')
-	->put("/students", [ StudentController::class, "update" ]);
+	->name('guardian.update')
+	->put("/guardians", [ GuardianController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('student.delete')
-	->delete("/students/{Id_Student}", [ StudentController::class, "delete" ])
-	->where("Id_Student", "[0-9]+");
+	->name('guardian.verify')
+	->put("/guardians/{Id_Guardian}/verify", [ GuardianController::class, "verify" ])
+	->where("Id_Guardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('student.index')
-	->get("/students/{Id_Student}", [ StudentController::class, "index" ])
-	->where("Id_Student", "[0-9]+");
+	->name('guardian.activate')
+	->put("/guardians/{Id_Guardian}/activate", [ GuardianController::class, "activate" ])
+	->where("Id_Guardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('student.list')
-	->get("/students", [ StudentController::class, "list" ]);
+	->name('guardian.deactivate')
+	->put("/guardians/{Id_Guardian}/deactivate", [ GuardianController::class, "deactivate" ])
+	->where("Id_Guardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('student.search')
-	->get("/students/search", [ StudentController::class, "search" ]);
+	->name('guardian.delete')
+	->delete("/guardians/{Id_Guardian}", [ GuardianController::class, "delete" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('guardian.index')
+	->get("/guardians/{Id_Guardian}", [ GuardianController::class, "index" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('guardian.list')
+	->get("/guardians", [ GuardianController::class, "list" ]);
+
+Route::middleware('manager.access')
+	->name('guardian.search')
+	->get("/guardians/search", [ GuardianController::class, "search" ]);

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\Student\Providers;
+namespace App\Modules\Guardian\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\Student\Domain\Repositories\IStudentRepository;
-use App\Modules\Student\Infrastructure\Repositories\EloquentStudentRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Guardian\Infrastructure\Repositories\EloquentGuardianRepository;
 
 
-class StudentServiceProvider extends ServiceProvider
+class GuardianServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStudentRepository::class, EloquentStudentRepository::class);
+		$this->app->bind(IGuardianRepository::class, EloquentGuardianRepository::class);
 	}
 
 	public function boot(): void

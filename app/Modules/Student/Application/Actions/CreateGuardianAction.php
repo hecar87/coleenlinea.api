@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Modules\Student\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\Student\Domain\Repositories\IStudentRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
 use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 
-use App\Modules\Student\Application\DTOs\CreateStudentDTO;
-use App\Modules\Student\Application\DTOs\DuplicatedStudentDTO;
+use App\Modules\Guardian\Application\DTOs\CreateGuardianDTO;
+use App\Modules\Guardian\Application\DTOs\DuplicatedGuardianDTO;
 
 
-class CreateStudentAction
+class CreateGuardianAction
 {
 
 	public function __construct(
-		protected IStudentRepository $oStudentRepository,
+		protected IGuardianRepository $oGuardianRepository,
 		protected ITypeDocumentRepository $oTypeDocumentRepository,
 	)
 	{
 	}
 
-	public function execute(CreateStudentDTO $oData) : Result
+	public function execute(CreateGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStudentRepository->getEntity();
-		$oDataDuplicated = new DuplicatedStudentDTO(
-			Id_Student	: 0,
-			Student_NoDocument : $oData->Student_NoDocument,
+		$oEntity = $this->oGuardianRepository->getEntity();
+		$oDataDuplicated = new DuplicatedGuardianDTO(
+			Id_Guardian	: 0,
+			Guardian_NoDocument : $oData->Guardian_NoDocument,
 			Id_TypeDocument : $oData->Id_TypeDocument
 		);
 
@@ -50,10 +50,10 @@ class CreateStudentAction
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
 
-			$oResult = $this->oStudentRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oGuardianRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStudentRepository->create($oData);
+			$oResult = $this->oGuardianRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -1,31 +1,30 @@
 <?php
 
-namespace App\Modules\Student\Application\Actions;
+namespace App\Modules\Guardian\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\Student\Domain\Repositories\IStudentRepository;
-use App\Modules\Student\Domain\Enums\StudentFilterVerified;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
 
 
-class ListStudentAction
+class SearchGuardianAction
 {
 
 	public function __construct(
-		protected IStudentRepository $oStudentRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
 
-	public function execute(string $Verified) : Result
+	public function execute(SearchGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oStudentRepository->getEntity();
-		$oVerified 	= StudentFilterVerified::from(strtoupper($Verified));
+		$oEntity = $this->oGuardianRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +37,7 @@ class ListStudentAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStudentRepository->list($oVerified);
+			$oResult = $this->oGuardianRepository->search($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
