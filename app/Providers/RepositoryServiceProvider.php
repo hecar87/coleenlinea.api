@@ -34,6 +34,7 @@ use App\Modules\ContractFee\Providers\ContractFeeServiceProvider;
 use App\Modules\Guardian\Providers\GuardianServiceProvider;
 
 use App\Modules\Student\Providers\StudentServiceProvider;
+use App\Modules\StudentGuardian\Providers\StudentGuardianServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -70,6 +71,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(GuardianServiceProvider::class);
 
 		$this->app->register(StudentServiceProvider::class);
+		$this->app->register(StudentGuardianServiceProvider::class);
 	}
 
 	public function boot(): void
