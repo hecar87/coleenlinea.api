@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\Guardian\Http\Controllers\Manager;
+namespace App\Modules\Student\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Student\Domain\Repositories\IStudentRepository;
 
 
 // Requests
-use App\Modules\Guardian\Http\Requests\Manager\CreateGuardianRequest;
-use App\Modules\Guardian\Http\Requests\Manager\UpdateGuardianRequest;
-use App\Modules\Guardian\Http\Requests\Manager\ListGuardianRequest;
-use App\Modules\Guardian\Http\Requests\Manager\SearchGuardianRequest;
+use App\Modules\Student\Http\Requests\Manager\CreateStudentRequest;
+use App\Modules\Student\Http\Requests\Manager\UpdateStudentRequest;
+use App\Modules\Student\Http\Requests\Manager\ListStudentRequest;
+use App\Modules\Student\Http\Requests\Manager\SearchStudentRequest;
 
 // DTOs
-use App\Modules\Guardian\Application\DTOs\CreateGuardianDTO;
-use App\Modules\Guardian\Application\DTOs\UpdateGuardianDTO;
-use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
+use App\Modules\Student\Application\DTOs\CreateStudentDTO;
+use App\Modules\Student\Application\DTOs\UpdateStudentDTO;
+use App\Modules\Student\Application\DTOs\SearchStudentDTO;
 
 // Actions
-use App\Modules\Guardian\Application\Actions\CreateGuardianAction;
-use App\Modules\Guardian\Application\Actions\UpdateGuardianAction;
-use App\Modules\Guardian\Application\Actions\DeleteGuardianAction;
-use App\Modules\Guardian\Application\Actions\IndexGuardianAction;
-use App\Modules\Guardian\Application\Actions\ListGuardianAction;
-use App\Modules\Guardian\Application\Actions\SearchGuardianAction;
+use App\Modules\Student\Application\Actions\CreateStudentAction;
+use App\Modules\Student\Application\Actions\UpdateStudentAction;
+use App\Modules\Student\Application\Actions\DeleteStudentAction;
+use App\Modules\Student\Application\Actions\IndexStudentAction;
+use App\Modules\Student\Application\Actions\ListStudentAction;
+use App\Modules\Student\Application\Actions\SearchStudentAction;
 
 
-class GuardianController extends Controller
+class StudentController extends Controller
 {
-	protected IGuardianRepository $repository;
+	protected IStudentRepository $repository;
 
 	public function __construct(
-		IGuardianRepository $repository,
+		IStudentRepository $repository,
 
-		private CreateGuardianAction $oCreateGuardianAction,
-		private UpdateGuardianAction $oUpdateGuardianAction,
-		private DeleteGuardianAction $oDeleteGuardianAction,
-		private IndexGuardianAction $oIndexGuardianAction,
-		private ListGuardianAction $oListGuardianAction,
-		private SearchGuardianAction $oSearchGuardianAction
+		private CreateStudentAction $oCreateStudentAction,
+		private UpdateStudentAction $oUpdateStudentAction,
+		private DeleteStudentAction $oDeleteStudentAction,
+		private IndexStudentAction $oIndexStudentAction,
+		private ListStudentAction $oListStudentAction,
+		private SearchStudentAction $oSearchStudentAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateGuardianRequest $oRequest)
+	public function create(CreateStudentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateGuardianDTO::fromRequest($oRequest);
+		$oData = CreateStudentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateGuardianAction->execute($oData);
+		$oResult	= $this->oCreateStudentAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateGuardianRequest $oRequest)
+	public function update(UpdateStudentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateGuardianDTO::fromRequest($oRequest);
+		$oData = UpdateStudentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateGuardianAction->execute($oData);
+		$oResult	= $this->oUpdateStudentAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_Guardian)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteGuardianAction->execute($Id_Guardian);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_Guardian)
+	public function delete(int $Id_Student)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class GuardianController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexGuardianAction->execute($Id_Guardian);
+		$oResult	= $this->oDeleteStudentAction->execute($Id_Student);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(ListGuardianRequest $oRequest)
+	public function index(int $Id_Student)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexStudentAction->execute($Id_Student);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(ListStudentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class GuardianController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListGuardianAction->execute($Display);
+		$oResult	= $this->oListStudentAction->execute($Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchGuardianRequest $oRequest)
+	public function search(SearchStudentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchGuardianDTO::fromRequest($oRequest);
+		$oData = SearchStudentDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchGuardianAction->execute($oData);
+		$oResult	= $this->oSearchStudentAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

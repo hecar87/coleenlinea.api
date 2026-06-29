@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Guardian\Domain\Enums;
+namespace App\Modules\Student\Domain\Enums;
 
-enum GuardianStatus : int
+enum StudentStatus : int
 {
 	case DELETED = 0;
 	case INACTIVE = 1;

@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\Guardian\Application\DTOs;
+namespace App\Modules\Student\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\Guardian\Domain\Enums\GuardianFilterVerified;
-use App\Modules\Guardian\Domain\Enums\GuardianFilterStatus;
+use App\Modules\Student\Domain\Enums\StudentFilterVerified;
+use App\Modules\Student\Domain\Enums\StudentFilterStatus;
 
 
-class SearchGuardianDTO
+class SearchStudentDTO
 {
     public function __construct(
         public string $Text = "",
-        public GuardianFilterVerified $Verified = GuardianFilterVerified::ALL,
-        public GuardianFilterStatus $Status = GuardianFilterStatus::ALL,
+        public StudentFilterVerified $Verified = StudentFilterVerified::ALL,
+        public StudentFilterStatus $Status = StudentFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchGuardianDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $verified = match (strtoupper($oRequest->input('Verified', 'ALL'))) {
-            'PENDING' => GuardianFilterVerified::PENDING,
-            'VERIFIED' => GuardianFilterVerified::VERIFIED,
-            default => GuardianFilterVerified::ALL,
+            'PENDING' => StudentFilterVerified::PENDING,
+            'VERIFIED' => StudentFilterVerified::VERIFIED,
+            default => StudentFilterVerified::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => GuardianFilterStatus::ACTIVE,
-            'INACTIVE' => GuardianFilterStatus::INACTIVE,
-            default => GuardianFilterStatus::ALL,
+            'ACTIVE' => StudentFilterStatus::ACTIVE,
+            'INACTIVE' => StudentFilterStatus::INACTIVE,
+            default => StudentFilterStatus::ALL,
         };
 
         return new self(
