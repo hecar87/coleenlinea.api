@@ -11,21 +11,26 @@ use App\Modules\StudentGuardian\Domain\Repositories\IStudentGuardianRepository;
 // Requests
 use App\Modules\StudentGuardian\Http\Requests\Manager\CreateStudentGuardianRequest;
 use App\Modules\StudentGuardian\Http\Requests\Manager\UpdateStudentGuardianRequest;
-use App\Modules\StudentGuardian\Http\Requests\Manager\ListStudentGuardianRequest;
-use App\Modules\StudentGuardian\Http\Requests\Manager\SearchStudentGuardianRequest;
+use App\Modules\StudentGuardian\Http\Requests\Manager\ListStudentGuardianByGuardianRequest;
+use App\Modules\StudentGuardian\Http\Requests\Manager\ListStudentGuardianByStudentRequest;
+use App\Modules\StudentGuardian\Http\Requests\Manager\SearchStudentGuardianByGuardianRequest;
+use App\Modules\StudentGuardian\Http\Requests\Manager\SearchStudentGuardianByStudentRequest;
 
 // DTOs
 use App\Modules\StudentGuardian\Application\DTOs\CreateStudentGuardianDTO;
 use App\Modules\StudentGuardian\Application\DTOs\UpdateStudentGuardianDTO;
-use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByStudentDTO;
 
 // Actions
 use App\Modules\StudentGuardian\Application\Actions\CreateStudentGuardianAction;
 use App\Modules\StudentGuardian\Application\Actions\UpdateStudentGuardianAction;
 use App\Modules\StudentGuardian\Application\Actions\DeleteStudentGuardianAction;
 use App\Modules\StudentGuardian\Application\Actions\IndexStudentGuardianAction;
-use App\Modules\StudentGuardian\Application\Actions\ListStudentGuardianAction;
-use App\Modules\StudentGuardian\Application\Actions\SearchStudentGuardianAction;
+use App\Modules\StudentGuardian\Application\Actions\ListStudentGuardianByGuardianAction;
+use App\Modules\StudentGuardian\Application\Actions\ListStudentGuardianByStudentAction;
+use App\Modules\StudentGuardian\Application\Actions\SearchStudentGuardianByGuardianAction;
+use App\Modules\StudentGuardian\Application\Actions\SearchStudentGuardianByStudentAction;
 
 
 class StudentGuardianController extends Controller
@@ -39,8 +44,10 @@ class StudentGuardianController extends Controller
 		private UpdateStudentGuardianAction $oUpdateStudentGuardianAction,
 		private DeleteStudentGuardianAction $oDeleteStudentGuardianAction,
 		private IndexStudentGuardianAction $oIndexStudentGuardianAction,
-		private ListStudentGuardianAction $oListStudentGuardianAction,
-		private SearchStudentGuardianAction $oSearchStudentGuardianAction
+		private ListStudentGuardianByGuardianAction $oListStudentGuardianByGuardianAction,
+		private ListStudentGuardianByStudentAction $oListStudentGuardianByStudentAction,
+		private SearchStudentGuardianByGuardianAction $oSearchStudentGuardianByGuardianAction,
+		private SearchStudentGuardianByStudentAction $oSearchStudentGuardianByStudentAction
 	)
 	{
 		$this->repository = $repository;
@@ -117,7 +124,7 @@ class StudentGuardianController extends Controller
 
 	}
 
-	public function list(int $Id_School, ListStudentGuardianRequest $oRequest)
+	public function listByGuardian(int $Id_Guardian, ListStudentGuardianByGuardianRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +135,60 @@ class StudentGuardianController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListStudentGuardianAction->execute($Id_School, $Display);
+		$oResult	= $this->oListStudentGuardianByGuardianAction->execute($Id_Guardian, $Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(int $Id_School, SearchStudentGuardianRequest $oRequest)
+	public function listByStudent(int $Id_Student, ListStudentGuardianByStudentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchStudentGuardianDTO::fromRequest($oRequest);
+		$Display    = $oRequest->input('Display', 'ALL');
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchStudentGuardianAction->execute($Id_School, $oData);
+		$oResult	= $this->oListStudentGuardianByStudentAction->execute($Id_Student, $Display);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+	}
+
+	public function searchByGuardian(int $Id_Guardian, SearchStudentGuardianByGuardianRequest $oRequest)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oData = SearchStudentGuardianByGuardianDTO::fromRequest($oRequest);
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oSearchStudentGuardianByGuardianAction->execute($Id_Guardian, $oData);
+		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
+		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function searchByStudent(int $Id_Guardian, SearchStudentGuardianByStudentRequest $oRequest)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oData = SearchStudentGuardianByStudentDTO::fromRequest($oRequest);
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oSearchStudentGuardianByStudentAction->execute($Id_Guardian, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

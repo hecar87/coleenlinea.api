@@ -7,28 +7,28 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\StudentGuardian\Domain\Repositories\IStudentGuardianRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Student\Domain\Repositories\IStudentRepository;
 
-use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterVerified;
 
 
-class ListStudentGuardianAction
+class ListStudentGuardianByStudentAction
 {
 
 	public function __construct(
 		protected IStudentGuardianRepository $oStudentGuardianRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected IStudentRepository $oStudentRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_Student, string $Verified) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oStudentGuardianRepository->getEntity();
-		$oDisplay 	= StudentGuardianFilterDisplay::from(strtoupper($Display));
+		$oVerified 	= StudentGuardianFilterVerified::from(strtoupper($Verified));
 
 
 		//------------------------------------------------------------------------------
@@ -41,10 +41,10 @@ class ListStudentGuardianAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oStudentRepository->exists($Id_Student);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oStudentGuardianRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oStudentGuardianRepository->listByStudent($Id_Student, $oVerified);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

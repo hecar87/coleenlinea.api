@@ -7,8 +7,9 @@ use App\Helpers\Result;
 use App\Modules\StudentGuardian\Application\DTOs\CreateStudentGuardianDTO;
 use App\Modules\StudentGuardian\Application\DTOs\UpdateStudentGuardianDTO;
 use App\Modules\StudentGuardian\Application\DTOs\DuplicatedStudentGuardianDTO;
-use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianDTO;
-use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByStudentDTO;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterVerified;
 
 
 interface IStudentGuardianRepository
@@ -27,7 +28,11 @@ interface IStudentGuardianRepository
 
     public function index(int $Id_StudentGuardian) : Result;
 
-    public function list(int $Id_School, StudentGuardianFilterDisplay $Display) : Result;
+    public function listByGuardian(int $Id_School, StudentGuardianFilterVerified $Display) : Result;
 
-    public function search(int $Id_School, SearchStudentGuardianDTO $dto) : Result;
+    public function listByStudent(int $Id_School, StudentGuardianFilterVerified $Display) : Result;
+
+    public function searchByGuardian(int $Id_School, SearchStudentGuardianByGuardianDTO $dto) : Result;
+
+    public function searchByStudent(int $Id_School, SearchStudentGuardianByStudentDTO $dto) : Result;
 }

@@ -9,14 +9,9 @@ class CreateStudentGuardianRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"StudentGuardian_Number"		=> "required|string|max:50",
-			"StudentGuardian_CCI"			=> "required|string|max:50",
-			"StudentGuardian_Remark"		=> "required|string|max:250",
-			"StudentGuardian_Public"		=> "required|int|in:1,2",
-			"StudentGuardian_Status"		=> "required|int|in:1,2",
-			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"Id_Student"			=> "required|int",
+			"Id_Guardian"			=> "required|int",
+			"Id_TypeKinship"		=> "required|int"
 		];
 	}
 

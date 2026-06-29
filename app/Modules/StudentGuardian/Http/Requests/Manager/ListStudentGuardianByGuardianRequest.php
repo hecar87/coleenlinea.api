@@ -4,15 +4,12 @@ namespace App\Modules\StudentGuardian\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class UpdateStudentGuardianRequest extends ValidatedRequest
+class ListStudentGuardianByGuardianRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{
 		return [
-			"Id_StudentGuardian"	=> "required|int",
-			"Id_Student"			=> "required|int",
-			"Id_Guardian"			=> "required|int",
-			"Id_TypeKinship"		=> "required|int"
+			"Verified"	=> "required|string|max:50|in:ALL,PENDING,VERIFIED"
 		];
 	}
 

@@ -5,29 +5,39 @@ use App\Modules\StudentGuardian\Http\Controllers\Manager\StudentGuardianControll
 
 
 Route::middleware('manager.access')
-	->name('school-account.create')
-	->post("/school-accounts", [ StudentGuardianController::class, "create" ]);
+	->name('student-guardian.create')
+	->post("/student-guardians", [ StudentGuardianController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.update')
-	->put("/school-accounts", [ StudentGuardianController::class, "update" ]);
+	->name('student-guardian.update')
+	->put("/student-guardians", [ StudentGuardianController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.delete')
-	->delete("/school-accounts/{Id_StudentGuardian}", [ StudentGuardianController::class, "delete" ])
+	->name('student-guardian.delete')
+	->delete("/student-guardians/{Id_StudentGuardian}", [ StudentGuardianController::class, "delete" ])
 	->where("Id_StudentGuardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.index')
-	->get("/school-accounts/{Id_StudentGuardian}", [ StudentGuardianController::class, "index" ])
+	->name('student-guardian.index')
+	->get("/student-guardians/{Id_StudentGuardian}", [ StudentGuardianController::class, "index" ])
 	->where("Id_StudentGuardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.list')
-	->get("/schools/{Id_School}/school-accounts", [ StudentGuardianController::class, "list" ])
-	->where("Id_School", "[0-9]+");
+	->name('student-guardian.list')
+	->get("/guardians/{Id_Guardian}/student-guardians", [ StudentGuardianController::class, "listByGuardian" ])
+	->where("Id_Guardian", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.search')
-	->get("/schools/{Id_School}/school-accounts/search", [ StudentGuardianController::class, "search" ])
-	->where("Id_School", "[0-9]+");
+	->name('student-guardian.list')
+	->get("/students/{Id_Student}/student-guardians", [ StudentGuardianController::class, "listByStudent" ])
+	->where("Id_Student", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('student-guardian.search')
+	->get("/guardians/{Id_Guardian}/student-guardians/search", [ StudentGuardianController::class, "searchByGuardian" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('student-guardian.search')
+	->get("/students/{Id_Student}/student-guardians/search", [ StudentGuardianController::class, "searchByStudent" ])
+	->where("Id_Student", "[0-9]+");

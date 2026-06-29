@@ -8,23 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentStudentGuardian extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school_account";
-	protected $entity		= "SCHOOL-ACCOUNT";
+	protected $table 		= "t_student_guardian";
+	protected $entity		= "STUDENT-GUARDIAN";
 	protected $primaryKey 	= "Id_StudentGuardian";
 	protected $fillable 	= [
 		"Id_StudentGuardian",
-		"StudentGuardian_Number",
-		"StudentGuardian_CCI",
-		"StudentGuardian_Remark",
-		"StudentGuardian_Default",
-		"StudentGuardian_Public",
+		"StudentGuardian_Date_Start",
+		"StudentGuardian_Date_End",
+		"StudentGuardian_Verified",
 		"StudentGuardian_Status",
-		"Id_School",
-		"Id_TypeBank",
-		"Id_TypeCurrency"
+		"Id_Student",
+		"Id_Guardian",
+		"Id_TypeKinship"
 	];
 	protected $hidden 		= [];
-	protected $casts 		= [];
+	protected $casts 		= [
+		"StudentGuardian_Date_Start"	=> "datetime:c",
+		"StudentGuardian_Date_End"		=> "datetime:c",
+	];
 
 
 	public static function getEntity()

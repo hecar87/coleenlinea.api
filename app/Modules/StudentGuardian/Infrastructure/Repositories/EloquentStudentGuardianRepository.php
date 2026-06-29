@@ -13,9 +13,10 @@ use App\Modules\StudentGuardian\Infrastructure\Persistence\EloquentStudentGuardi
 use App\Modules\StudentGuardian\Application\DTOs\CreateStudentGuardianDTO;
 use App\Modules\StudentGuardian\Application\DTOs\UpdateStudentGuardianDTO;
 use App\Modules\StudentGuardian\Application\DTOs\DuplicatedStudentGuardianDTO;
-use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByStudentDTO;
 
-use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterVerified;
 use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterStatus;
 use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianPublic;
 use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianStatus;
@@ -92,14 +93,9 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 
 			$oQuery->where("Id_StudentGuardian", "<>", $dto->Id_StudentGuardian);
 			$oQuery->where("StudentGuardian_Status", "<>", "0");
-			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
-			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
-
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("StudentGuardian_Number", "=", $dto->StudentGuardian_Number);
-				$oSubQuery->orWhere("StudentGuardian_CCI", "=", $dto->StudentGuardian_CCI);
-			});
+			$oQuery->where("Id_Student", "=", $dto->Id_Student);
+			$oQuery->where("Id_Guardian", "=", $dto->Id_Guardian);
+			$oQuery->where("Id_TypeKinship", "=", $dto->Id_TypeKinship);
 
 			$Duplicate	= $oQuery->count();
 
@@ -142,16 +138,14 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			$oQuery	= StudentGuardianModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_StudentGuardian"		=> $dto->Id_StudentGuardian,
-				"StudentGuardian_Number"	=> trim( mb_strtoupper( $dto->StudentGuardian_Number, "utf-8" ) ),
-				"StudentGuardian_CCI"		=> trim( mb_strtoupper( $dto->StudentGuardian_CCI, "utf-8" ) ),
-				"StudentGuardian_Remark"	=> trim( mb_strtoupper( $dto->StudentGuardian_Remark, "utf-8" ) ),
-				"StudentGuardian_Default"	=> 1,
-				"StudentGuardian_Public"	=> $dto->StudentGuardian_Public,
-				"StudentGuardian_Status"	=> $dto->StudentGuardian_Status,
-				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_StudentGuardian"			=> $dto->Id_StudentGuardian,
+				"StudentGuardian_Date_Start"	=> date("Y-m-d H:i:s"),
+				"StudentGuardian_Date_End"		=> date("Y-m-d H:i:s",  strtotime( "+12 months", strtotime( date( "Y-m-d H:i:s" ) ) ) ),
+				"StudentGuardian_Verified"		=> 1,
+				"StudentGuardian_Status"		=> 2,
+				"Id_Student"					=> $dto->Id_Student,
+				"Id_Guardian"					=> $dto->Id_Guardian,
+				"Id_TypeKinship"				=> $dto->Id_TypeKinship
 			]);
 
 			$oQuery->where("Id_StudentGuardian", "=", "$Id");
@@ -193,14 +187,9 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 
 			$oQuery->where("Id_StudentGuardian", "=", $dto->Id_StudentGuardian);
 			$oQuery->update([
-				"StudentGuardian_Number"	=> trim( mb_strtoupper( $dto->StudentGuardian_Number, "utf-8" ) ),
-				"StudentGuardian_CCI"		=> trim( mb_strtoupper( $dto->StudentGuardian_CCI, "utf-8" ) ),
-				"StudentGuardian_Remark"	=> trim( mb_strtoupper( $dto->StudentGuardian_Remark, "utf-8" ) ),
-				"StudentGuardian_Default"	=> 1,
-				"StudentGuardian_Public"	=> $dto->StudentGuardian_Public,
-				"StudentGuardian_Status"	=> $dto->StudentGuardian_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_Student"			=> $dto->Id_Student,
+				"Id_Guardian"			=> $dto->Id_Guardian,
+				"Id_TypeKinship"		=> $dto->Id_TypeKinship
 			]);
 
 			$oData	= $oQuery->get();
@@ -240,8 +229,6 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 
 			$oQuery->where("Id_StudentGuardian", "=", $Id_StudentGuardian);
 			$oQuery->update([
-				"StudentGuardian_Number"	=> DB::raw("CONCAT('( DELETED ) ', StudentGuardian_Number)"),
-				"StudentGuardian_CCI"		=> DB::raw("CONCAT('( DELETED ) ', StudentGuardian_CCI)"),
 				"StudentGuardian_Status"	=> 0
 			]);
 
@@ -279,8 +266,9 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			//
 			$oQuery	= StudentGuardianModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_guardian", "t_student_guardian.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_student", "t_student_guardian.Id_Student", "=", "t_student.Id_Student");
+			$oQuery->join("t_type_kinship", "t_student_guardian.Id_TypeKinship", "=", "t_type_kinship.Id_TypeKinship");
 			$oQuery->where("Id_StudentGuardian", "=", $Id_StudentGuardian);
 			$oQuery->where("StudentGuardian_Status", "<>", "0");
 
@@ -301,7 +289,7 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_School, StudentGuardianFilterDisplay $Display): Result
+	public function listByGuardian(int $Id_Guardian, StudentGuardianFilterVerified $Verified): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -318,9 +306,9 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			//
 			//	SET VARIABLES
 			//
-			$whereDisplay	= [
-				StudentGuardianFilterDisplay::PUBLIC->value  => 2,
-				StudentGuardianFilterDisplay::PRIVATE->value => 1
+			$whereVerified	= [
+				StudentGuardianFilterVerified::VERIFIED->value  => 2,
+				StudentGuardianFilterVerified::PENDING->value => 1
 			];
 
 
@@ -329,17 +317,17 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			//
 			$oQuery	= StudentGuardianModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_student", "t_student_guardian.Id_Student", "=", "t_student.Id_Student");
+			$oQuery->join("t_type_kinship", "t_student_guardian.Id_TypeKinship", "=", "t_type_kinship.Id_TypeKinship");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('StudentGuardian_Public', $whereDisplay[$Display->value]);
+			if (isset($whereVerified[$Verified->value])) {
+				$oQuery->where('StudentGuardian_Public', $whereVerified[$Verified->value]);
 			}
 
 			$oQuery->where('StudentGuardian_Status', '=', StudentGuardianStatus::ACTIVE->value);
-			$oQuery->orderBy("StudentGuardian_Default", "DESC");
-			$oQuery->orderBy("Id_StudentGuardian", "DESC");
+			$oQuery->orderBy("Student_LastName", "ASC");
+			$oQuery->orderBy("Student_Name", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -360,7 +348,66 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(int $Id_School, SearchStudentGuardianDTO $dto): Result
+	public function listByStudent(int $Id_Student, StudentGuardianFilterVerified $Verified): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= StudentGuardianModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	SET VARIABLES
+			//
+			$whereVerified	= [
+				StudentGuardianFilterVerified::VERIFIED->value  => 2,
+				StudentGuardianFilterVerified::PENDING->value => 1
+			];
+
+
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= StudentGuardianModel::query();
+
+			$oQuery->join("t_guardian", "t_student_guardian.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_kinship", "t_student_guardian.Id_TypeKinship", "=", "t_type_kinship.Id_TypeKinship");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+
+			if (isset($whereVerified[$Verified->value])) {
+				$oQuery->where('StudentGuardian_Public', $whereVerified[$Verified->value]);
+			}
+
+			$oQuery->where('StudentGuardian_Status', '=', StudentGuardianStatus::ACTIVE->value);
+			$oQuery->orderBy("Guardian_LastName", "ASC");
+			$oQuery->orderBy("Guardian_Name", "ASC");
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1005, $oEntity, $oData);
+		}
+		catch (\Exception $oException)
+		{
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function searchByGuardian(int $Id_Guardian, SearchStudentGuardianByGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -381,9 +428,9 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				StudentGuardianFilterDisplay::PUBLIC->value  => 2,
-				StudentGuardianFilterDisplay::PRIVATE->value => 1
+			$whereVerified	= [
+				StudentGuardianFilterVerified::VERIFIED->value  => 2,
+				StudentGuardianFilterVerified::PENDING->value => 1
 			];
 			$whereStatus	= [
 				StudentGuardianFilterStatus::ACTIVE->value   => 2,
@@ -396,12 +443,12 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			//
 			$oQuery	= StudentGuardianModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_student", "t_student_guardian.Id_Student", "=", "t_student.Id_Student");
+			$oQuery->join("t_type_kinship", "t_student_guardian.Id_TypeKinship", "=", "t_type_kinship.Id_TypeKinship");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('StudentGuardian_Public', $whereDisplay[$dto->Display->value]);
+			if (isset($whereVerified[$dto->Verified->value])) {
+				$oQuery->where('StudentGuardian_Public', $whereVerified[$dto->Verified->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
@@ -411,18 +458,102 @@ class EloquentStudentGuardianRepository implements IStudentGuardianRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("StudentGuardian_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("StudentGuardian_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("StudentGuardian_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("Student_Code",		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Student_Name", 		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Student_LastName", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Student_NoDocument",	"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("StudentGuardian_Default", "DESC");
-			$oQuery->orderBy("Id_StudentGuardian", "DESC");
+			$oQuery->orderBy("Student_LastName", "ASC");
+			$oQuery->orderBy("Student_Name", "ASC");
+			$oQuery->limit($Page_Size);
+			$oQuery->offset($Page_Offset);
+
+			// GET DATA
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function searchByStudent(int $Id_Student, SearchStudentGuardianByStudentDTO $dto): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= StudentGuardianModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	SET VARIABLES
+			//
+			$Page_Current	= $dto->Page_Current;
+			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
+			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
+
+			$whereVerified	= [
+				StudentGuardianFilterVerified::VERIFIED->value  => 2,
+				StudentGuardianFilterVerified::PENDING->value => 1
+			];
+			$whereStatus	= [
+				StudentGuardianFilterStatus::ACTIVE->value   => 2,
+				StudentGuardianFilterStatus::INACTIVE->value => 1
+			];
+
+
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= StudentGuardianModel::query();
+
+			$oQuery->join("t_guardian", "t_student_guardian.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_kinship", "t_student_guardian.Id_TypeKinship", "=", "t_type_kinship.Id_TypeKinship");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+
+			if (isset($whereVerified[$dto->Verified->value])) {
+				$oQuery->where('StudentGuardian_Public', $whereVerified[$dto->Verified->value]);
+			}
+
+			if (isset($whereStatus[$dto->Status->value])) {
+				$oQuery->where('StudentGuardian_Status', $whereStatus[$dto->Status->value]);
+			} else {
+				$oQuery->where('StudentGuardian_Status', '<>', 0);
+			}
+
+			$oQuery->where(function ($oSubQuery) use ($dto) {
+				$oSubQuery->where	("Guardian_Code",		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Guardian_Name", 		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Guardian_LastName", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("Guardian_NoDocument",	"LIKE", "%".$dto->Text."%");
+			});
+
+			// GET TOTAL DATA
+			$Data_Total	= $oQuery->count();
+
+			// SET PAGINATION
+			$oQuery->orderBy("Guardian_LastName", "ASC");
+			$oQuery->orderBy("Guardian_Name", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

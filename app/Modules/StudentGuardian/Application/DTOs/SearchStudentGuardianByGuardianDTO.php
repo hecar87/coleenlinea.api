@@ -2,15 +2,15 @@
 namespace App\Modules\StudentGuardian\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterDisplay;
+use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterVerified;
 use App\Modules\StudentGuardian\Domain\Enums\StudentGuardianFilterStatus;
 
 
-class SearchStudentGuardianDTO
+class SearchStudentGuardianByGuardianDTO
 {
     public function __construct(
         public string $Text = "",
-        public StudentGuardianFilterDisplay $Display = StudentGuardianFilterDisplay::ALL,
+        public StudentGuardianFilterVerified $Verified = StudentGuardianFilterVerified::ALL,
         public StudentGuardianFilterStatus $Status = StudentGuardianFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
@@ -18,10 +18,10 @@ class SearchStudentGuardianDTO
 
     public static function fromRequest(Request $oRequest) : self
     {
-        $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => StudentGuardianFilterDisplay::PUBLIC,
-            'PRIVATE' => StudentGuardianFilterDisplay::PRIVATE,
-            default => StudentGuardianFilterDisplay::ALL,
+        $verified = match (strtoupper($oRequest->input('Verified', 'ALL'))) {
+            'PENDING' => StudentGuardianFilterVerified::PENDING,
+            'VERIFIED' => StudentGuardianFilterVerified::VERIFIED,
+            default => StudentGuardianFilterVerified::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
@@ -32,7 +32,7 @@ class SearchStudentGuardianDTO
 
         return new self(
             Text: (string) $oRequest->input('Text', ''),
-            Display: $display,
+            Verified: $verified,
             Status: $status,
             Page_Size: (int) $oRequest->input('Page_Size', 10),
             Page_Current: (int) $oRequest->input('Page_Current', 1)

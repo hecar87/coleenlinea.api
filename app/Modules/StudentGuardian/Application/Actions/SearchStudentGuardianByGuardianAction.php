@@ -7,22 +7,22 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\StudentGuardian\Domain\Repositories\IStudentGuardianRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
 
-use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianDTO;
+use App\Modules\StudentGuardian\Application\DTOs\SearchStudentGuardianByGuardianDTO;
 
 
-class SearchStudentGuardianAction
+class SearchStudentGuardianByGuardianAction
 {
 
 	public function __construct(
 		protected IStudentGuardianRepository $oStudentGuardianRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected IGuardianRepository $oGuardianRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, SearchStudentGuardianDTO $oData) : Result
+	public function execute(int $Id_Guardian, SearchStudentGuardianByGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -40,10 +40,10 @@ class SearchStudentGuardianAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oGuardianRepository->exists($Id_Guardian);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oStudentGuardianRepository->search($Id_School, $oData);
+			$oResult = $this->oStudentGuardianRepository->searchByGuardian($Id_Guardian, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
