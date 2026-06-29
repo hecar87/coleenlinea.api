@@ -19,6 +19,12 @@ interface IGuardianRepository
 
     public function duplicated(DuplicatedGuardianDTO $dto) : Result;
 
+    public function canVerify(int $Id_Guardian) : Result;
+
+    public function canActivate(int $Id_Guardian) : Result;
+
+    public function canDeactivate(int $Id_Guardian) : Result;
+
     public function create(CreateGuardianDTO $dto) : Result;
 
     public function update(UpdateGuardianDTO $dto) : Result;
@@ -30,4 +36,10 @@ interface IGuardianRepository
     public function list(GuardianFilterVerified $Verified) : Result;
 
     public function search(SearchGuardianDTO $dto) : Result;
+
+    public function verify(int $Id_Guardian) : Result;
+
+    public function activate(int $Id_Guardian) : Result;
+
+    public function deactivate(int $Id_Guardian) : Result;
 }

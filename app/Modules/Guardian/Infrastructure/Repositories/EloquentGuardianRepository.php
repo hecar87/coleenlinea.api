@@ -117,6 +117,135 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
+	public function canVerify(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oResult	= [];
+		$Validate	= false;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Guardian_Verified", "=", "1");
+
+			$oData	= $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2201, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canActivate(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oResult	= [];
+		$Validate	= false;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Guardian_Status", "=", "1");
+
+			$oData	= $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2201, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canDeactivate(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oResult	= [];
+		$Validate	= false;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Guardian_Status", "=", "2");
+
+			$oData	= $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2201, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
 	public function create(CreateGuardianDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
@@ -428,6 +557,130 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function verify(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->update([
+				"Guardian_Date_Verified"	=> now(),
+				"Guardian_Verified"			=> 2,
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1000, $oEntity, $oData);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function activate(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->update([
+				"Guardian_Status" => 2
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1000, $oEntity, $oData);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function deactivate(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= GuardianModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= GuardianModel::query();
+
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->update([
+				"Guardian_Verified" => 1
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1000, $oEntity, $oData);
 		} catch (\Exception $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}

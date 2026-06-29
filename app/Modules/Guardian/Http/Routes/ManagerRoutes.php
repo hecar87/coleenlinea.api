@@ -13,6 +13,21 @@ Route::middleware('manager.access')
 	->put("/guardians", [ GuardianController::class, "update" ]);
 
 Route::middleware('manager.access')
+	->name('guardian.verify')
+	->put("/guardians/{Id_Guardian}/verify", [ GuardianController::class, "verify" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('guardian.activate')
+	->put("/guardians/{Id_Guardian}/activate", [ GuardianController::class, "activate" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('guardian.deactivate')
+	->put("/guardians/{Id_Guardian}/deactivate", [ GuardianController::class, "deactivate" ])
+	->where("Id_Guardian", "[0-9]+");
+
+Route::middleware('manager.access')
 	->name('guardian.delete')
 	->delete("/guardians/{Id_Guardian}", [ GuardianController::class, "delete" ])
 	->where("Id_Guardian", "[0-9]+");

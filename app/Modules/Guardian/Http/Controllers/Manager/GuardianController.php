@@ -26,6 +26,9 @@ use App\Modules\Guardian\Application\Actions\DeleteGuardianAction;
 use App\Modules\Guardian\Application\Actions\IndexGuardianAction;
 use App\Modules\Guardian\Application\Actions\ListGuardianAction;
 use App\Modules\Guardian\Application\Actions\SearchGuardianAction;
+use App\Modules\Guardian\Application\Actions\VerifyGuardianAction;
+use App\Modules\Guardian\Application\Actions\ActivateGuardianAction;
+use App\Modules\Guardian\Application\Actions\DeactivateGuardianAction;
 
 
 class GuardianController extends Controller
@@ -40,7 +43,10 @@ class GuardianController extends Controller
 		private DeleteGuardianAction $oDeleteGuardianAction,
 		private IndexGuardianAction $oIndexGuardianAction,
 		private ListGuardianAction $oListGuardianAction,
-		private SearchGuardianAction $oSearchGuardianAction
+		private SearchGuardianAction $oSearchGuardianAction,
+		private VerifyGuardianAction $oVerifyGuardianAction,
+		private ActivateGuardianAction $oActivateGuardianAction,
+		private DeactivateGuardianAction $oDeactivateGuardianAction
 	)
 	{
 		$this->repository = $repository;
@@ -148,6 +154,57 @@ class GuardianController extends Controller
 		$oResult	= $this->oSearchGuardianAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function verify(int $Id_Guardian)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oVerifyGuardianAction->execute($Id_Guardian);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function activate(int $Id_Guardian)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oActivateGuardianAction->execute($Id_Guardian);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function deactivate(int $Id_Guardian)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oDeactivateGuardianAction->execute($Id_Guardian);
+		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
