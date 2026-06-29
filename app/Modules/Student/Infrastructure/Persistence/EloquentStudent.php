@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentStudent extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_guardian";
-	protected $entity		= "GUARDIAN";
+	protected $table 		= "t_student";
+	protected $entity		= "STUDENT";
 	protected $primaryKey 	= "Id_Student";
 	protected $fillable 	= [
 		"Id_Student",
@@ -32,7 +32,7 @@ class EloquentStudent extends Model
 		"Student_Date_Updated"		=> "datetime:c",
 		"Student_Date_Deleted"		=> "datetime:c",
 		"Student_Date_Created"		=> "datetime:c",
-		"Student_Date_Verified"	=> "datetime:c"
+		"Student_Date_Verified"		=> "datetime:c"
 	];
 
 
