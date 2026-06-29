@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\Guardian\Application\Actions;
+namespace App\Modules\Student\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\Student\Domain\Repositories\IStudentRepository;
 
 
-class DeactivateGuardianAction
+class DeactivateStudentAction
 {
 
 	public function __construct(
-		protected IGuardianRepository $oGuardianRepository
+		protected IStudentRepository $oStudentRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_Guardian) : Result
+	public function execute(int $Id_Student) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oGuardianRepository->getEntity();
+		$oEntity = $this->oStudentRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,13 +36,13 @@ class DeactivateGuardianAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oGuardianRepository->exists($Id_Guardian);
+			$oResult = $this->oStudentRepository->exists($Id_Student);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oGuardianRepository->canDeactivate($Id_Guardian);
+			$oResult = $this->oStudentRepository->canDeactivate($Id_Student);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oGuardianRepository->deactivate($Id_Guardian);
+			$oResult = $this->oStudentRepository->deactivate($Id_Student);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

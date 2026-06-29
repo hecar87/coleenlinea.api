@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Guardian\Domain\Enums;
+namespace App\Modules\Student\Domain\Enums;
 
-enum GuardianVerified : int
+enum StudentVerified : int
 {
 	case PENDING = 1;
     case VERIFIED = 2;

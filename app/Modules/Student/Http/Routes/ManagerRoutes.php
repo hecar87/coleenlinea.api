@@ -1,46 +1,46 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Modules\Guardian\Http\Controllers\Manager\GuardianController;
+use App\Modules\Student\Http\Controllers\Manager\StudentController;
 
 
 Route::middleware('manager.access')
 	->name('guardian.create')
-	->post("/guardians", [ GuardianController::class, "create" ]);
+	->post("/guardians", [ StudentController::class, "create" ]);
 
 Route::middleware('manager.access')
 	->name('guardian.update')
-	->put("/guardians", [ GuardianController::class, "update" ]);
+	->put("/guardians", [ StudentController::class, "update" ]);
 
 Route::middleware('manager.access')
 	->name('guardian.verify')
-	->put("/guardians/{Id_Guardian}/verify", [ GuardianController::class, "verify" ])
-	->where("Id_Guardian", "[0-9]+");
+	->put("/guardians/{Id_Student}/verify", [ StudentController::class, "verify" ])
+	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('guardian.activate')
-	->put("/guardians/{Id_Guardian}/activate", [ GuardianController::class, "activate" ])
-	->where("Id_Guardian", "[0-9]+");
+	->put("/guardians/{Id_Student}/activate", [ StudentController::class, "activate" ])
+	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('guardian.deactivate')
-	->put("/guardians/{Id_Guardian}/deactivate", [ GuardianController::class, "deactivate" ])
-	->where("Id_Guardian", "[0-9]+");
+	->put("/guardians/{Id_Student}/deactivate", [ StudentController::class, "deactivate" ])
+	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('guardian.delete')
-	->delete("/guardians/{Id_Guardian}", [ GuardianController::class, "delete" ])
-	->where("Id_Guardian", "[0-9]+");
+	->delete("/guardians/{Id_Student}", [ StudentController::class, "delete" ])
+	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('guardian.index')
-	->get("/guardians/{Id_Guardian}", [ GuardianController::class, "index" ])
-	->where("Id_Guardian", "[0-9]+");
+	->get("/guardians/{Id_Student}", [ StudentController::class, "index" ])
+	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('guardian.list')
-	->get("/guardians", [ GuardianController::class, "list" ]);
+	->get("/guardians", [ StudentController::class, "list" ]);
 
 Route::middleware('manager.access')
 	->name('guardian.search')
-	->get("/guardians/search", [ GuardianController::class, "search" ]);
+	->get("/guardians/search", [ StudentController::class, "search" ]);

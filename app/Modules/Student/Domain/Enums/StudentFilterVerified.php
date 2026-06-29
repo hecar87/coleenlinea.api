@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Guardian\Domain\Enums;
+namespace App\Modules\Student\Domain\Enums;
 
-enum GuardianFilterVerified : string
+enum StudentFilterVerified : string
 {
     case ALL = 'ALL';
     case PENDING = 'PENDING';

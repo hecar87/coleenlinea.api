@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Guardian\Infrastructure\Repositories;
+namespace App\Modules\Student\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -8,33 +8,33 @@ use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
-use App\Modules\Guardian\Infrastructure\Persistence\EloquentGuardian as GuardianModel;
+use App\Modules\Student\Domain\Repositories\IStudentRepository;
+use App\Modules\Student\Infrastructure\Persistence\EloquentStudent as StudentModel;
 
-use App\Modules\Guardian\Application\DTOs\CreateGuardianDTO;
-use App\Modules\Guardian\Application\DTOs\UpdateGuardianDTO;
-use App\Modules\Guardian\Application\DTOs\DuplicatedGuardianDTO;
-use App\Modules\Guardian\Application\DTOs\SearchGuardianDTO;
+use App\Modules\Student\Application\DTOs\CreateStudentDTO;
+use App\Modules\Student\Application\DTOs\UpdateStudentDTO;
+use App\Modules\Student\Application\DTOs\DuplicatedStudentDTO;
+use App\Modules\Student\Application\DTOs\SearchStudentDTO;
 
-use App\Modules\Guardian\Domain\Enums\GuardianFilterVerified;
-use App\Modules\Guardian\Domain\Enums\GuardianFilterStatus;
-use App\Modules\Guardian\Domain\Enums\GuardianVerified;
-use App\Modules\Guardian\Domain\Enums\GuardianStatus;
+use App\Modules\Student\Domain\Enums\StudentFilterVerified;
+use App\Modules\Student\Domain\Enums\StudentFilterStatus;
+use App\Modules\Student\Domain\Enums\StudentVerified;
+use App\Modules\Student\Domain\Enums\StudentStatus;
 
 
-class EloquentGuardianRepository implements IGuardianRepository
+class EloquentStudentRepository implements IStudentRepository
 {
 	public function getEntity(): string
 	{
-		return GuardianModel::getEntity();
+		return StudentModel::getEntity();
 	}
 
-	public function exists(int $Id_Guardian): Result
+	public function exists(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 		$exists		= 0;
 
@@ -46,10 +46,10 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
-			$oQuery->where("Guardian_Status", "<>", "0");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+			$oQuery->where("Student_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -72,12 +72,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function duplicated(DuplicatedGuardianDTO $dto): Result
+	public function duplicated(DuplicatedStudentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 		$Duplicate	= 0;
 
@@ -89,11 +89,11 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "<>", $dto->Id_Guardian);
-			$oQuery->where("Guardian_Status", "<>", "0");
-			$oQuery->where("Guardian_NoDocument", "=", $dto->Guardian_NoDocument);
+			$oQuery->where("Id_Student", "<>", $dto->Id_Student);
+			$oQuery->where("Student_Status", "<>", "0");
+			$oQuery->where("Student_NoDocument", "=", $dto->Student_NoDocument);
 			$oQuery->where("Id_TypeDocument", "=", $dto->Id_TypeDocument);
 
 			$Duplicate	= $oQuery->count();
@@ -117,12 +117,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function canVerify(int $Id_Guardian): Result
+	public function canVerify(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 		$Validate	= false;
 
@@ -134,10 +134,10 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
-			$oQuery->where("Guardian_Verified", "=", "1");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+			$oQuery->where("Student_Verified", "=", "1");
 
 			$oData	= $oQuery->count();
 
@@ -160,12 +160,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function canActivate(int $Id_Guardian): Result
+	public function canActivate(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 		$Validate	= false;
 
@@ -177,10 +177,10 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
-			$oQuery->where("Guardian_Status", "=", "1");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+			$oQuery->where("Student_Status", "=", "1");
 
 			$oData	= $oQuery->count();
 
@@ -203,12 +203,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function canDeactivate(int $Id_Guardian): Result
+	public function canDeactivate(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 		$Validate	= false;
 
@@ -220,10 +220,10 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
-			$oQuery->where("Guardian_Status", "=", "2");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+			$oQuery->where("Student_Status", "=", "2");
 
 			$oData	= $oQuery->count();
 
@@ -246,12 +246,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function create(CreateGuardianDTO $dto): Result
+	public function create(CreateStudentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -263,28 +263,28 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$pGuardian_Code = $this->generateCode();
+			$pStudent_Code = $this->generateCode();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_Guardian"				=> $dto->Id_Guardian,
-				"Guardian_Date_Created"		=> date("Y-m-d H:i:s"),
-				"Guardian_Date_Updated"		=> date("Y-m-d H:i:s"),
-				"Guardian_Date_Deleted"		=> date("Y-m-d H:i:s"),
-				"Guardian_Date_Verified"	=> date("Y-m-d H:i:s"),
-				"Guardian_Code"				=> $pGuardian_Code,
-				"Guardian_Name"				=> trim( mb_strtoupper( $dto->Guardian_Name, "utf-8" ) ),
-				"Guardian_LastName"			=> trim( mb_strtoupper( $dto->Guardian_LastName, "utf-8" ) ),
-				"Guardian_NoDocument"		=> trim( mb_strtoupper( $dto->Guardian_NoDocument, "utf-8" ) ),
-				"Guardian_DOB"				=> $dto->Guardian_DOB,
-				"Guardian_Verified"			=> 1,
-				"Guardian_Status"			=> 2,
+				"Id_Student"				=> $dto->Id_Student,
+				"Student_Date_Created"		=> date("Y-m-d H:i:s"),
+				"Student_Date_Updated"		=> date("Y-m-d H:i:s"),
+				"Student_Date_Deleted"		=> date("Y-m-d H:i:s"),
+				"Student_Date_Verified"	=> date("Y-m-d H:i:s"),
+				"Student_Code"				=> $pStudent_Code,
+				"Student_Name"				=> trim( mb_strtoupper( $dto->Student_Name, "utf-8" ) ),
+				"Student_LastName"			=> trim( mb_strtoupper( $dto->Student_LastName, "utf-8" ) ),
+				"Student_NoDocument"		=> trim( mb_strtoupper( $dto->Student_NoDocument, "utf-8" ) ),
+				"Student_DOB"				=> $dto->Student_DOB,
+				"Student_Verified"			=> 1,
+				"Student_Status"			=> 2,
 				"Id_TypeDocument"			=> $dto->Id_TypeDocument,
 				"Id_TypeGender"				=> $dto->Id_TypeGender
 			]);
 
-			$oQuery->where("Id_Guardian", "=", "$Id");
+			$oQuery->where("Id_Student", "=", "$Id");
 			$oData	= $oQuery->get();
 
 
@@ -302,12 +302,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function update(UpdateGuardianDTO $dto): Result
+	public function update(UpdateStudentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -319,15 +319,15 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $dto->Id_Guardian);
+			$oQuery->where("Id_Student", "=", $dto->Id_Student);
 			$oQuery->update([
-				"Guardian_Date_Updated"		=> date("Y-m-d H:i:s"),
-				"Guardian_Name"				=> trim( mb_strtoupper( $dto->Guardian_Name, "utf-8" ) ),
-				"Guardian_LastName"			=> trim( mb_strtoupper( $dto->Guardian_LastName, "utf-8" ) ),
-				"Guardian_NoDocument"		=> trim( mb_strtoupper( $dto->Guardian_NoDocument, "utf-8" ) ),
-				"Guardian_DOB"				=> $dto->Guardian_DOB,
+				"Student_Date_Updated"		=> date("Y-m-d H:i:s"),
+				"Student_Name"				=> trim( mb_strtoupper( $dto->Student_Name, "utf-8" ) ),
+				"Student_LastName"			=> trim( mb_strtoupper( $dto->Student_LastName, "utf-8" ) ),
+				"Student_NoDocument"		=> trim( mb_strtoupper( $dto->Student_NoDocument, "utf-8" ) ),
+				"Student_DOB"				=> $dto->Student_DOB,
 				"Id_TypeDocument"			=> $dto->Id_TypeDocument,
 				"Id_TypeGender"				=> $dto->Id_TypeGender
 			]);
@@ -349,12 +349,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function delete(int $Id_Guardian): Result
+	public function delete(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= [];
 
 
@@ -365,12 +365,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Id_Student", "=", $Id_Student);
 			$oQuery->update([
-				"Guardian_Code"	=> DB::raw("CONCAT('( DELETED ) ', Guardian_Code)"),
-				"Guardian_Status"	=> 0
+				"Student_Code"	=> DB::raw("CONCAT('( DELETED ) ', Student_Code)"),
+				"Student_Status"	=> 0
 			]);
 
 
@@ -388,12 +388,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function index(int $Id_Guardian): Result
+	public function index(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -405,12 +405,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
 			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
-			$oQuery->where("Guardian_Status", "<>", "0");
+			$oQuery->where("Id_Student", "=", $Id_Student);
+			$oQuery->where("Student_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -429,12 +429,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(GuardianFilterVerified $Display): Result
+	public function list(StudentFilterVerified $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -447,25 +447,25 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//	SET VARIABLES
 			//
 			$whereVerified	= [
-				GuardianFilterVerified::VERIFIED->value  => 2,
-				GuardianFilterVerified::PENDING->value => 1
+				StudentFilterVerified::VERIFIED->value  => 2,
+				StudentFilterVerified::PENDING->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
 			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
 			if (isset($whereVerified[$Display->value])) {
-				$oQuery->where('Guardian_Verified', $whereVerified[$Display->value]);
+				$oQuery->where('Student_Verified', $whereVerified[$Display->value]);
 			}
 
-			$oQuery->where('Guardian_Status', '=', GuardianStatus::ACTIVE->value);
-			$oQuery->orderBy("Guardian_TradeName", "ASC");
+			$oQuery->where('Student_Status', '=', StudentStatus::ACTIVE->value);
+			$oQuery->orderBy("Student_TradeName", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -486,12 +486,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(SearchGuardianDTO $dto): Result
+	public function search(SearchStudentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -508,44 +508,44 @@ class EloquentGuardianRepository implements IGuardianRepository
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
 			$whereVerified	= [
-				GuardianFilterVerified::VERIFIED->value  => 2,
-				GuardianFilterVerified::PENDING->value => 1
+				StudentFilterVerified::VERIFIED->value  => 2,
+				StudentFilterVerified::PENDING->value => 1
 			];
 			$whereStatus	= [
-				GuardianFilterStatus::ACTIVE->value   => 2,
-				GuardianFilterStatus::INACTIVE->value => 1
+				StudentFilterStatus::ACTIVE->value   => 2,
+				StudentFilterStatus::INACTIVE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
 			$oQuery->join("t_type_document", "t_guardian.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
 			$oQuery->join("t_type_gender", "t_guardian.Id_TypeGender", "=", "t_type_gender.Id_TypeGender");
 
 			if (isset($whereVerified[$dto->Verified->value])) {
-				$oQuery->where('Guardian_Verified', $whereVerified[$dto->Verified->value]);
+				$oQuery->where('Student_Verified', $whereVerified[$dto->Verified->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('Guardian_Status', $whereStatus[$dto->Status->value]);
+				$oQuery->where('Student_Status', $whereStatus[$dto->Status->value]);
 			} else {
-				$oQuery->where('Guardian_Status', '<>', 0);
+				$oQuery->where('Student_Status', '<>', 0);
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("Guardian_Name", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Guardian_LastName", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Guardian_NoDocument", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where("Student_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Student_LastName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Student_NoDocument", "LIKE", "%" . $dto->Text . "%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("Guardian_LastName", "ASC");
+			$oQuery->orderBy("Student_LastName", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
@@ -567,12 +567,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function verify(int $Id_Guardian): Result
+	public function verify(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -584,12 +584,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Id_Student", "=", $Id_Student);
 			$oQuery->update([
-				"Guardian_Date_Verified"	=> now(),
-				"Guardian_Verified"			=> 2,
+				"Student_Date_Verified"	=> now(),
+				"Student_Verified"			=> 2,
 			]);
 
 			$oData	= $oQuery->get();
@@ -609,12 +609,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function activate(int $Id_Guardian): Result
+	public function activate(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -626,11 +626,11 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Id_Student", "=", $Id_Student);
 			$oQuery->update([
-				"Guardian_Status" => 2
+				"Student_Status" => 2
 			]);
 
 			$oData	= $oQuery->get();
@@ -650,12 +650,12 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function deactivate(int $Id_Guardian): Result
+	public function deactivate(int $Id_Student): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -667,11 +667,11 @@ class EloquentGuardianRepository implements IGuardianRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= GuardianModel::query();
+			$oQuery	= StudentModel::query();
 
-			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+			$oQuery->where("Id_Student", "=", $Id_Student);
 			$oQuery->update([
-				"Guardian_Verified" => 1
+				"Student_Verified" => 1
 			]);
 
 			$oData	= $oQuery->get();
@@ -698,7 +698,7 @@ class EloquentGuardianRepository implements IGuardianRepository
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= GuardianModel::getEntity();
+		$oEntity	= StudentModel::getEntity();
 		$oResult	= "";
 
 

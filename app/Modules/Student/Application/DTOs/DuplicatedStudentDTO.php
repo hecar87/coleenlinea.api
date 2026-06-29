@@ -1,21 +1,21 @@
 <?php
-namespace App\Modules\Guardian\Application\DTOs;
+namespace App\Modules\Student\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class DuplicatedGuardianDTO
+class DuplicatedStudentDTO
 {
     public function __construct(
-        public int $Id_Guardian,
-		public string $Guardian_NoDocument,
+        public int $Id_Student,
+		public string $Student_NoDocument,
 		public int $Id_TypeDocument
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_Guardian: (int) $oRequest->input('Id_Guardian', 0),
-            Guardian_NoDocument: $oRequest->input('Guardian_NoDocument', ''),
+            Id_Student: (int) $oRequest->input('Id_Student', 0),
+            Student_NoDocument: $oRequest->input('Student_NoDocument', ''),
             Id_TypeDocument: (int) $oRequest->input('Id_TypeDocument', 0)
         );
     }

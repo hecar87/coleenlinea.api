@@ -1,38 +1,38 @@
 <?php
 
-namespace App\Modules\Guardian\Infrastructure\Persistence;
+namespace App\Modules\Student\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 
 
-class EloquentGuardian extends Model
+class EloquentStudent extends Model
 {
 	public $timestamps 		= false;
 	protected $table 		= "t_guardian";
 	protected $entity		= "GUARDIAN";
-	protected $primaryKey 	= "Id_Guardian";
+	protected $primaryKey 	= "Id_Student";
 	protected $fillable 	= [
-		"Id_Guardian",
-		"Guardian_Date_Created",
-		"Guardian_Date_Updated",
-		"Guardian_Date_Deleted",
-		"Guardian_Date_Verified",
-		"Guardian_Code",
-		"Guardian_Name",
-		"Guardian_LastName",
-		"Guardian_NoDocument",
-		"Guardian_DOB",
-		"Guardian_Verified",
-		"Guardian_Status",
+		"Id_Student",
+		"Student_Date_Created",
+		"Student_Date_Updated",
+		"Student_Date_Deleted",
+		"Student_Date_Verified",
+		"Student_Code",
+		"Student_Name",
+		"Student_LastName",
+		"Student_NoDocument",
+		"Student_DOB",
+		"Student_Verified",
+		"Student_Status",
 		"Id_TypeDocument",
 		"Id_TypeGender",
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [
-		"Guardian_Date_Updated"		=> "datetime:c",
-		"Guardian_Date_Deleted"		=> "datetime:c",
-		"Guardian_Date_Created"		=> "datetime:c",
-		"Guardian_Date_Verified"	=> "datetime:c"
+		"Student_Date_Updated"		=> "datetime:c",
+		"Student_Date_Deleted"		=> "datetime:c",
+		"Student_Date_Created"		=> "datetime:c",
+		"Student_Date_Verified"	=> "datetime:c"
 	];
 
 

@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\Guardian\Application\DTOs;
+namespace App\Modules\Student\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class CreateGuardianDTO
+class CreateStudentDTO
 {
     public function __construct(
-        public int $Id_Guardian,
-        public string $Guardian_Code,
-		public string $Guardian_Name,
-		public string $Guardian_LastName,
-		public string $Guardian_NoDocument,
-		public string $Guardian_DOB,
+        public int $Id_Student,
+        public string $Student_Code,
+		public string $Student_Name,
+		public string $Student_LastName,
+		public string $Student_NoDocument,
+		public string $Student_DOB,
 		public int $Id_TypeDocument,
 		public int $Id_TypeGender
     ) {}
@@ -19,12 +19,12 @@ class CreateGuardianDTO
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_Guardian: (int) $oRequest->input('Id_Guardian', 0),
-            Guardian_Code: $oRequest->input('Guardian_Code', ''),
-            Guardian_Name: $oRequest->input('Guardian_Name', ''),
-            Guardian_LastName: $oRequest->input('Guardian_LastName', ''),
-            Guardian_NoDocument: $oRequest->input('Guardian_NoDocument', ''),
-            Guardian_DOB: $oRequest->input('Guardian_DOB', ''),
+            Id_Student: (int) $oRequest->input('Id_Student', 0),
+            Student_Code: $oRequest->input('Student_Code', ''),
+            Student_Name: $oRequest->input('Student_Name', ''),
+            Student_LastName: $oRequest->input('Student_LastName', ''),
+            Student_NoDocument: $oRequest->input('Student_NoDocument', ''),
+            Student_DOB: $oRequest->input('Student_DOB', ''),
             Id_TypeDocument: (int) $oRequest->input('Id_TypeDocument', 0),
             Id_TypeGender: (int) $oRequest->input('Id_TypeGender', 0)
         );
