@@ -5,27 +5,27 @@ use App\Modules\Student\Http\Controllers\Manager\StudentController;
 
 
 Route::middleware('manager.access')
-	->name('guardian.create')
-	->post("/guardians", [ StudentController::class, "create" ]);
+	->name('student.create')
+	->post("/students", [ StudentController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('guardian.update')
-	->put("/guardians", [ StudentController::class, "update" ]);
+	->name('student.update')
+	->put("/students", [ StudentController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('guardian.delete')
-	->delete("/guardians/{Id_Student}", [ StudentController::class, "delete" ])
+	->name('student.delete')
+	->delete("/students/{Id_Student}", [ StudentController::class, "delete" ])
 	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('guardian.index')
-	->get("/guardians/{Id_Student}", [ StudentController::class, "index" ])
+	->name('student.index')
+	->get("/students/{Id_Student}", [ StudentController::class, "index" ])
 	->where("Id_Student", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('guardian.list')
-	->get("/guardians", [ StudentController::class, "list" ]);
+	->name('student.list')
+	->get("/students", [ StudentController::class, "list" ]);
 
 Route::middleware('manager.access')
-	->name('guardian.search')
-	->get("/guardians/search", [ StudentController::class, "search" ]);
+	->name('student.search')
+	->get("/students/search", [ StudentController::class, "search" ]);
