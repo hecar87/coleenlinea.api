@@ -5,29 +5,54 @@ use App\Modules\Enrollment\Http\Controllers\Manager\EnrollmentController;
 
 
 Route::middleware('manager.access')
-	->name('school-account.create')
-	->post("/school-accounts", [ EnrollmentController::class, "create" ]);
+	->name('enrollment.create')
+	->post("/enrollments", [ EnrollmentController::class, "create" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.update')
-	->put("/school-accounts", [ EnrollmentController::class, "update" ]);
+	->name('enrollment.update')
+	->put("/enrollments", [ EnrollmentController::class, "update" ]);
 
 Route::middleware('manager.access')
-	->name('school-account.delete')
-	->delete("/school-accounts/{Id_Enrollment}", [ EnrollmentController::class, "delete" ])
+	->name('enrollment.enroll')
+	->put("/enrollments/{Id_Enrollment}/enroll", [ EnrollmentController::class, "enroll" ])
 	->where("Id_Enrollment", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.index')
-	->get("/school-accounts/{Id_Enrollment}", [ EnrollmentController::class, "index" ])
+	->name('enrollment.nullify')
+	->put("/enrollments/{Id_Enrollment}/nullify", [ EnrollmentController::class, "nullify" ])
 	->where("Id_Enrollment", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.list')
-	->get("/schools/{Id_School}/school-accounts", [ EnrollmentController::class, "list" ])
-	->where("Id_School", "[0-9]+");
+	->name('enrollment.delete')
+	->delete("/enrollments/{Id_Enrollment}", [ EnrollmentController::class, "delete" ])
+	->where("Id_Enrollment", "[0-9]+");
 
 Route::middleware('manager.access')
-	->name('school-account.search')
-	->get("/schools/{Id_School}/school-accounts/search", [ EnrollmentController::class, "search" ])
-	->where("Id_School", "[0-9]+");
+	->name('enrollment.index')
+	->get("/enrollments/{Id_Enrollment}", [ EnrollmentController::class, "index" ])
+	->where("Id_Enrollment", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment.list-by-school-class')
+	->get("/school-classes/{Id_SchoolClass}/enrollments", [ EnrollmentController::class, "listBySchoolClass" ])
+	->where("Id_SchoolClass", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment.list-by-student')
+	->get("/students/{Id_Student}/enrollments", [ EnrollmentController::class, "listByStudent" ])
+	->where("Id_Student", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment.search-by-school-class')
+	->get("/school-classes/{Id_SchoolClass}/enrollments/search", [ EnrollmentController::class, "searchBySchoolClass" ])
+	->where("Id_SchoolClass", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment.search-by-school-year')
+	->get("/school-years/{Id_SchoolYear}/enrollments/search", [ EnrollmentController::class, "searchBySchoolYear" ])
+	->where("Id_SchoolYear", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment.search-by-student')
+	->get("/students/{Id_Student}/enrollments/search", [ EnrollmentController::class, "searchByStudent" ])
+	->where("Id_Student", "[0-9]+");

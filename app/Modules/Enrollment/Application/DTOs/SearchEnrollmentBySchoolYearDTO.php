@@ -2,15 +2,17 @@
 namespace App\Modules\Enrollment\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\Enrollment\Domain\Enums\EnrollmentFilterDisplay;
+use App\Modules\Enrollment\Domain\Enums\EnrollmentFilterType;
+use App\Modules\Enrollment\Domain\Enums\EnrollmentFilterNewed;
 use App\Modules\Enrollment\Domain\Enums\EnrollmentFilterStatus;
 
 
-class SearchEnrollmentDTO
+class SearchEnrollmentBySchoolYearDTO
 {
     public function __construct(
         public string $Text = "",
-        public EnrollmentFilterDisplay $Display = EnrollmentFilterDisplay::ALL,
+        public EnrollmentFilterType $Type = EnrollmentFilterType::ALL,
+        public EnrollmentFilterNewed $Newed = EnrollmentFilterNewed::ALL,
         public EnrollmentFilterStatus $Status = EnrollmentFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
@@ -18,10 +20,16 @@ class SearchEnrollmentDTO
 
     public static function fromRequest(Request $oRequest) : self
     {
-        $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => EnrollmentFilterDisplay::PUBLIC,
-            'PRIVATE' => EnrollmentFilterDisplay::PRIVATE,
-            default => EnrollmentFilterDisplay::ALL,
+         $type = match (strtoupper($oRequest->input('Type', 'ALL'))) {
+            'REPEATER' => EnrollmentFilterType::REPEATER,
+            'PROMOTED' => EnrollmentFilterType::PROMOTED,
+            default => EnrollmentFilterType::ALL,
+        };
+
+        $newed = match (strtoupper($oRequest->input('Newed', 'ALL'))) {
+            'REGULAR' => EnrollmentFilterNewed::REGULAR,
+            'NEWED' => EnrollmentFilterNewed::NEWED,
+            default => EnrollmentFilterNewed::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
@@ -32,7 +40,8 @@ class SearchEnrollmentDTO
 
         return new self(
             Text: (string) $oRequest->input('Text', ''),
-            Display: $display,
+            Type: $type,
+            Newed: $newed,
             Status: $status,
             Page_Size: (int) $oRequest->input('Page_Size', 10),
             Page_Current: (int) $oRequest->input('Page_Current', 1)

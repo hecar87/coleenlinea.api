@@ -7,27 +7,25 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-
-use App\Modules\Enrollment\Application\DTOs\SearchEnrollmentDTO;
+use App\Modules\SchoolClass\Domain\Repositories\ISchoolClassRepository;
 
 
-class SearchEnrollmentAction
+class ListEnrollmentBySchoolClassAction
 {
 
 	public function __construct(
 		protected IEnrollmentRepository $oEnrollmentRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected ISchoolClassRepository $oSchoolClassRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, SearchEnrollmentDTO $oData) : Result
+	public function execute(int $Id_SchoolClass) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oEnrollmentRepository->getEntity();
+		$oEntity 	= $this->oEnrollmentRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -40,10 +38,10 @@ class SearchEnrollmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
+			$oresult = $this->oSchoolClassRepository->exists($Id_SchoolClass);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oEnrollmentRepository->search($Id_School, $oData);
+			$oResult = $this->oEnrollmentRepository->listBySchoolClass($Id_SchoolClass);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

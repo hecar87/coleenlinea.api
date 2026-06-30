@@ -8,23 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentEnrollment extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school_account";
-	protected $entity		= "SCHOOL-ACCOUNT";
+	protected $table 		= "t_enrollment";
+	protected $entity		= "ENROLLMENT";
 	protected $primaryKey 	= "Id_Enrollment";
 	protected $fillable 	= [
 		"Id_Enrollment",
-		"Enrollment_Number",
-		"Enrollment_CCI",
-		"Enrollment_Remark",
-		"Enrollment_Default",
-		"Enrollment_Public",
+		"Enrollment_Date_Created",
+		"Enrollment_Date_Enrolled",
+		"Enrollment_Date_Nullified",
+		"Enrollment_Date_Start",
+		"Enrollment_Date_End",
+		"Enrollment_Code",
+		"Enrollment_Type",
+		"Enrollment_Newed",
 		"Enrollment_Status",
 		"Id_School",
-		"Id_TypeBank",
-		"Id_TypeCurrency"
+		"Id_SchoolYear",
+		"Id_SchoolClass",
+		"Id_Student"
 	];
 	protected $hidden 		= [];
-	protected $casts 		= [];
+	protected $casts 		= [
+		"Enrollment_Date_Created"	=> "datetime:c",
+		"Enrollment_Date_Enrolled"	=> "datetime:c",
+		"Enrollment_Date_Nullified"	=> "datetime:c"
+	];
 
 
 	public static function getEntity()

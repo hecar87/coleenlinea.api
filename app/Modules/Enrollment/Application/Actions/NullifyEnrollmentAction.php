@@ -7,28 +7,23 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-
-use App\Modules\Enrollment\Domain\Enums\EnrollmentFilterDisplay;
 
 
-class ListEnrollmentAction
+class NullifyEnrollmentAction
 {
 
 	public function __construct(
-		protected IEnrollmentRepository $oEnrollmentRepository,
-		protected ISchoolRepository $oSchoolRepository
+		protected IEnrollmentRepository $oEnrollmentRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_Enrollment) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oEnrollmentRepository->getEntity();
-		$oDisplay 	= EnrollmentFilterDisplay::from(strtoupper($Display));
+		$oEntity = $this->oEnrollmentRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -41,10 +36,13 @@ class ListEnrollmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolRepository->exists($Id_School);
-			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
+			$oResult = $this->oEnrollmentRepository->exists($Id_Enrollment);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oEnrollmentRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oEnrollmentRepository->canNullify($Id_Enrollment);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oEnrollmentRepository->nullify($Id_Enrollment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

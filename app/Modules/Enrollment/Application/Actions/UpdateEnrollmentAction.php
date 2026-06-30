@@ -8,8 +8,9 @@ use App\Helpers\ResultManager;
 
 use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
-use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
+use App\Modules\SchoolClass\Domain\Repositories\ISchoolClassRepository;
+use App\Modules\Student\Domain\Repositories\IStudentRepository;
 
 use App\Modules\Enrollment\Application\DTOs\UpdateEnrollmentDTO;
 use App\Modules\Enrollment\Application\DTOs\DuplicatedEnrollmentDTO;
@@ -21,8 +22,9 @@ class UpdateEnrollmentAction
 	public function __construct(
 		protected IEnrollmentRepository $oEnrollmentRepository,
 		protected ISchoolRepository $oSchoolRepository,
-		protected ITypeBankRepository $oTypeBankRepository,
-		protected ITypeCurrencyRepository $oTypeCurrencyRepository
+		protected ISchoolYearRepository $oSchoolYearRepository,
+		protected ISchoolClassRepository $oSchoolClassRepository,
+		protected IStudentRepository $oStudentRepository
 	)
 	{
 	}
@@ -35,11 +37,10 @@ class UpdateEnrollmentAction
 		$oEntity = $this->oEnrollmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedEnrollmentDTO(
 			Id_Enrollment		: $oData->Id_Enrollment,
-			Enrollment_Number	: $oData->Enrollment_Number,
-            Enrollment_CCI		: $oData->Enrollment_CCI,
-            Id_School				: $oData->Id_School,
-            Id_TypeBank				: $oData->Id_TypeBank,
-            Id_TypeCurrency			: $oData->Id_TypeCurrency
+			Id_School			: $oData->Id_School,
+			Id_SchoolYear		: $oData->Id_SchoolYear,
+			Id_SchoolClass		: $oData->Id_SchoolClass,
+			Id_Student			: $oData->Id_Student
 		);
 
 
@@ -54,15 +55,21 @@ class UpdateEnrollmentAction
 			DB::beginTransaction();
 
 			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
-
-			$oResult = $this->oTypeBankRepository->exists($oData->Id_TypeBank);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
+			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolYear);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oSchoolClassRepository->exists($oData->Id_SchoolClass);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oStudentRepository->exists($oData->Id_Student);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oEnrollmentRepository->exists($oData->Id_Enrollment);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oEnrollmentRepository->canUpdate($oData->Id_Enrollment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 
