@@ -10,8 +10,8 @@ class SearchEnrollmentBySchoolClassRequest extends ValidatedRequest
 	{
 		return [
 			//"Text"				=> "string",
-			"Type"			=> "required|string|max:50|in:ALL,REPEATER,PROMOTED",
-			"Newed"			=> "required|string|max:50|in:ALL,PUBLIC,PRIVATE",
+			"Type"				=> "required|string|max:50|in:ALL,REPEATER,PROMOTED",
+			"Newed"				=> "required|string|max:50|in:ALL,PUBLIC,PRIVATE",
 			"Status"			=> "required|string|max:50|in:ALL,ACTIVE,INACTIVE",
 			"Page_Size"			=> "required|int|min:1",
 			"Page_Current"		=> "required|int|min:1"
