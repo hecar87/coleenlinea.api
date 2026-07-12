@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Infrastructure\Repositories;
+namespace App\Modules\EnrollmentInstallment\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
-use App\Modules\SchoolAccount\Infrastructure\Persistence\EloquentSchoolAccount as SchoolAccountModel;
+use App\Modules\EnrollmentInstallment\Domain\Repositories\IEnrollmentInstallmentRepository;
+use App\Modules\EnrollmentInstallment\Infrastructure\Persistence\EloquentEnrollmentInstallment as EnrollmentInstallmentModel;
 
-use App\Modules\SchoolAccount\Application\DTOs\CreateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\UpdateSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\DuplicatedSchoolAccountDTO;
-use App\Modules\SchoolAccount\Application\DTOs\SearchSchoolAccountDTO;
+use App\Modules\EnrollmentInstallment\Application\DTOs\CreateEnrollmentInstallmentDTO;
+use App\Modules\EnrollmentInstallment\Application\DTOs\UpdateEnrollmentInstallmentDTO;
+use App\Modules\EnrollmentInstallment\Application\DTOs\DuplicatedEnrollmentInstallmentDTO;
+use App\Modules\EnrollmentInstallment\Application\DTOs\SearchEnrollmentInstallmentDTO;
 
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountPublic;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountStatus;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterDisplay;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterStatus;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentPublic;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentStatus;
 
 
-class EloquentSchoolAccountRepository implements ISchoolAccountRepository
+class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentRepository
 {
 	public function getEntity(): string
 	{
-		return SchoolAccountModel::getEntity();
+		return EnrollmentInstallmentModel::getEntity();
 	}
 
-	public function exists(int $Id_SchoolAccount): Result
+	public function exists(int $Id_EnrollmentInstallment): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oResult	= [];
 		$exists		= 0;
 
@@ -45,10 +45,10 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
-			$oQuery->where("SchoolAccount_Status", "<>", "0");
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -71,12 +71,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function duplicated(DuplicatedSchoolAccountDTO $dto): Result
+	public function duplicated(DuplicatedEnrollmentInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oResult	= [];
 		$Duplicate	= 0;
 
@@ -88,17 +88,17 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->where("Id_SchoolAccount", "<>", $dto->Id_SchoolAccount);
-			$oQuery->where("SchoolAccount_Status", "<>", "0");
+			$oQuery->where("Id_EnrollmentInstallment", "<>", $dto->Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Status", "<>", "0");
 			$oQuery->where("Id_School", "=", $dto->Id_School);
 			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
 			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolAccount_Number", "=", $dto->SchoolAccount_Number);
-				$oSubQuery->orWhere("SchoolAccount_CCI", "=", $dto->SchoolAccount_CCI);
+				$oSubQuery->where("EnrollmentInstallment_Number", "=", $dto->EnrollmentInstallment_Number);
+				$oSubQuery->orWhere("EnrollmentInstallment_CCI", "=", $dto->EnrollmentInstallment_CCI);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -122,12 +122,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function create(CreateSchoolAccountDTO $dto): Result
+	public function create(CreateEnrollmentInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -139,22 +139,22 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_SchoolAccount"		=> $dto->Id_SchoolAccount,
-				"SchoolAccount_Number"	=> trim( mb_strtoupper( $dto->SchoolAccount_Number, "utf-8" ) ),
-				"SchoolAccount_CCI"		=> trim( mb_strtoupper( $dto->SchoolAccount_CCI, "utf-8" ) ),
-				"SchoolAccount_Remark"	=> trim( mb_strtoupper( $dto->SchoolAccount_Remark, "utf-8" ) ),
-				"SchoolAccount_Default"	=> 1,
-				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
-				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status,
+				"Id_EnrollmentInstallment"		=> $dto->Id_EnrollmentInstallment,
+				"EnrollmentInstallment_Number"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Number, "utf-8" ) ),
+				"EnrollmentInstallment_CCI"		=> trim( mb_strtoupper( $dto->EnrollmentInstallment_CCI, "utf-8" ) ),
+				"EnrollmentInstallment_Remark"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Remark, "utf-8" ) ),
+				"EnrollmentInstallment_Default"	=> 1,
+				"EnrollmentInstallment_Public"	=> $dto->EnrollmentInstallment_Public,
+				"EnrollmentInstallment_Status"	=> $dto->EnrollmentInstallment_Status,
 				"Id_School"				=> $dto->Id_School,
 				"Id_TypeBank"			=> $dto->Id_TypeBank,
 				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
 			]);
 
-			$oQuery->where("Id_SchoolAccount", "=", "$Id");
+			$oQuery->where("Id_EnrollmentInstallment", "=", "$Id");
 			$oData	= $oQuery->get();
 
 
@@ -172,12 +172,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function update(UpdateSchoolAccountDTO $dto): Result
+	public function update(UpdateEnrollmentInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -189,16 +189,16 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->where("Id_SchoolAccount", "=", $dto->Id_SchoolAccount);
+			$oQuery->where("Id_EnrollmentInstallment", "=", $dto->Id_EnrollmentInstallment);
 			$oQuery->update([
-				"SchoolAccount_Number"	=> trim( mb_strtoupper( $dto->SchoolAccount_Number, "utf-8" ) ),
-				"SchoolAccount_CCI"		=> trim( mb_strtoupper( $dto->SchoolAccount_CCI, "utf-8" ) ),
-				"SchoolAccount_Remark"	=> trim( mb_strtoupper( $dto->SchoolAccount_Remark, "utf-8" ) ),
-				"SchoolAccount_Default"	=> 1,
-				"SchoolAccount_Public"	=> $dto->SchoolAccount_Public,
-				"SchoolAccount_Status"	=> $dto->SchoolAccount_Status,
+				"EnrollmentInstallment_Number"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Number, "utf-8" ) ),
+				"EnrollmentInstallment_CCI"		=> trim( mb_strtoupper( $dto->EnrollmentInstallment_CCI, "utf-8" ) ),
+				"EnrollmentInstallment_Remark"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Remark, "utf-8" ) ),
+				"EnrollmentInstallment_Default"	=> 1,
+				"EnrollmentInstallment_Public"	=> $dto->EnrollmentInstallment_Public,
+				"EnrollmentInstallment_Status"	=> $dto->EnrollmentInstallment_Status,
 				"Id_TypeBank"			=> $dto->Id_TypeBank,
 				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
 			]);
@@ -220,12 +220,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function delete(int $Id_SchoolAccount): Result
+	public function delete(int $Id_EnrollmentInstallment): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oResult	= [];
 
 
@@ -236,13 +236,13 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
 			$oQuery->update([
-				"SchoolAccount_Number"	=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_Number)"),
-				"SchoolAccount_CCI"		=> DB::raw("CONCAT('( DELETED ) ', SchoolAccount_CCI)"),
-				"SchoolAccount_Status"	=> 0
+				"EnrollmentInstallment_Number"	=> DB::raw("CONCAT('( DELETED ) ', EnrollmentInstallment_Number)"),
+				"EnrollmentInstallment_CCI"		=> DB::raw("CONCAT('( DELETED ) ', EnrollmentInstallment_CCI)"),
+				"EnrollmentInstallment_Status"	=> 0
 			]);
 
 
@@ -260,12 +260,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function index(int $Id_SchoolAccount): Result
+	public function index(int $Id_EnrollmentInstallment): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -277,12 +277,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
 			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
 			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_SchoolAccount", "=", $Id_SchoolAccount);
-			$oQuery->where("SchoolAccount_Status", "<>", "0");
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -301,12 +301,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_School, SchoolAccountFilterDisplay $Display): Result
+	public function list(int $Id_School, EnrollmentInstallmentFilterDisplay $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -319,27 +319,27 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			//	SET VARIABLES
 			//
 			$whereDisplay	= [
-				SchoolAccountFilterDisplay::PUBLIC->value  => 2,
-				SchoolAccountFilterDisplay::PRIVATE->value => 1
+				EnrollmentInstallmentFilterDisplay::PUBLIC->value  => 2,
+				EnrollmentInstallmentFilterDisplay::PRIVATE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
 			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
 			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('SchoolAccount_Public', $whereDisplay[$Display->value]);
+				$oQuery->where('EnrollmentInstallment_Public', $whereDisplay[$Display->value]);
 			}
 
-			$oQuery->where('SchoolAccount_Status', '=', SchoolAccountStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolAccount_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolAccount", "DESC");
+			$oQuery->where('EnrollmentInstallment_Status', '=', EnrollmentInstallmentStatus::ACTIVE->value);
+			$oQuery->orderBy("EnrollmentInstallment_Default", "DESC");
+			$oQuery->orderBy("Id_EnrollmentInstallment", "DESC");
 
 			$oData	= $oQuery->get();
 
@@ -360,12 +360,12 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(int $Id_School, SearchSchoolAccountDTO $dto): Result
+	public function search(int $Id_School, SearchEnrollmentInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= SchoolAccountModel::getEntity();
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -382,38 +382,38 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
 			$whereDisplay	= [
-				SchoolAccountFilterDisplay::PUBLIC->value  => 2,
-				SchoolAccountFilterDisplay::PRIVATE->value => 1
+				EnrollmentInstallmentFilterDisplay::PUBLIC->value  => 2,
+				EnrollmentInstallmentFilterDisplay::PRIVATE->value => 1
 			];
 			$whereStatus	= [
-				SchoolAccountFilterStatus::ACTIVE->value   => 2,
-				SchoolAccountFilterStatus::INACTIVE->value => 1
+				EnrollmentInstallmentFilterStatus::ACTIVE->value   => 2,
+				EnrollmentInstallmentFilterStatus::INACTIVE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= SchoolAccountModel::query();
+			$oQuery	= EnrollmentInstallmentModel::query();
 
 			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
 			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->where("Id_School", "=", $Id_School);
 
 			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('SchoolAccount_Public', $whereDisplay[$dto->Display->value]);
+				$oQuery->where('EnrollmentInstallment_Public', $whereDisplay[$dto->Display->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('SchoolAccount_Status', $whereStatus[$dto->Status->value]);
+				$oQuery->where('EnrollmentInstallment_Status', $whereStatus[$dto->Status->value]);
 			} else {
-				$oQuery->where('SchoolAccount_Status', '<>', 0);
+				$oQuery->where('EnrollmentInstallment_Status', '<>', 0);
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("SchoolAccount_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolAccount_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolAccount_Remark", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("EnrollmentInstallment_Number", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("EnrollmentInstallment_CCI", 		"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("EnrollmentInstallment_Remark", 	"LIKE", "%".$dto->Text."%");
 				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
 			});
 
@@ -421,8 +421,8 @@ class EloquentSchoolAccountRepository implements ISchoolAccountRepository
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolAccount_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolAccount", "DESC");
+			$oQuery->orderBy("EnrollmentInstallment_Default", "DESC");
+			$oQuery->orderBy("Id_EnrollmentInstallment", "DESC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 

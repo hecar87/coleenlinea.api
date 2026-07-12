@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Infrastructure\Persistence;
+namespace App\Modules\EnrollmentInstallment\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 
 
-class EloquentSchoolAccount extends Model
+class EloquentEnrollmentInstallment extends Model
 {
 	public $timestamps 		= false;
 	protected $table 		= "t_school_account";
 	protected $entity		= "SCHOOL-ACCOUNT";
-	protected $primaryKey 	= "Id_SchoolAccount";
+	protected $primaryKey 	= "Id_EnrollmentInstallment";
 	protected $fillable 	= [
-		"Id_SchoolAccount",
-		"SchoolAccount_Number",
-		"SchoolAccount_CCI",
-		"SchoolAccount_Remark",
-		"SchoolAccount_Default",
-		"SchoolAccount_Public",
-		"SchoolAccount_Status",
+		"Id_EnrollmentInstallment",
+		"EnrollmentInstallment_Number",
+		"EnrollmentInstallment_CCI",
+		"EnrollmentInstallment_Remark",
+		"EnrollmentInstallment_Default",
+		"EnrollmentInstallment_Public",
+		"EnrollmentInstallment_Status",
 		"Id_School",
 		"Id_TypeBank",
 		"Id_TypeCurrency"

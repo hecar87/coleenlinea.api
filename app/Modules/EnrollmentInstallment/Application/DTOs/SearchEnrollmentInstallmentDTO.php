@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\EnrollmentInstallment\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterDisplay;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterStatus;
 
 
-class SearchSchoolAccountDTO
+class SearchEnrollmentInstallmentDTO
 {
     public function __construct(
         public string $Text = "",
-        public SchoolAccountFilterDisplay $Display = SchoolAccountFilterDisplay::ALL,
-        public SchoolAccountFilterStatus $Status = SchoolAccountFilterStatus::ALL,
+        public EnrollmentInstallmentFilterDisplay $Display = EnrollmentInstallmentFilterDisplay::ALL,
+        public EnrollmentInstallmentFilterStatus $Status = EnrollmentInstallmentFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolAccountFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolAccountFilterDisplay::PRIVATE,
-            default => SchoolAccountFilterDisplay::ALL,
+            'PUBLIC' => EnrollmentInstallmentFilterDisplay::PUBLIC,
+            'PRIVATE' => EnrollmentInstallmentFilterDisplay::PRIVATE,
+            default => EnrollmentInstallmentFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolAccountFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolAccountFilterStatus::INACTIVE,
-            default => SchoolAccountFilterStatus::ALL,
+            'ACTIVE' => EnrollmentInstallmentFilterStatus::ACTIVE,
+            'INACTIVE' => EnrollmentInstallmentFilterStatus::INACTIVE,
+            default => EnrollmentInstallmentFilterStatus::ALL,
         };
 
         return new self(

@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Application\Actions;
+namespace App\Modules\EnrollmentInstallment\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
+use App\Modules\EnrollmentInstallment\Domain\Repositories\IEnrollmentInstallmentRepository;
 
 
-class IndexSchoolAccountAction
+class IndexEnrollmentInstallmentAction
 {
 
 	public function __construct(
-		protected ISchoolAccountRepository $oSchoolAccountRepository
+		protected IEnrollmentInstallmentRepository $oEnrollmentInstallmentRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_SchoolAccount) : Result
+	public function execute(int $Id_EnrollmentInstallment) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolAccountRepository->getEntity();
+		$oEntity = $this->oEnrollmentInstallmentRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class IndexSchoolAccountAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolAccountRepository->exists($Id_SchoolAccount);
+			$oResult = $this->oEnrollmentInstallmentRepository->exists($Id_EnrollmentInstallment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolAccountRepository->index($Id_SchoolAccount);
+			$oResult = $this->oEnrollmentInstallmentRepository->index($Id_EnrollmentInstallment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
