@@ -36,6 +36,7 @@ use App\Modules\Guardian\Providers\GuardianServiceProvider;
 use App\Modules\Student\Providers\StudentServiceProvider;
 use App\Modules\StudentGuardian\Providers\StudentGuardianServiceProvider;
 use App\Modules\Enrollment\Providers\EnrollmentServiceProvider;
+use App\Modules\EnrollmentInstallment\Providers\EnrollmentInstallmentServiceProvider;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -74,6 +75,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(StudentServiceProvider::class);
 		$this->app->register(StudentGuardianServiceProvider::class);
 		$this->app->register(EnrollmentServiceProvider::class);
+		$this->app->register(EnrollmentInstallmentServiceProvider::class);
 	}
 
 	public function boot(): void

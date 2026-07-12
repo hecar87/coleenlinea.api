@@ -13,6 +13,16 @@ Route::middleware('manager.access')
 	->put("/enrollment-installments", [ EnrollmentInstallmentController::class, "update" ]);
 
 Route::middleware('manager.access')
+	->name('enrollment-installment.pay')
+	->put("/enrollment-installments/{Id_EnrollmentInstallment}/pay", [ EnrollmentInstallmentController::class, "pay" ])
+	->where("Id_EnrollmentInstallment", "[0-9]+");
+
+Route::middleware('manager.access')
+	->name('enrollment-installment.nullify')
+	->put("/enrollment-installments/{Id_EnrollmentInstallment}/nullify", [ EnrollmentInstallmentController::class, "nullify" ])
+	->where("Id_EnrollmentInstallment", "[0-9]+");
+
+Route::middleware('manager.access')
 	->name('enrollment-installment.delete')
 	->delete("/enrollment-installments/{Id_EnrollmentInstallment}", [ EnrollmentInstallmentController::class, "delete" ])
 	->where("Id_EnrollmentInstallment", "[0-9]+");

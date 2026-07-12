@@ -26,6 +26,9 @@ use App\Modules\EnrollmentInstallment\Application\Actions\DeleteEnrollmentInstal
 use App\Modules\EnrollmentInstallment\Application\Actions\IndexEnrollmentInstallmentAction;
 use App\Modules\EnrollmentInstallment\Application\Actions\ListEnrollmentInstallmentAction;
 use App\Modules\EnrollmentInstallment\Application\Actions\SearchEnrollmentInstallmentAction;
+use App\Modules\EnrollmentInstallment\Application\Actions\PayEnrollmentInstallmentAction;
+use App\modules\EnrollmentInstallment\Application\Actions\NullifyEnrollmentInstallmentAction;
+use App\modules\EnrollmentInstallment\Application\Actions\NullifyEnrollmentInstallmentByEnrollmentAction;
 
 
 class EnrollmentInstallmentController extends Controller
@@ -40,7 +43,10 @@ class EnrollmentInstallmentController extends Controller
 		private DeleteEnrollmentInstallmentAction $oDeleteEnrollmentInstallmentAction,
 		private IndexEnrollmentInstallmentAction $oIndexEnrollmentInstallmentAction,
 		private ListEnrollmentInstallmentAction $oListEnrollmentInstallmentAction,
-		private SearchEnrollmentInstallmentAction $oSearchEnrollmentInstallmentAction
+		private SearchEnrollmentInstallmentAction $oSearchEnrollmentInstallmentAction,
+		private PayEnrollmentInstallmentAction $oPayEnrollmentInstallmentAction,
+		private NullifyEnrollmentInstallmentAction $oNullifyEnrollmentInstallmentAction,
+		private NullifyEnrollmentInstallmentByEnrollmentAction $oNullifyEnrollmentInstallmentByEnrollmentAction
 	)
 	{
 		$this->repository = $repository;
@@ -148,6 +154,57 @@ class EnrollmentInstallmentController extends Controller
 		$oResult	= $this->oSearchEnrollmentInstallmentAction->execute($Id_School, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function pay(int $Id_EnrollmentInstallment)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oPayEnrollmentInstallmentAction->execute($Id_EnrollmentInstallment);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function nullify(int $Id_EnrollmentInstallment)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oNullifyEnrollmentInstallmentAction->execute($Id_EnrollmentInstallment);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function nullifyByEnrollment(int $Id_Enrollment)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oNullifyEnrollmentInstallmentByEnrollmentAction->execute($Id_Enrollment);
+		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
