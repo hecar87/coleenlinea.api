@@ -15,7 +15,7 @@ use App\Modules\EnrollmentInstallment\Application\DTOs\UpdateEnrollmentInstallme
 use App\Modules\EnrollmentInstallment\Application\DTOs\DuplicatedEnrollmentInstallmentDTO;
 use App\Modules\EnrollmentInstallment\Application\DTOs\SearchEnrollmentInstallmentDTO;
 
-use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterDisplay;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterPaid;
 use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterStatus;
 use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentPublic;
 use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentStatus;
@@ -92,14 +92,10 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 
 			$oQuery->where("Id_EnrollmentInstallment", "<>", $dto->Id_EnrollmentInstallment);
 			$oQuery->where("EnrollmentInstallment_Status", "<>", "0");
-			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
+			$oQuery->where("EnrollmentInstallment_Order", "=", $dto->EnrollmentInstallment_Order);
+			$oQuery->where("Id_Enrollment", "=", $dto->Id_Enrollment);
 			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
-
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("EnrollmentInstallment_Number", "=", $dto->EnrollmentInstallment_Number);
-				$oSubQuery->orWhere("EnrollmentInstallment_CCI", "=", $dto->EnrollmentInstallment_CCI);
-			});
+			$oQuery->where("Id_TypeInstallment", "=", $dto->Id_TypeInstallment);
 
 			$Duplicate	= $oQuery->count();
 
@@ -111,6 +107,138 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 				$oResult = ResultManager::Result(1000, $oEntity);
 			} else {
 				$oResult = ResultManager::Result(2201, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canUpdate(int $Id_EnrollmentInstallment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oResult	= [];
+		$oData		= 0;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Paid", "=", "1");
+			$oQuery->where("EnrollmentInstallment_Status", "=", "1");
+
+			$oData = $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2200, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canPay(int $Id_EnrollmentInstallment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oResult	= [];
+		$oData		= 0;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Paid", "=", "1");
+			$oQuery->where("EnrollmentInstallment_Status", "=", "2");
+
+			$oData = $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2200, $oEntity);
+			}
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canNullify(int $Id_EnrollmentInstallment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oResult	= [];
+		$oData		= 0;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->where("EnrollmentInstallment_Paid", "=", "1");
+			$oQuery->where("EnrollmentInstallment_Status", "=", "2");
+
+			$oData = $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2200, $oEntity);
 			}
 		} catch (\Exception $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
@@ -142,16 +270,24 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			$oQuery	= EnrollmentInstallmentModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_EnrollmentInstallment"		=> $dto->Id_EnrollmentInstallment,
-				"EnrollmentInstallment_Number"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Number, "utf-8" ) ),
-				"EnrollmentInstallment_CCI"		=> trim( mb_strtoupper( $dto->EnrollmentInstallment_CCI, "utf-8" ) ),
-				"EnrollmentInstallment_Remark"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Remark, "utf-8" ) ),
-				"EnrollmentInstallment_Default"	=> 1,
-				"EnrollmentInstallment_Public"	=> $dto->EnrollmentInstallment_Public,
-				"EnrollmentInstallment_Status"	=> $dto->EnrollmentInstallment_Status,
-				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_EnrollmentInstallment"					=> $dto->Id_EnrollmentInstallment,
+				"EnrollmentInstallment_Date_Created"		=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Date_Paid"			=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Date_Nullified"		=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Order"				=> $dto->EnrollmentInstallment_Order,
+				"EnrollmentInstallment_Description"			=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Description, "utf-8" ) ),
+				"EnrollmentInstallment_Amount_Budgeted"		=> $dto->EnrollmentInstallment_Amount_Budgeted,
+				"EnrollmentInstallment_Amount_Discounted"	=> $dto->EnrollmentInstallment_Amount_Discounted,
+				"EnrollmentInstallment_Amount_Payabled"		=> $dto->EnrollmentInstallment_Amount_Payabled,
+				"EnrollmentInstallment_Date_Collection"		=> $dto->EnrollmentInstallment_Date_Collection,
+				"EnrollmentInstallment_Date_Due"			=> $dto->EnrollmentInstallment_Date_Due,
+				"EnrollmentInstallment_Required"			=> $dto->EnrollmentInstallment_Required,
+				"EnrollmentInstallment_Paid"				=> 1,
+				"EnrollmentInstallment_Status"				=> 2,
+				"Id_Charge"									=> 0,
+				"Id_Enrollment"								=> $dto->Id_Enrollment,
+				"Id_TypeCurrency"							=> $dto->Id_TypeCurrency,
+				"Id_TypeInstallment"						=> $dto->Id_TypeInstallment
 			]);
 
 			$oQuery->where("Id_EnrollmentInstallment", "=", "$Id");
@@ -193,14 +329,16 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 
 			$oQuery->where("Id_EnrollmentInstallment", "=", $dto->Id_EnrollmentInstallment);
 			$oQuery->update([
-				"EnrollmentInstallment_Number"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Number, "utf-8" ) ),
-				"EnrollmentInstallment_CCI"		=> trim( mb_strtoupper( $dto->EnrollmentInstallment_CCI, "utf-8" ) ),
-				"EnrollmentInstallment_Remark"	=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Remark, "utf-8" ) ),
-				"EnrollmentInstallment_Default"	=> 1,
-				"EnrollmentInstallment_Public"	=> $dto->EnrollmentInstallment_Public,
-				"EnrollmentInstallment_Status"	=> $dto->EnrollmentInstallment_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"EnrollmentInstallment_Description"			=> trim( mb_strtoupper( $dto->EnrollmentInstallment_Description, "utf-8" ) ),
+				"EnrollmentInstallment_Amount_Budgeted"		=> $dto->EnrollmentInstallment_Amount_Budgeted,
+				"EnrollmentInstallment_Amount_Discounted"	=> $dto->EnrollmentInstallment_Amount_Discounted,
+				"EnrollmentInstallment_Amount_Payabled"		=> $dto->EnrollmentInstallment_Amount_Payabled,
+				"EnrollmentInstallment_Date_Collection"		=> $dto->EnrollmentInstallment_Date_Collection,
+				"EnrollmentInstallment_Date_Due"			=> $dto->EnrollmentInstallment_Date_Due,
+				"EnrollmentInstallment_Required"			=> $dto->EnrollmentInstallment_Required,
+				"Id_Enrollment"								=> $dto->Id_Enrollment,
+				"Id_TypeCurrency"							=> $dto->Id_TypeCurrency,
+				"Id_TypeInstallment"						=> $dto->Id_TypeInstallment
 			]);
 
 			$oData	= $oQuery->get();
@@ -240,8 +378,6 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 
 			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
 			$oQuery->update([
-				"EnrollmentInstallment_Number"	=> DB::raw("CONCAT('( DELETED ) ', EnrollmentInstallment_Number)"),
-				"EnrollmentInstallment_CCI"		=> DB::raw("CONCAT('( DELETED ) ', EnrollmentInstallment_CCI)"),
 				"EnrollmentInstallment_Status"	=> 0
 			]);
 
@@ -279,8 +415,8 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			//
 			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_currency", "t_enrollment_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_installment", "t_enrollment_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
 			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
 			$oQuery->where("EnrollmentInstallment_Status", "<>", "0");
 
@@ -301,7 +437,7 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_School, EnrollmentInstallmentFilterDisplay $Display): Result
+	public function list(int $Id_Enrollment, EnrollmentInstallmentFilterPaid $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -318,9 +454,9 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			//
 			//	SET VARIABLES
 			//
-			$whereDisplay	= [
-				EnrollmentInstallmentFilterDisplay::PUBLIC->value  => 2,
-				EnrollmentInstallmentFilterDisplay::PRIVATE->value => 1
+			$wherePaid	= [
+				EnrollmentInstallmentFilterPaid::PAID->value  => 2,
+				EnrollmentInstallmentFilterPaid::PENDING->value => 1
 			];
 
 
@@ -329,17 +465,16 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			//
 			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_type_currency", "t_enrollment_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_installment", "t_enrollment_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
+			$oQuery->where("Id_Enrollment", "=", $Id_Enrollment);
 
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('EnrollmentInstallment_Public', $whereDisplay[$Display->value]);
+			if (isset($wherePaid[$Display->value])) {
+				$oQuery->where('EnrollmentInstallment_Paid', $wherePaid[$Display->value]);
 			}
 
 			$oQuery->where('EnrollmentInstallment_Status', '=', EnrollmentInstallmentStatus::ACTIVE->value);
-			$oQuery->orderBy("EnrollmentInstallment_Default", "DESC");
-			$oQuery->orderBy("Id_EnrollmentInstallment", "DESC");
+			$oQuery->orderBy("EnrollmentInstallment_Order", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -360,7 +495,7 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(int $Id_School, SearchEnrollmentInstallmentDTO $dto): Result
+	public function search(int $Id_Enrollment, SearchEnrollmentInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -381,9 +516,9 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				EnrollmentInstallmentFilterDisplay::PUBLIC->value  => 2,
-				EnrollmentInstallmentFilterDisplay::PRIVATE->value => 1
+			$wherePaid	= [
+				EnrollmentInstallmentFilterPaid::PAID->value  => 2,
+				EnrollmentInstallmentFilterPaid::PENDING->value => 1
 			];
 			$whereStatus	= [
 				EnrollmentInstallmentFilterStatus::ACTIVE->value   => 2,
@@ -396,12 +531,14 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			//
 			$oQuery	= EnrollmentInstallmentModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->join("t_type_currency", "t_enrollment_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_installment", "t_enrollment_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
+			$oQuery->where("Id_Enrollment", "=", $Id_Enrollment);
 
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('EnrollmentInstallment_Public', $whereDisplay[$dto->Display->value]);
+			if (isset($wherePaid[$dto->Paid->value])) {
+				$oQuery->where('EnrollmentInstallment_Paid', $wherePaid[$dto->Paid->value]);
+			} else {
+				$oQuery->where('EnrollmentInstallment_Paid', '<>', 0);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
@@ -410,19 +547,11 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 				$oQuery->where('EnrollmentInstallment_Status', '<>', 0);
 			}
 
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("EnrollmentInstallment_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("EnrollmentInstallment_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("EnrollmentInstallment_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
-			});
-
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("EnrollmentInstallment_Default", "DESC");
-			$oQuery->orderBy("Id_EnrollmentInstallment", "DESC");
+			$oQuery->orderBy("EnrollmentInstallment_Order", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
@@ -434,6 +563,133 @@ class EloquentEnrollmentInstallmentRepository implements IEnrollmentInstallmentR
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function pay(int $Id_EnrollmentInstallment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->update([
+				"EnrollmentInstallment_Date_Paid"	=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Paid"		=> 2
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function nullify(int $Id_EnrollmentInstallment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_EnrollmentInstallment", "=", $Id_EnrollmentInstallment);
+			$oQuery->update([
+				"EnrollmentInstallment_Date_Nullified"	=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Status"			=> 9
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
+		} catch (\Exception $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function nullifyByEnrollment(int $Id_Enrollment): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= EnrollmentInstallmentModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= EnrollmentInstallmentModel::query();
+
+			$oQuery->where("Id_Enrollment", "=", $Id_Enrollment);
+			$oQuery->where("EnrollmentInstallment_Paid ", "=", 1);
+			$oQuery->update([
+				"EnrollmentInstallment_Date_Nullified"	=> date("Y-m-d H:i:s"),
+				"EnrollmentInstallment_Status"			=> 9
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
 		} catch (\Exception $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}

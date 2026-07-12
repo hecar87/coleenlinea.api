@@ -7,28 +7,34 @@ class CreateEnrollmentInstallmentDTO
 {
     public function __construct(
         public int $Id_EnrollmentInstallment,
-        public string $EnrollmentInstallment_Number,
-		public string $EnrollmentInstallment_CCI,
-		public string $EnrollmentInstallment_Remark,
-		public int $EnrollmentInstallment_Public,
-		public int $EnrollmentInstallment_Status,
-		public int $Id_School,
-		public int $Id_TypeBank,
-		public int $Id_TypeCurrency
+        public int $EnrollmentInstallment_Order,
+		public string $EnrollmentInstallment_Description,
+		public float $EnrollmentInstallment_Amount_Budgeted,
+		public float $EnrollmentInstallment_Amount_Discounted,
+		public float $EnrollmentInstallment_Amount_Payabled,
+		public string $EnrollmentInstallment_Date_Collection,
+		public string $EnrollmentInstallment_Date_Due,
+		public int $EnrollmentInstallment_Required,
+		public int $Id_Enrollment,
+		public int $Id_TypeCurrency,
+		public int $Id_TypeInstallment
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_EnrollmentInstallment: (int) $oRequest->input('Id_EnrollmentInstallment', 0),
-            EnrollmentInstallment_Number: $oRequest->input('EnrollmentInstallment_Number', ''),
-            EnrollmentInstallment_CCI: $oRequest->input('EnrollmentInstallment_CCI', ''),
-            EnrollmentInstallment_Remark: $oRequest->input('EnrollmentInstallment_Remark', ''),
-            EnrollmentInstallment_Public: (int) $oRequest->input('EnrollmentInstallment_Public', 2),
-            EnrollmentInstallment_Status: (int) $oRequest->input('EnrollmentInstallment_Status', 2),
-            Id_School: (int) $oRequest->input('Id_School', 0),
-            Id_TypeBank: (int) $oRequest->input('Id_TypeBank', 0),
-            Id_TypeCurrency: (int) $oRequest->input('Id_TypeCurrency', 0)
+            Id_EnrollmentInstallment: (int) $oRequest->input("Id_EnrollmentInstallment", 0),
+            EnrollmentInstallment_Order: (int) $oRequest->input("EnrollmentInstallment_Order", 0),
+            EnrollmentInstallment_Description: $oRequest->input("EnrollmentInstallment_Description", 0),
+            EnrollmentInstallment_Amount_Budgeted: (float) $oRequest->input("EnrollmentInstallment_Amount_Budgeted", 0),
+            EnrollmentInstallment_Amount_Discounted: (float) $oRequest->input("EnrollmentInstallment_Amount_Discounted", 0),
+            EnrollmentInstallment_Amount_Payabled: (float) $oRequest->input("EnrollmentInstallment_Amount_Payabled", 0),
+            EnrollmentInstallment_Date_Collection: $oRequest->input("EnrollmentInstallment_Date_Collection", 0),
+            EnrollmentInstallment_Date_Due: $oRequest->input("EnrollmentInstallment_Date_Due", 0),
+            EnrollmentInstallment_Required: (int) $oRequest->input("EnrollmentInstallment_Required", 0),
+            Id_Enrollment: (int) $oRequest->input("Id_Enrollment", 0),
+            Id_TypeCurrency: (int) $oRequest->input("Id_TypeCurrency", 0),
+            Id_TypeInstallment: (int) $oRequest->input("Id_TypeInstallment", 0)
         );
     }
 }

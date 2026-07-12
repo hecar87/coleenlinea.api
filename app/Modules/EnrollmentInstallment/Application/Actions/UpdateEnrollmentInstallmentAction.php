@@ -7,9 +7,9 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\EnrollmentInstallment\Domain\Repositories\IEnrollmentInstallmentRepository;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\TypeBank\Domain\Repositories\ITypeBankRepository;
+use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\modules\Typeinstallment\Domain\Repositories\ITypeInstallmentRepository;
 
 use App\Modules\EnrollmentInstallment\Application\DTOs\UpdateEnrollmentInstallmentDTO;
 use App\Modules\EnrollmentInstallment\Application\DTOs\DuplicatedEnrollmentInstallmentDTO;
@@ -20,8 +20,8 @@ class UpdateEnrollmentInstallmentAction
 
 	public function __construct(
 		protected IEnrollmentInstallmentRepository $oEnrollmentInstallmentRepository,
-		protected ISchoolRepository $oSchoolRepository,
-		protected ITypeBankRepository $oTypeBankRepository,
+		protected IEnrollmentRepository $oEnrollmentRepository,
+		protected ITypeInstallmentRepository $oTypeInstallmentRepository,
 		protected ITypeCurrencyRepository $oTypeCurrencyRepository
 	)
 	{
@@ -34,12 +34,11 @@ class UpdateEnrollmentInstallmentAction
 		//------------------------------------------------------------------------------
 		$oEntity = $this->oEnrollmentInstallmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedEnrollmentInstallmentDTO(
-			Id_EnrollmentInstallment		: $oData->Id_EnrollmentInstallment,
-			EnrollmentInstallment_Number	: $oData->EnrollmentInstallment_Number,
-            EnrollmentInstallment_CCI		: $oData->EnrollmentInstallment_CCI,
-            Id_School				: $oData->Id_School,
-            Id_TypeBank				: $oData->Id_TypeBank,
-            Id_TypeCurrency			: $oData->Id_TypeCurrency
+			Id_EnrollmentInstallment	: $oData->Id_EnrollmentInstallment,
+			EnrollmentInstallment_Order	: $oData->EnrollmentInstallment_Order,
+			Id_Enrollment				: $oData->Id_Enrollment,
+			Id_TypeCurrency				: $oData->Id_TypeCurrency,
+			Id_TypeInstallment			: $oData->Id_TypeInstallment
 		);
 
 
@@ -53,14 +52,14 @@ class UpdateEnrollmentInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolRepository->exists($oData->Id_School);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
-
-			$oResult = $this->oTypeBankRepository->exists($oData->Id_TypeBank);
+			$oResult = $this->oEnrollmentRepository->exists($oData->Id_Enrollment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oResult = $this->oTypeInstallmentRepository->exists($oData->Id_TypeInstallment);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oEnrollmentInstallmentRepository->exists($oData->Id_EnrollmentInstallment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

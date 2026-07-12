@@ -7,22 +7,20 @@ class DuplicatedEnrollmentInstallmentDTO
 {
     public function __construct(
         public int $Id_EnrollmentInstallment,
-        public string $EnrollmentInstallment_Number,
-        public string $EnrollmentInstallment_CCI,
-        public int $Id_School,
-        public int $Id_TypeBank,
-        public int $Id_TypeCurrency
+        public int $EnrollmentInstallment_Order,
+		public int $Id_Enrollment,
+		public int $Id_TypeCurrency,
+		public int $Id_TypeInstallment
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_EnrollmentInstallment: (int) $oRequest->input('Id_EnrollmentInstallment', 0),
-            EnrollmentInstallment_Number: $oRequest->input('EnrollmentInstallment_Number', ''),
-            EnrollmentInstallment_CCI: $oRequest->input('EnrollmentInstallment_CCI', ''),
-            Id_School: (int) $oRequest->input('Id_School', 0),
-            Id_TypeBank: (int) $oRequest->input('Id_TypeBank', 0),
-            Id_TypeCurrency: (int) $oRequest->input('Id_TypeCurrency', 0)
+            Id_EnrollmentInstallment: (int) $oRequest->input("Id_EnrollmentInstallment", 0),
+            EnrollmentInstallment_Order: (int) $oRequest->input("EnrollmentInstallment_Order", 0),
+            Id_Enrollment: (int) $oRequest->input("Id_Enrollment", 0),
+            Id_TypeCurrency: (int) $oRequest->input("Id_TypeCurrency", 0),
+            Id_TypeInstallment: (int) $oRequest->input("Id_TypeInstallment", 0)
         );
     }
 }

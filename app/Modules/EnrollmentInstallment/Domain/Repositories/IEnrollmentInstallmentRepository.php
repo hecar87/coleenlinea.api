@@ -8,7 +8,7 @@ use App\Modules\EnrollmentInstallment\Application\DTOs\CreateEnrollmentInstallme
 use App\Modules\EnrollmentInstallment\Application\DTOs\UpdateEnrollmentInstallmentDTO;
 use App\Modules\EnrollmentInstallment\Application\DTOs\DuplicatedEnrollmentInstallmentDTO;
 use App\Modules\EnrollmentInstallment\Application\DTOs\SearchEnrollmentInstallmentDTO;
-use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterDisplay;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterPaid;
 
 
 interface IEnrollmentInstallmentRepository
@@ -27,7 +27,7 @@ interface IEnrollmentInstallmentRepository
 
     public function index(int $Id_EnrollmentInstallment) : Result;
 
-    public function list(int $Id_School, EnrollmentInstallmentFilterDisplay $Display) : Result;
+    public function list(int $Id_School, EnrollmentInstallmentFilterPaid $Paid) : Result;
 
     public function search(int $Id_School, SearchEnrollmentInstallmentDTO $dto) : Result;
 }

@@ -9,7 +9,7 @@ class ListEnrollmentInstallmentRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"Display"	=> "required|string|max:50|in:ALL,PUBLIC,PRIVATE"
+			"Paid"	=> "required|string|max:50|in:ALL,PAID,PENDING"
 		];
 	}
 
