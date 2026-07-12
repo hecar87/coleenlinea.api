@@ -19,6 +19,12 @@ interface IEnrollmentInstallmentRepository
 
     public function duplicated(DuplicatedEnrollmentInstallmentDTO $dto) : Result;
 
+    public function canUpdate(int $Id_EnrollmentInstallment) : Result;
+
+    public function canPay(int $Id_EnrollmentInstallment) : Result;
+
+    public function canNullify(int $Id_EnrollmentInstallment) : Result;
+
     public function create(CreateEnrollmentInstallmentDTO $dto) : Result;
 
     public function update(UpdateEnrollmentInstallmentDTO $dto) : Result;
@@ -30,4 +36,10 @@ interface IEnrollmentInstallmentRepository
     public function list(int $Id_School, EnrollmentInstallmentFilterPaid $Paid) : Result;
 
     public function search(int $Id_School, SearchEnrollmentInstallmentDTO $dto) : Result;
+
+    public function pay(int $Id_EnrollmentInstallment) : Result;
+
+    public function nullify(int $Id_EnrollmentInstallment) : Result;
+
+    public function nullifyByEnrollment(int $Id_Enrollment) : Result;
 }
