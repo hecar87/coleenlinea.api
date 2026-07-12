@@ -9,7 +9,7 @@ use App\Helpers\ResultManager;
 use App\Modules\EnrollmentInstallment\Domain\Repositories\IEnrollmentInstallmentRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
-use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterDisplay;
+use App\Modules\EnrollmentInstallment\Domain\Enums\EnrollmentInstallmentFilterPaid;
 
 
 class ListEnrollmentInstallmentAction
@@ -22,13 +22,13 @@ class ListEnrollmentInstallmentAction
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_School, string $Paid) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oEnrollmentInstallmentRepository->getEntity();
-		$oDisplay 	= EnrollmentInstallmentFilterDisplay::from(strtoupper($Display));
+		$oDisplay 	= EnrollmentInstallmentFilterPaid::from(strtoupper($Paid));
 
 
 		//------------------------------------------------------------------------------

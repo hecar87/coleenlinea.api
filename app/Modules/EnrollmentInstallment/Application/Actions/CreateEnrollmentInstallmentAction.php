@@ -9,7 +9,7 @@ use App\Helpers\ResultManager;
 use App\Modules\EnrollmentInstallment\Domain\Repositories\IEnrollmentInstallmentRepository;
 use App\Modules\Enrollment\Domain\Repositories\IEnrollmentRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
-use App\modules\Typeinstallment\Domain\Repositories\ITypeInstallmentRepository;
+use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
 
 use App\Modules\EnrollmentInstallment\Application\DTOs\CreateEnrollmentInstallmentDTO;
 use App\Modules\EnrollmentInstallment\Application\DTOs\DuplicatedEnrollmentInstallmentDTO;
