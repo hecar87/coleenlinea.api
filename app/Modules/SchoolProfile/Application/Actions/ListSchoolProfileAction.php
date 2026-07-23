@@ -9,8 +9,6 @@ use App\Helpers\ResultManager;
 use App\Modules\SchoolProfile\Domain\Repositories\ISchoolProfileRepository;
 use App\Modules\School\Domain\Repositories\ISchoolRepository;
 
-use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterDisplay;
-
 
 class ListSchoolProfileAction
 {
@@ -22,13 +20,12 @@ class ListSchoolProfileAction
 	{
 	}
 
-	public function execute(int $Id_School, string $Display) : Result
+	public function execute(int $Id_School) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oSchoolProfileRepository->getEntity();
-		$oDisplay 	= SchoolProfileFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -44,7 +41,7 @@ class ListSchoolProfileAction
 			$oresult = $this->oSchoolRepository->exists($Id_School);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolProfileRepository->list($Id_School, $oDisplay);
+			$oResult = $this->oSchoolProfileRepository->list($Id_School);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -8,7 +8,6 @@ use App\Modules\SchoolProfile\Application\DTOs\CreateSchoolProfileDTO;
 use App\Modules\SchoolProfile\Application\DTOs\UpdateSchoolProfileDTO;
 use App\Modules\SchoolProfile\Application\DTOs\DuplicatedSchoolProfileDTO;
 use App\Modules\SchoolProfile\Application\DTOs\SearchSchoolProfileDTO;
-use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterDisplay;
 
 
 interface ISchoolProfileRepository
@@ -27,7 +26,7 @@ interface ISchoolProfileRepository
 
     public function index(int $Id_SchoolProfile) : Result;
 
-    public function list(int $Id_School, SchoolProfileFilterDisplay $Display) : Result;
+    public function list(int $Id_School) : Result;
 
     public function search(int $Id_School, SearchSchoolProfileDTO $dto) : Result;
 }

@@ -26,7 +26,8 @@ use App\Modules\SchoolBranch\Providers\SchoolBranchServiceProvider;
 use App\Modules\SchoolLevel\Providers\SchoolLevelServiceProvider;
 use App\Modules\Schoolclass\Providers\SchoolClassServiceProvider;
 use App\Modules\SchoolYear\Providers\SchoolYearServiceProvider;
-use App\modules\schoolinstallment\Providers\SchoolInstallmentServiceProvider;
+use App\Modules\SchoolProfile\Providers\SchoolProfileServiceProvider;
+use App\Modules\SchoolInstallment\Providers\SchoolInstallmentServiceProvider;
 
 use App\Modules\Contract\Providers\ContractServiceProvider;
 use App\Modules\ContractFee\Providers\ContractFeeServiceProvider;
@@ -65,6 +66,7 @@ class RepositoryServiceProvider extends ServiceProvider
 		$this->app->register(SchoolLevelServiceProvider::class);
 		$this->app->register(SchoolClassServiceProvider::class);
 		$this->app->register(SchoolYearServiceProvider::class);
+		$this->app->register(SchoolProfileServiceProvider::class);
 		$this->app->register(SchoolInstallmentServiceProvider::class);
 
 		$this->app->register(ContractServiceProvider::class);

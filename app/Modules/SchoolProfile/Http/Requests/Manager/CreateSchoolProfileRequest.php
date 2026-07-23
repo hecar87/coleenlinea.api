@@ -9,14 +9,14 @@ class CreateSchoolProfileRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"SchoolProfile_Number"		=> "required|string|max:50",
-			"SchoolProfile_CCI"			=> "required|string|max:50",
-			"SchoolProfile_Remark"		=> "required|string|max:250",
-			"SchoolProfile_Public"		=> "required|int|in:1,2",
-			"SchoolProfile_Status"		=> "required|int|in:1,2",
-			"Id_School"					=> "required|int",
-			"Id_TypeBank"				=> "required|int",
-			"Id_TypeCurrency"			=> "required|int"
+			"SchoolProfile_Name"			=> "required|string|max:150",
+			"SchoolProfile_Description"		=> "required|string|max:250",
+			"SchoolProfile_Newed"			=> "required|int|in:1,2",
+			"SchoolProfile_Type"			=> "required|int|in:1,2",
+			"SchoolProfile_Status"			=> "required|int|in:1,2",
+			"Id_School"						=> "required|int",
+			"Id_SchoolYear"					=> "required|int",
+			"Id_SchoolLevel"				=> "required|int"
 		];
 	}
 

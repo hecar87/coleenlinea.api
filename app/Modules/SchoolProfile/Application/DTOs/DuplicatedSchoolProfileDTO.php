@@ -7,22 +7,20 @@ class DuplicatedSchoolProfileDTO
 {
     public function __construct(
         public int $Id_SchoolProfile,
-        public string $SchoolProfile_Number,
-        public string $SchoolProfile_CCI,
-        public int $Id_School,
-        public int $Id_TypeBank,
-        public int $Id_TypeCurrency
+		public string $SchoolProfile_Name,
+		public int $Id_School,
+		public int $Id_SchoolYear,
+		public int $Id_SchoolLevel
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
             Id_SchoolProfile: (int) $oRequest->input('Id_SchoolProfile', 0),
-            SchoolProfile_Number: $oRequest->input('SchoolProfile_Number', ''),
-            SchoolProfile_CCI: $oRequest->input('SchoolProfile_CCI', ''),
+            SchoolProfile_Name: $oRequest->input('SchoolProfile_Name', ''),
             Id_School: (int) $oRequest->input('Id_School', 0),
-            Id_TypeBank: (int) $oRequest->input('Id_TypeBank', 0),
-            Id_TypeCurrency: (int) $oRequest->input('Id_TypeCurrency', 0)
+            Id_SchoolYear: (int) $oRequest->input('Id_SchoolYear', 0),
+            Id_SchoolLevel: (int) $oRequest->input('Id_SchoolLevel', 0)
         );
     }
 }

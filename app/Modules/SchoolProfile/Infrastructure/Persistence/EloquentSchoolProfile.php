@@ -8,20 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class EloquentSchoolProfile extends Model
 {
 	public $timestamps 		= false;
-	protected $table 		= "t_school_account";
-	protected $entity		= "SCHOOL-ACCOUNT";
+	protected $table 		= "t_school_profile";
+	protected $entity		= "SCHOOL-PROFILE";
 	protected $primaryKey 	= "Id_SchoolProfile";
 	protected $fillable 	= [
 		"Id_SchoolProfile",
-		"SchoolProfile_Number",
-		"SchoolProfile_CCI",
-		"SchoolProfile_Remark",
-		"SchoolProfile_Default",
-		"SchoolProfile_Public",
+		"SchoolProfile_Name",
+		"SchoolProfile_Description",
+		"SchoolProfile_Newed",
+		"SchoolProfile_Type",
 		"SchoolProfile_Status",
 		"Id_School",
-		"Id_TypeBank",
-		"Id_TypeCurrency"
+		"Id_SchoolYear",
+		"Id_SchoolLevel",
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

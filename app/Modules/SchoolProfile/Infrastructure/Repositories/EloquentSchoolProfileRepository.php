@@ -15,9 +15,7 @@ use App\Modules\SchoolProfile\Application\DTOs\UpdateSchoolProfileDTO;
 use App\Modules\SchoolProfile\Application\DTOs\DuplicatedSchoolProfileDTO;
 use App\Modules\SchoolProfile\Application\DTOs\SearchSchoolProfileDTO;
 
-use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterDisplay;
 use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterStatus;
-use App\Modules\SchoolProfile\Domain\Enums\SchoolProfilePublic;
 use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileStatus;
 
 
@@ -91,15 +89,11 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			$oQuery	= SchoolProfileModel::query();
 
 			$oQuery->where("Id_SchoolProfile", "<>", $dto->Id_SchoolProfile);
+			$oQuery->where("SchoolProfile_Name", "=", $dto->SchoolProfile_Name);
 			$oQuery->where("SchoolProfile_Status", "<>", "0");
 			$oQuery->where("Id_School", "=", $dto->Id_School);
-			$oQuery->where("Id_TypeBank", "=", $dto->Id_TypeBank);
-			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
-
-			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("SchoolProfile_Number", "=", $dto->SchoolProfile_Number);
-				$oSubQuery->orWhere("SchoolProfile_CCI", "=", $dto->SchoolProfile_CCI);
-			});
+			$oQuery->where("Id_SchoolYear", "=", $dto->Id_SchoolYear);
+			$oQuery->where("Id_SchoolLevel", "=", $dto->Id_SchoolLevel);
 
 			$Duplicate	= $oQuery->count();
 
@@ -142,16 +136,15 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			$oQuery	= SchoolProfileModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_SchoolProfile"		=> $dto->Id_SchoolProfile,
-				"SchoolProfile_Number"	=> trim( mb_strtoupper( $dto->SchoolProfile_Number, "utf-8" ) ),
-				"SchoolProfile_CCI"		=> trim( mb_strtoupper( $dto->SchoolProfile_CCI, "utf-8" ) ),
-				"SchoolProfile_Remark"	=> trim( mb_strtoupper( $dto->SchoolProfile_Remark, "utf-8" ) ),
-				"SchoolProfile_Default"	=> 1,
-				"SchoolProfile_Public"	=> $dto->SchoolProfile_Public,
-				"SchoolProfile_Status"	=> $dto->SchoolProfile_Status,
-				"Id_School"				=> $dto->Id_School,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"Id_SchoolProfile"				=> $dto->Id_SchoolProfile,
+				"SchoolProfile_Name"			=> trim( mb_strtoupper( $dto->SchoolProfile_Name, "utf-8" ) ),
+				"SchoolProfile_Description"		=> trim( mb_strtoupper( $dto->SchoolProfile_Description, "utf-8" ) ),
+				"SchoolProfile_Newed"			=> $dto->SchoolProfile_Newed,
+				"SchoolProfile_Type"			=> $dto->SchoolProfile_Type,
+				"SchoolProfile_Status"			=> $dto->SchoolProfile_Status,
+				"Id_School"						=> $dto->Id_School,
+				"Id_SchoolYear"					=> $dto->Id_SchoolYear,
+				"Id_SchoolLevel"				=> $dto->Id_SchoolLevel
 			]);
 
 			$oQuery->where("Id_SchoolProfile", "=", "$Id");
@@ -193,14 +186,14 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 
 			$oQuery->where("Id_SchoolProfile", "=", $dto->Id_SchoolProfile);
 			$oQuery->update([
-				"SchoolProfile_Number"	=> trim( mb_strtoupper( $dto->SchoolProfile_Number, "utf-8" ) ),
-				"SchoolProfile_CCI"		=> trim( mb_strtoupper( $dto->SchoolProfile_CCI, "utf-8" ) ),
-				"SchoolProfile_Remark"	=> trim( mb_strtoupper( $dto->SchoolProfile_Remark, "utf-8" ) ),
-				"SchoolProfile_Default"	=> 1,
-				"SchoolProfile_Public"	=> $dto->SchoolProfile_Public,
-				"SchoolProfile_Status"	=> $dto->SchoolProfile_Status,
-				"Id_TypeBank"			=> $dto->Id_TypeBank,
-				"Id_TypeCurrency"		=> $dto->Id_TypeCurrency
+				"SchoolProfile_Name"			=> trim( mb_strtoupper( $dto->SchoolProfile_Name, "utf-8" ) ),
+				"SchoolProfile_Description"		=> trim( mb_strtoupper( $dto->SchoolProfile_Description, "utf-8" ) ),
+				"SchoolProfile_Newed"			=> $dto->SchoolProfile_Newed,
+				"SchoolProfile_Type"			=> $dto->SchoolProfile_Type,
+				"SchoolProfile_Status"			=> $dto->SchoolProfile_Status,
+				"Id_School"						=> $dto->Id_School,
+				"Id_SchoolYear"					=> $dto->Id_SchoolYear,
+				"Id_SchoolLevel"				=> $dto->Id_SchoolLevel
 			]);
 
 			$oData	= $oQuery->get();
@@ -240,9 +233,8 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 
 			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);
 			$oQuery->update([
-				"SchoolProfile_Number"	=> DB::raw("CONCAT('( DELETED ) ', SchoolProfile_Number)"),
-				"SchoolProfile_CCI"		=> DB::raw("CONCAT('( DELETED ) ', SchoolProfile_CCI)"),
-				"SchoolProfile_Status"	=> 0
+				"SchoolProfile_Name"			=> DB::raw("CONCAT('( DELETED ) ', SchoolProfile_Name)"),
+				"SchoolProfile_Status"			=> 0
 			]);
 
 
@@ -279,8 +271,8 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			$oQuery	= SchoolProfileModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_school_year", "t_school_profile.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
+			$oQuery->join("t_school_level", "t_school_profile.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);
 			$oQuery->where("SchoolProfile_Status", "<>", "0");
 
@@ -301,7 +293,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_School, SchoolProfileFilterDisplay $Display): Result
+	public function list(int $Id_School): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -318,10 +310,6 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			//	SET VARIABLES
 			//
-			$whereDisplay	= [
-				SchoolProfileFilterDisplay::PUBLIC->value  => 2,
-				SchoolProfileFilterDisplay::PRIVATE->value => 1
-			];
 
 
 			//
@@ -329,17 +317,11 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			$oQuery	= SchoolProfileModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_school_year", "t_school_profile.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
+			$oQuery->join("t_school_level", "t_school_profile.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->where("Id_School", "=", $Id_School);
-
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('SchoolProfile_Public', $whereDisplay[$Display->value]);
-			}
-
 			$oQuery->where('SchoolProfile_Status', '=', SchoolProfileStatus::ACTIVE->value);
-			$oQuery->orderBy("SchoolProfile_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolProfile", "DESC");
+			$oQuery->orderBy("SchoolProfile_Name", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -381,10 +363,6 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				SchoolProfileFilterDisplay::PUBLIC->value  => 2,
-				SchoolProfileFilterDisplay::PRIVATE->value => 1
-			];
 			$whereStatus	= [
 				SchoolProfileFilterStatus::ACTIVE->value   => 2,
 				SchoolProfileFilterStatus::INACTIVE->value => 1
@@ -396,13 +374,9 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			$oQuery	= SchoolProfileModel::query();
 
-			$oQuery->join("t_type_bank", "t_school_account.Id_TypeBank", "=", "t_type_bank.Id_TypeBank");
-			$oQuery->join("t_type_currency", "t_school_account.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_school_year", "t_school_profile.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
+			$oQuery->join("t_school_level", "t_school_profile.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->where("Id_School", "=", $Id_School);
-
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('SchoolProfile_Public', $whereDisplay[$dto->Display->value]);
-			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
 				$oQuery->where('SchoolProfile_Status', $whereStatus[$dto->Status->value]);
@@ -411,18 +385,16 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where	("SchoolProfile_Number", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolProfile_CCI", 		"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("SchoolProfile_Remark", 	"LIKE", "%".$dto->Text."%");
-				$oSubQuery->orWhere	("TypeBank_Name", 			"LIKE", "%".$dto->Text."%");
+				$oSubQuery->where	("SchoolProfile_Name", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolYear_Name", 	"LIKE", "%".$dto->Text."%");
+				$oSubQuery->orWhere	("SchoolLevel_Code",	"LIKE", "%".$dto->Text."%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("SchoolProfile_Default", "DESC");
-			$oQuery->orderBy("Id_SchoolProfile", "DESC");
+			$oQuery->orderBy("SchoolProfile_Name", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
