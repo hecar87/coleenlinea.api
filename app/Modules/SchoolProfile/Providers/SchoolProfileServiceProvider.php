@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Providers;
+namespace App\Modules\SchoolProfile\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\SchoolAccount\Domain\Repositories\ISchoolAccountRepository;
-use App\Modules\SchoolAccount\Infrastructure\Repositories\EloquentSchoolAccountRepository;
+use App\Modules\SchoolProfile\Domain\Repositories\ISchoolProfileRepository;
+use App\Modules\SchoolProfile\Infrastructure\Repositories\EloquentSchoolProfileRepository;
 
 
-class SchoolAccountServiceProvider extends ServiceProvider
+class SchoolProfileServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(ISchoolAccountRepository::class, EloquentSchoolAccountRepository::class);
+		$this->app->bind(ISchoolProfileRepository::class, EloquentSchoolProfileRepository::class);
 	}
 
 	public function boot(): void

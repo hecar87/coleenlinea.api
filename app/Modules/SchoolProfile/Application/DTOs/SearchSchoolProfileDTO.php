@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\SchoolProfile\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterDisplay;
-use App\Modules\SchoolAccount\Domain\Enums\SchoolAccountFilterStatus;
+use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterDisplay;
+use App\Modules\SchoolProfile\Domain\Enums\SchoolProfileFilterStatus;
 
 
-class SearchSchoolAccountDTO
+class SearchSchoolProfileDTO
 {
     public function __construct(
         public string $Text = "",
-        public SchoolAccountFilterDisplay $Display = SchoolAccountFilterDisplay::ALL,
-        public SchoolAccountFilterStatus $Status = SchoolAccountFilterStatus::ALL,
+        public SchoolProfileFilterDisplay $Display = SchoolProfileFilterDisplay::ALL,
+        public SchoolProfileFilterStatus $Status = SchoolProfileFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolAccountFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolAccountFilterDisplay::PRIVATE,
-            default => SchoolAccountFilterDisplay::ALL,
+            'PUBLIC' => SchoolProfileFilterDisplay::PUBLIC,
+            'PRIVATE' => SchoolProfileFilterDisplay::PRIVATE,
+            default => SchoolProfileFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolAccountFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolAccountFilterStatus::INACTIVE,
-            default => SchoolAccountFilterStatus::ALL,
+            'ACTIVE' => SchoolProfileFilterStatus::ACTIVE,
+            'INACTIVE' => SchoolProfileFilterStatus::INACTIVE,
+            default => SchoolProfileFilterStatus::ALL,
         };
 
         return new self(

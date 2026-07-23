@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\SchoolAccount\Http\Requests\Manager;
+namespace App\Modules\SchoolProfile\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class SearchSchoolAccountRequest extends ValidatedRequest
+class SearchSchoolProfileRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{

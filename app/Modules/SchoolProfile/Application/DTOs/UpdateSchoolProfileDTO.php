@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\SchoolAccount\Application\DTOs;
+namespace App\Modules\SchoolProfile\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class UpdateSchoolAccountDTO
+class UpdateSchoolProfileDTO
 {
     public function __construct(
-        public int $Id_SchoolAccount,
-        public string $SchoolAccount_Number,
-		public string $SchoolAccount_CCI,
-		public string $SchoolAccount_Remark,
-		public int $SchoolAccount_Public,
-		public int $SchoolAccount_Status,
+        public int $Id_SchoolProfile,
+        public string $SchoolProfile_Number,
+		public string $SchoolProfile_CCI,
+		public string $SchoolProfile_Remark,
+		public int $SchoolProfile_Public,
+		public int $SchoolProfile_Status,
 		public int $Id_School,
 		public int $Id_TypeBank,
 		public int $Id_TypeCurrency
@@ -20,12 +20,12 @@ class UpdateSchoolAccountDTO
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_SchoolAccount: (int) $oRequest->input('Id_SchoolAccount', 0),
-            SchoolAccount_Number: $oRequest->input('SchoolAccount_Number', ''),
-            SchoolAccount_CCI: $oRequest->input('SchoolAccount_CCI', ''),
-            SchoolAccount_Remark: $oRequest->input('SchoolAccount_Remark', ''),
-            SchoolAccount_Public: (int) $oRequest->input('SchoolAccount_Public', 2),
-            SchoolAccount_Status: (int) $oRequest->input('SchoolAccount_Status', 2),
+            Id_SchoolProfile: (int) $oRequest->input('Id_SchoolProfile', 0),
+            SchoolProfile_Number: $oRequest->input('SchoolProfile_Number', ''),
+            SchoolProfile_CCI: $oRequest->input('SchoolProfile_CCI', ''),
+            SchoolProfile_Remark: $oRequest->input('SchoolProfile_Remark', ''),
+            SchoolProfile_Public: (int) $oRequest->input('SchoolProfile_Public', 2),
+            SchoolProfile_Status: (int) $oRequest->input('SchoolProfile_Status', 2),
             Id_School: (int) $oRequest->input('Id_School', 0),
             Id_TypeBank: (int) $oRequest->input('Id_TypeBank', 0),
             Id_TypeCurrency: (int) $oRequest->input('Id_TypeCurrency', 0)
