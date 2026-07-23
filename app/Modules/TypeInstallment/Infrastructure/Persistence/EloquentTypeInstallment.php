@@ -15,6 +15,7 @@ class EloquentTypeInstallment extends Model
 		"Id_TypeInstallment",
 		"TypeInstallment_Name",
 		"TypeInstallment_Abrv",
+		"TypeInstallment_Frequency",
 		"TypeInstallment_Public",
 		"TypeInstallment_Status"
 	];

@@ -157,6 +157,7 @@ class EloquentTypeInstallmentRepository implements ITypeInstallmentRepository
 				"Id_TypeInstallment"		=> $dto->Id_TypeInstallment,
 				"TypeInstallment_Name"		=> trim( mb_strtoupper( $dto->TypeInstallment_Name, "utf-8" ) ),
 				"TypeInstallment_Abrv"		=> trim( mb_strtoupper( $dto->TypeInstallment_Abrv, "utf-8" ) ),
+				"TypeInstallment_Frequency"	=> $dto->TypeInstallment_Frequency,
 				"TypeInstallment_Public"	=> $dto->TypeInstallment_Public,
 				"TypeInstallment_Status"	=> $dto->TypeInstallment_Status
 			]);
@@ -206,6 +207,7 @@ class EloquentTypeInstallmentRepository implements ITypeInstallmentRepository
 			$oQuery->update([
 				"TypeInstallment_Name"		=> trim( mb_strtoupper( $dto->TypeInstallment_Name, "utf-8" ) ),
 				"TypeInstallment_Abrv"		=> trim( mb_strtoupper( $dto->TypeInstallment_Abrv, "utf-8" ) ),
+				"TypeInstallment_Frequency"	=> $dto->TypeInstallment_Frequency,
 				"TypeInstallment_Public"	=> $dto->TypeInstallment_Public,
 				"TypeInstallment_Status"	=> $dto->TypeInstallment_Status
 			]);
