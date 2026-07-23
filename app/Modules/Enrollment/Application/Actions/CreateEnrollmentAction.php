@@ -82,6 +82,14 @@ class CreateEnrollmentAction
 			$oResult = $this->oEnrollmentRepository->create($oData, $Date_Start, $Date_End);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
+
+			$oEnrollment = $oResult->RESULT_DTA[0];
+
+			$oResult = $this->oSchoolClassRepository->index($oData->Id_SchoolClass);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
+			$oSchoolClass = $oResult->RESULT_DTA[0];
+
 			DB::commit();
 		}
 		catch (\Exception $oException)
