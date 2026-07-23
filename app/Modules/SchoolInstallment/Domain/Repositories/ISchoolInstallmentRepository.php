@@ -8,7 +8,6 @@ use App\Modules\SchoolInstallment\Application\DTOs\CreateSchoolInstallmentDTO;
 use App\Modules\SchoolInstallment\Application\DTOs\UpdateSchoolInstallmentDTO;
 use App\Modules\SchoolInstallment\Application\DTOs\DuplicatedSchoolInstallmentDTO;
 use App\Modules\SchoolInstallment\Application\DTOs\SearchSchoolInstallmentDTO;
-use App\Modules\SchoolInstallment\Domain\Enums\SchoolInstallmentFilterDisplay;
 
 
 interface ISchoolInstallmentRepository
@@ -27,7 +26,7 @@ interface ISchoolInstallmentRepository
 
     public function index(int $Id_SchoolInstallment) : Result;
 
-    public function list(int $Id_SchoolYear, SchoolInstallmentFilterDisplay $Display) : Result;
+    public function list(int $Id_SchoolProfile) : Result;
 
-    public function search(int $Id_SchoolYear, SearchSchoolInstallmentDTO $dto) : Result;
+    public function search(int $Id_SchoolProfile, SearchSchoolInstallmentDTO $dto) : Result;
 }

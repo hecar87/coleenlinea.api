@@ -2,7 +2,6 @@
 namespace App\Modules\SchoolInstallment\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\SchoolInstallment\Domain\Enums\SchoolInstallmentFilterDisplay;
 use App\Modules\SchoolInstallment\Domain\Enums\SchoolInstallmentFilterStatus;
 
 

@@ -117,24 +117,23 @@ class SchoolInstallmentController extends Controller
 
 	}
 
-	public function list(int $Id_SchoolYear, ListSchoolInstallmentRequest $oRequest)
+	public function list(int $Id_SchoolProfile, ListSchoolInstallmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$Display    = $oRequest->input('Display', 'ALL');
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListSchoolInstallmentAction->execute($Id_SchoolYear, $Display);
+		$oResult	= $this->oListSchoolInstallmentAction->execute($Id_SchoolProfile);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(int $Id_SchoolYear, SearchSchoolInstallmentRequest $oRequest)
+	public function search(int $Id_SchoolProfile, SearchSchoolInstallmentRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -145,7 +144,7 @@ class SchoolInstallmentController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchSchoolInstallmentAction->execute($Id_SchoolYear, $oData);
+		$oResult	= $this->oSearchSchoolInstallmentAction->execute($Id_SchoolProfile, $oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

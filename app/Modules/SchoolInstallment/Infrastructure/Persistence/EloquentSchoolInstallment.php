@@ -16,12 +16,9 @@ class EloquentSchoolInstallment extends Model
 		"SchoolInstallment_Amount",
 		"SchoolInstallment_Date_Start",
 		"SchoolInstallment_Date_End",
-		"SchoolInstallment_Promoted",
-		"SchoolInstallment_Repeated",
-		"SchoolInstallment_Newed",
+		"SchoolInstallment_Required",
 		"SchoolInstallment_Status",
-		"Id_SchoolYear",
-		"Id_SchoolLevel",
+		"Id_SchoolProfile",
 		"Id_TypeCurrency",
 		"Id_TypeInstallment"
 	];

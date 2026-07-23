@@ -22,7 +22,7 @@ class SearchSchoolInstallmentAction
 	{
 	}
 
-	public function execute(int $Id_SchoolYear, SearchSchoolInstallmentDTO $oData) : Result
+	public function execute(int $Id_SchoolProfile, SearchSchoolInstallmentDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -40,10 +40,10 @@ class SearchSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolYear);
+			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolProfile);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolInstallmentRepository->search($Id_SchoolYear, $oData);
+			$oResult = $this->oSchoolInstallmentRepository->search($Id_SchoolProfile, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

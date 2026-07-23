@@ -37,7 +37,7 @@ class UpdateSchoolInstallmentAction
 		$oEntity = $this->oSchoolInstallmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolInstallmentDTO(
 			Id_SchoolInstallment		: $oData->Id_SchoolInstallment,
-			Id_SchoolYear				: $oData->Id_SchoolYear,
+			Id_SchoolProfile				: $oData->Id_SchoolProfile,
 			Id_SchoolLevel				: $oData->Id_SchoolLevel,
 			Id_TypeInstallment			: $oData->Id_TypeInstallment
 		);
@@ -53,7 +53,7 @@ class UpdateSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolYear);
+			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolProfile);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oSchoolLevelRepository->exists($oData->Id_SchoolLevel);

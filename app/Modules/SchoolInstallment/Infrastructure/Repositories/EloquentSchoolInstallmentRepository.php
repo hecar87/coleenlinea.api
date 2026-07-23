@@ -92,8 +92,8 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 
 			$oQuery->where("Id_SchoolInstallment", "<>", $dto->Id_SchoolInstallment);
 			$oQuery->where("SchoolInstallment_Status", "<>", "0");
-			$oQuery->where("Id_SchoolYear", "=", $dto->Id_SchoolYear);
-			$oQuery->where("Id_SchoolLevel", "=", $dto->Id_SchoolLevel);
+			$oQuery->where("Id_SchoolProfile", "=", $dto->Id_SchoolProfile);
+			$oQuery->where("Id_TypeCurrency", "=", $dto->Id_TypeCurrency);
 			$oQuery->where("Id_TypeInstallment", "=", $dto->Id_TypeInstallment);
 
 			$Duplicate	= $oQuery->count();
@@ -141,12 +141,9 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 				"SchoolInstallment_Amount"			=> $dto->SchoolInstallment_Amount,
 				"SchoolInstallment_Date_Start"		=> $dto->SchoolInstallment_Date_Start,
 				"SchoolInstallment_Date_End"		=> $dto->SchoolInstallment_Date_End,
-				"SchoolInstallment_Promoted"		=> $dto->SchoolInstallment_Promoted,
-				"SchoolInstallment_Repeated"		=> $dto->SchoolInstallment_Repeated,
-				"SchoolInstallment_Newed"			=> $dto->SchoolInstallment_Newed,
+				"SchoolInstallment_Required"		=> $dto->SchoolInstallment_Required,
 				"SchoolInstallment_Status"			=> $dto->SchoolInstallment_Status,
-				"Id_SchoolYear"						=> $dto->Id_SchoolYear,
-				"Id_SchoolLevel"					=> $dto->Id_SchoolLevel,
+				"Id_SchoolProfile"					=> $dto->Id_SchoolProfile,
 				"Id_TypeCurrency"					=> $dto->Id_TypeCurrency,
 				"Id_TypeInstallment"				=> $dto->Id_TypeInstallment
 			]);
@@ -193,12 +190,9 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 				"SchoolInstallment_Amount"			=> $dto->SchoolInstallment_Amount,
 				"SchoolInstallment_Date_Start"		=> $dto->SchoolInstallment_Date_Start,
 				"SchoolInstallment_Date_End"		=> $dto->SchoolInstallment_Date_End,
-				"SchoolInstallment_Promoted"		=> $dto->SchoolInstallment_Promoted,
-				"SchoolInstallment_Repeated"		=> $dto->SchoolInstallment_Repeated,
-				"SchoolInstallment_Newed"			=> $dto->SchoolInstallment_Newed,
+				"SchoolInstallment_Required"		=> $dto->SchoolInstallment_Required,
 				"SchoolInstallment_Status"			=> $dto->SchoolInstallment_Status,
-				"Id_SchoolYear"						=> $dto->Id_SchoolYear,
-				"Id_SchoolLevel"					=> $dto->Id_SchoolLevel,
+				"Id_SchoolProfile"					=> $dto->Id_SchoolProfile,
 				"Id_TypeCurrency"					=> $dto->Id_TypeCurrency,
 				"Id_TypeInstallment"				=> $dto->Id_TypeInstallment
 			]);
@@ -300,7 +294,7 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(int $Id_SchoolYear, SchoolInstallmentFilterDisplay $Display): Result
+	public function list(int $Id_SchoolProfile):Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -327,7 +321,7 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			$oQuery->join("t_school_level", "t_school_installment.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->join("t_type_currency", "t_school_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
-			$oQuery->where("Id_SchoolYear", "=", $Id_SchoolYear);
+			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);
 			$oQuery->where('SchoolInstallment_Status', '=', SchoolInstallmentStatus::ACTIVE->value);
 			$oQuery->orderBy("SchoolInstallment_Date_Start", "DESC");
 
@@ -350,7 +344,7 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(int $Id_SchoolYear, SearchSchoolInstallmentDTO $dto): Result
+	public function search(int $Id_SchoolProfile, SearchSchoolInstallmentDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -385,7 +379,7 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			$oQuery->join("t_school_level", "t_school_installment.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->join("t_type_currency", "t_school_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
-			$oQuery->where("Id_SchoolYear", "=", $Id_SchoolYear);
+			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);
 
 			if (isset($whereStatus[$dto->Status->value])) {
 				$oQuery->where('SchoolInstallment_Status', $whereStatus[$dto->Status->value]);

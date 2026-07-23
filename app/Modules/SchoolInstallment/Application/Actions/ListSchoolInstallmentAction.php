@@ -9,8 +9,6 @@ use App\Helpers\ResultManager;
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
 use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
 
-use App\Modules\SchoolInstallment\Domain\Enums\SchoolInstallmentFilterDisplay;
-
 
 class ListSchoolInstallmentAction
 {
@@ -22,13 +20,12 @@ class ListSchoolInstallmentAction
 	{
 	}
 
-	public function execute(int $Id_SchoolYear, string $Display) : Result
+	public function execute(int $Id_SchoolProfile) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity 	= $this->oSchoolInstallmentRepository->getEntity();
-		$oDisplay 	= SchoolInstallmentFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -41,10 +38,10 @@ class ListSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolYear);
+			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolProfile);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
-			$oResult = $this->oSchoolInstallmentRepository->list($Id_SchoolYear, $oDisplay);
+			$oResult = $this->oSchoolInstallmentRepository->list($Id_SchoolProfile);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

@@ -24,10 +24,10 @@ Route::middleware('manager.access')
 
 Route::middleware('manager.access')
 	->name('school-installment.list')
-	->get("/school-years/{Id_SchoolYear}/school-installments", [ SchoolInstallmentController::class, "list" ])
-	->where("Id_SchoolYear", "[0-9]+");
+	->get("/school-profiles/{Id_SchoolProfile}/school-installments", [ SchoolInstallmentController::class, "list" ])
+	->where("Id_SchoolProfile", "[0-9]+");
 
 Route::middleware('manager.access')
 	->name('school-installment.search')
-	->get("/school-years/{Id_SchoolYear}/school-installments/search", [ SchoolInstallmentController::class, "search" ])
-	->where("Id_SchoolYear", "[0-9]+");
+	->get("/school-profiles/{Id_SchoolProfile}/school-installments/search", [ SchoolInstallmentController::class, "search" ])
+	->where("Id_SchoolProfile", "[0-9]+");
