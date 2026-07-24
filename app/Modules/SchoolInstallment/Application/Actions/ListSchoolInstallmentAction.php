@@ -7,7 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
-use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
+use App\Modules\SchoolProfile\Domain\Repositories\ISchoolProfileRepository;
 
 
 class ListSchoolInstallmentAction
@@ -15,7 +15,7 @@ class ListSchoolInstallmentAction
 
 	public function __construct(
 		protected ISchoolInstallmentRepository $oSchoolInstallmentRepository,
-		protected ISchoolYearRepository $oSchoolYearRepository
+		protected ISchoolProfileRepository $oSchoolProfileRepository
 	)
 	{
 	}
@@ -38,7 +38,7 @@ class ListSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oresult = $this->oSchoolYearRepository->exists($Id_SchoolProfile);
+			$oresult = $this->oSchoolProfileRepository->exists($Id_SchoolProfile);
 			if ( $oresult->RESULT_STS <> 200 ){ DB::rollBack(); return $oresult; }
 
 			$oResult = $this->oSchoolInstallmentRepository->list($Id_SchoolProfile);

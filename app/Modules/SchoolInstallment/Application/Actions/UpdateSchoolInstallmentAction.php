@@ -7,8 +7,7 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\SchoolInstallment\Domain\Repositories\ISchoolInstallmentRepository;
-use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
-use App\Modules\SchoolLevel\Domain\Repositories\ISchoolLevelRepository;
+use App\Modules\SchoolProfile\Domain\Repositories\ISchoolProfileRepository;
 use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
 use App\Modules\TypeInstallment\Domain\Repositories\ITypeInstallmentRepository;
 
@@ -21,8 +20,7 @@ class UpdateSchoolInstallmentAction
 
 	public function __construct(
 		protected ISchoolInstallmentRepository $oSchoolInstallmentRepository,
-		protected ISchoolYearRepository $oSchoolYearRepository,
-		protected ISchoolLevelRepository $oSchoolLevelRepository,
+		protected ISchoolProfileRepository $oSchoolProfileRepository,
 		protected ITypeCurrencyRepository $oTypeCurrencyRepository,
 		protected ITypeInstallmentRepository $oTypeInstallmentRepository
 	)
@@ -37,8 +35,8 @@ class UpdateSchoolInstallmentAction
 		$oEntity = $this->oSchoolInstallmentRepository->getEntity();
 		$oDataDuplicated = new DuplicatedSchoolInstallmentDTO(
 			Id_SchoolInstallment		: $oData->Id_SchoolInstallment,
-			Id_SchoolProfile				: $oData->Id_SchoolProfile,
-			Id_SchoolLevel				: $oData->Id_SchoolLevel,
+			Id_SchoolProfile			: $oData->Id_SchoolProfile,
+			Id_TypeCurrency				: $oData->Id_TypeCurrency,
 			Id_TypeInstallment			: $oData->Id_TypeInstallment
 		);
 
@@ -53,11 +51,8 @@ class UpdateSchoolInstallmentAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolYearRepository->exists($oData->Id_SchoolProfile);
+			$oResult = $this->oSchoolProfileRepository->exists($oData->Id_SchoolProfile);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
-
-			$oResult = $this->oSchoolLevelRepository->exists($oData->Id_SchoolLevel);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	 return $oResult; }
 
 			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
