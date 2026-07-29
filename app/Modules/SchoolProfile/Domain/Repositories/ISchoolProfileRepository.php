@@ -29,4 +29,6 @@ interface ISchoolProfileRepository
     public function list(int $Id_School) : Result;
 
     public function search(int $Id_School, SearchSchoolProfileDTO $dto) : Result;
+
+    public function find(int $Id_School, int $Id_SchoolYear, int $Id_SchoolLevel, int $Enrollment_Newed, int $Enrollment_Type) : Result;
 }

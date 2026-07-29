@@ -12,6 +12,8 @@ use App\Modules\SchoolYear\Domain\Repositories\ISchoolYearRepository;
 use App\Modules\SchoolClass\Domain\Repositories\ISchoolClassRepository;
 use App\Modules\Student\Domain\Repositories\IStudentRepository;
 
+use App\Modules\EnrollmentInstallment\Application\Actions\GenerateEnrollmentInstallmentsAction;
+
 use App\Modules\Enrollment\Application\DTOs\CreateEnrollmentDTO;
 use App\Modules\Enrollment\Application\DTOs\DuplicatedEnrollmentDTO;
 
@@ -24,7 +26,9 @@ class CreateEnrollmentAction
 		protected ISchoolRepository $oSchoolRepository,
 		protected ISchoolYearRepository $oSchoolYearRepository,
 		protected ISchoolClassRepository $oSchoolClassRepository,
-		protected IStudentRepository $oStudentRepository
+		protected IStudentRepository $oStudentRepository,
+
+		protected GenerateEnrollmentInstallmentsAction $oGenerateEnrollmentInstallmentsAction
 	)
 	{
 	}
@@ -85,10 +89,8 @@ class CreateEnrollmentAction
 
 			$oEnrollment = $oResult->RESULT_DTA[0];
 
-			$oResult = $this->oSchoolClassRepository->index($oData->Id_SchoolClass);
+			$oResult = $this->oGenerateEnrollmentInstallmentsAction->execute($oEnrollment->Id_Enrollment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
-
-			$oSchoolClass = $oResult->RESULT_DTA[0];
 
 			DB::commit();
 		}

@@ -416,4 +416,57 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
+	public function find(int $Id_School, int $Id_SchoolYear, int $Id_SchoolLevel, int $Newed, int $Type): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= SchoolProfileModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	SET VARIABLES
+			//
+
+
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= SchoolProfileModel::query();
+
+			$oQuery->join("t_school_year", "t_school_profile.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
+			$oQuery->join("t_school_level", "t_school_profile.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
+			$oQuery->where("SchoolProfile_Newed", "=", $Newed);
+			$oQuery->where("SchoolProfile_Type", "=", $Type);
+			$oQuery->where("Id_School", "=", $Id_School);
+			$oQuery->where("Id_SchoolYear", "=", $Id_SchoolYear);
+			$oQuery->where("Id_SchoolLevel", "=", $Id_SchoolLevel);
+			$oQuery->where('SchoolProfile_Status', '=', SchoolProfileStatus::ACTIVE->value);
+			$oQuery->orderBy("Id_SchoolProfile", "ASC");
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1005, $oEntity, $oData);
+		}
+		catch (\Exception $oException)
+		{
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
 }
