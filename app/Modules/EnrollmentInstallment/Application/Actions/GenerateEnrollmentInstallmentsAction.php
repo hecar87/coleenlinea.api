@@ -199,10 +199,10 @@ class GenerateEnrollmentInstallmentsAction
 		$oEntity 	= $this->oEnrollmentInstallmentRepository->getEntity();
 		$oResult 	= [];
 
-		$DateCollection = Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_Start );
-		$DateDue 		= Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_End );
-    	$Period 		= CarbonPeriod::create( $DateCollection->copy()->startOfMonth(), '1 month', $DateDue->copy()->startOfMonth() );
-		$Order 			= 1;
+		$DateStart 	= Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_Start );
+		$DateEnd 	= Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_End );
+    	$Period 	= CarbonPeriod::create( $DateStart->copy()->startOfMonth(), '1 month', $DateEnd->copy()->startOfMonth() );
+		$Order 		= 1;
 
 
 		//------------------------------------------------------------------------------
@@ -215,13 +215,9 @@ class GenerateEnrollmentInstallmentsAction
 				//
 				// Fechas
 				//
-				$CollectionDate = $Month->copy()->day( $DateCollection->day );
-				$DueDate = $Month->copy()->day( $DateDue->day );
-
-				//
-				// Descripción
-				//
-				$Description = $Month->translatedFormat('F Y');
+				$pDateCollection 	= $DateStart->copy();
+				$pDateDue 			= $Month->copy()->endOfMonth()->min($DateEnd);
+				$pDescription 		= $this->installmentDescription($oSchoolInstallment->TypeInstallment_Name, $Month->month, $Month->year);
 
 				//
 				// DTO
@@ -229,12 +225,12 @@ class GenerateEnrollmentInstallmentsAction
 				$oDTO = new CreateEnrollmentInstallmentDTO(
 					Id_EnrollmentInstallment: 0,
 					EnrollmentInstallment_Order: $Order,
-					EnrollmentInstallment_Description: $Description,
+					EnrollmentInstallment_Description: $pDescription,
 					EnrollmentInstallment_Amount_Budgeted: $oSchoolInstallment->SchoolInstallment_Amount,
 					EnrollmentInstallment_Amount_Discounted: 0,
 					EnrollmentInstallment_Amount_Payabled: $oSchoolInstallment->SchoolInstallment_Amount,
-					EnrollmentInstallment_Date_Collection: $CollectionDate->toDateString(),
-					EnrollmentInstallment_Date_Due: $DueDate->toDateString(),
+					EnrollmentInstallment_Date_Collection: $pDateCollection->toDateString(),
+					EnrollmentInstallment_Date_Due: $pDateDue->toDateString(),
 					EnrollmentInstallment_Required: $oSchoolInstallment->SchoolInstallment_Required,
 					Id_Enrollment: $oEnrollment->Id_Enrollment,
 					Id_TypeCurrency: $oSchoolInstallment->Id_TypeCurrency,
@@ -259,5 +255,41 @@ class GenerateEnrollmentInstallmentsAction
 		//	RESPONSE
 		//------------------------------------------------------------------------------
 		return $oResult;
+	}
+
+
+	private function installmentDescription(string $Prefix, int $Month, int $Year) : string
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity 	= $this->oEnrollmentInstallmentRepository->getEntity();
+		$oResult 	= "";
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		switch($Month)
+		{
+			case 2 	: $oResult = $Prefix . ", FEBRERO DEL " . $Year; break;
+			case 3 	: $oResult = $Prefix . ", MARZO DEL " . $Year; break;
+			case 4 	: $oResult = $Prefix . ", ABRIL DEL " . $Year; break;
+			case 1 	: $oResult = $Prefix . ", ENERO DEL " . $Year; break;
+			case 5 	: $oResult = $Prefix . ", MAYO DEL " . $Year; break;
+			case 6 	: $oResult = $Prefix . ", JUNIO DEL " . $Year; break;
+			case 7 	: $oResult = $Prefix . ", JULIO DEL " . $Year; break;
+			case 8 	: $oResult = $Prefix . ", AGOSTO DEL " . $Year; break;
+			case 9 	: $oResult = $Prefix . ", SEPTIEMBRE DEL " . $Year; break;
+			case 10 : $oResult = $Prefix . ", OCTUBRE DEL " . $Year; break;
+			case 11 : $oResult = $Prefix . ", NOVIEMBRE DEL " . $Year; break;
+			case 12 : $oResult = $Prefix . ", DICIEMBRE DEL " . $Year; break;
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+
 	}
 }
