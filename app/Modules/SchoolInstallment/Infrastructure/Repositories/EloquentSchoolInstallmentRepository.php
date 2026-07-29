@@ -271,7 +271,6 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			//
 			$oQuery	= SchoolInstallmentModel::query();
 
-			$oQuery->join("t_school_level", "t_school_installment.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->join("t_type_currency", "t_school_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
 			$oQuery->where("Id_SchoolInstallment", "=", $Id_SchoolInstallment);
@@ -318,7 +317,6 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			//
 			$oQuery	= SchoolInstallmentModel::query();
 
-			$oQuery->join("t_school_level", "t_school_installment.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->join("t_type_currency", "t_school_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
 			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);
@@ -376,7 +374,6 @@ class EloquentSchoolInstallmentRepository implements ISchoolInstallmentRepositor
 			//
 			$oQuery	= SchoolInstallmentModel::query();
 
-			$oQuery->join("t_school_level", "t_school_installment.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
 			$oQuery->join("t_type_currency", "t_school_installment.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
 			$oQuery->join("t_type_installment", "t_school_installment.Id_TypeInstallment", "=", "t_type_installment.Id_TypeInstallment");
 			$oQuery->where("Id_SchoolProfile", "=", $Id_SchoolProfile);

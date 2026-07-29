@@ -102,7 +102,7 @@ class GenerateEnrollmentInstallmentsAction
 	}
 
 
-	private function generateInstallments( object $oEnrollment, array $oSchoolInstallments) : Result
+	private function generateInstallments( object $oEnrollment, object $oSchoolInstallments) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -159,13 +159,13 @@ class GenerateEnrollmentInstallmentsAction
 		$oResult 	= [];
 		$oData		= new CreateEnrollmentInstallmentDTO(
 	        Id_EnrollmentInstallment: 0,
-			EnrollmentInstallment_Order: $oSchoolInstallment->SchoolInstallment_Order,
-			EnrollmentInstallment_Description: $oSchoolInstallment->SchoolInstallment_Description,
+			EnrollmentInstallment_Order: 1,
+			EnrollmentInstallment_Description: $oSchoolInstallment->TypeInstallment_Name,
 			EnrollmentInstallment_Amount_Budgeted: $oSchoolInstallment->SchoolInstallment_Amount,
 			EnrollmentInstallment_Amount_Discounted: 0,
 			EnrollmentInstallment_Amount_Payabled: $oSchoolInstallment->SchoolInstallment_Amount,
-			EnrollmentInstallment_Date_Collection: $oSchoolInstallment->SchoolInstallment_Date_Collection,
-			EnrollmentInstallment_Date_Due: $oSchoolInstallment->SchoolInstallment_Date_Due,
+			EnrollmentInstallment_Date_Collection: $oSchoolInstallment->SchoolInstallment_Date_Start,
+			EnrollmentInstallment_Date_Due: $oSchoolInstallment->SchoolInstallment_Date_End,
 			EnrollmentInstallment_Required: $oSchoolInstallment->SchoolInstallment_Required,
 			Id_Enrollment: $oEnrollment->Id_Enrollment,
 			Id_TypeCurrency: $oSchoolInstallment->Id_TypeCurrency,
@@ -199,10 +199,10 @@ class GenerateEnrollmentInstallmentsAction
 		$oEntity 	= $this->oEnrollmentInstallmentRepository->getEntity();
 		$oResult 	= [];
 
-		$DateCollection = Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_Collection );
-		$DateDue 		= Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_Due );
+		$DateCollection = Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_Start );
+		$DateDue 		= Carbon::parse( $oSchoolInstallment->SchoolInstallment_Date_End );
     	$Period 		= CarbonPeriod::create( $DateCollection->copy()->startOfMonth(), '1 month', $DateDue->copy()->startOfMonth() );
-		$Order 			= $oSchoolInstallment->SchoolInstallment_Order;
+		$Order 			= 1;
 
 
 		//------------------------------------------------------------------------------
