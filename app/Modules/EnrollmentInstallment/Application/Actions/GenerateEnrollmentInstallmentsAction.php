@@ -88,7 +88,7 @@ class GenerateEnrollmentInstallmentsAction
 			$oResult = $this->generateInstallments($oEnrollment, $oResult->RESULT_DTA);
 			if ($oResult->RESULT_STS <> 200) { return $oResult; }
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -139,7 +139,7 @@ class GenerateEnrollmentInstallmentsAction
 			}
 			$oResult 	= ResultManager::Result(1000, $oEntity, null);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -180,7 +180,7 @@ class GenerateEnrollmentInstallmentsAction
 			$oResult = $this->oEnrollmentInstallmentRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ return $oResult; }
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -249,7 +249,7 @@ class GenerateEnrollmentInstallmentsAction
 
 			$oResult 	= ResultManager::Result(1000, $oEntity, null);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());
 		}

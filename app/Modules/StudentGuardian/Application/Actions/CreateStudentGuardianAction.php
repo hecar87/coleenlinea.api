@@ -69,7 +69,7 @@ class CreateStudentGuardianAction
 
 			DB::commit();
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			DB::rollBack();
 			$oResult 	= ResultManager::Result(2000, $oEntity, null, 0, $oException->getMessage());

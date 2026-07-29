@@ -61,7 +61,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -111,7 +111,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			} else {
 				$oResult = ResultManager::Result(2201, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -158,7 +158,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1001, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -204,7 +204,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -243,7 +243,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1003, $oEntity);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -283,7 +283,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1004, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -339,7 +339,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -420,7 +420,7 @@ class EloquentSchoolClassRepository implements ISchoolClassRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 

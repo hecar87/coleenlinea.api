@@ -66,7 +66,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -113,7 +113,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			} else {
 				$oResult = ResultManager::Result(2201, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -156,7 +156,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -199,7 +199,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -242,7 +242,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -298,7 +298,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1001, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -344,7 +344,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -383,7 +383,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1003, $oEntity);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -412,7 +412,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//
 			$oQuery	= EnrollmentModel::query();
 
-			$oQuery->join("t_school", "t_enrollment.Id_School ", "=", "t_school.Id_School ");
+			$oQuery->join("t_school", "t_enrollment.Id_School", "=", "t_school.Id_School");
 			$oQuery->join("t_school_year", "t_enrollment.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
 			$oQuery->join("t_school_class", "t_enrollment.Id_SchoolClass", "=", "t_school_class.Id_SchoolClass");
 			$oQuery->join("t_student", "t_enrollment.Id_Student", "=", "t_student.Id_Student");
@@ -426,7 +426,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1004, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -478,7 +478,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -529,7 +529,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -630,7 +630,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -732,7 +732,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -828,7 +828,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -870,7 +870,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -912,7 +912,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -942,7 +942,7 @@ class EloquentEnrollmentRepository implements IEnrollmentRepository
 			//
 
 			$oResult = Str::orderedUuid()->getHex()->toString();
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = "ERCODE";
 		}
 

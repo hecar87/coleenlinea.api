@@ -59,7 +59,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			} else {
 				$oResult = ResultManager::Result(2200, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -106,7 +106,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			} else {
 				$oResult = ResultManager::Result(2201, $oEntity);
 			}
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -155,7 +155,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1001, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -203,7 +203,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//	FUNCTION
 			//
 			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -242,7 +242,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1003, $oEntity);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -283,7 +283,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1004, $oEntity, $oData);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -331,7 +331,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
@@ -406,7 +406,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
-		} catch (\Exception $oException) {
+		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
 
@@ -442,12 +442,12 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 
 			$oQuery->join("t_school_year", "t_school_profile.Id_SchoolYear", "=", "t_school_year.Id_SchoolYear");
 			$oQuery->join("t_school_level", "t_school_profile.Id_SchoolLevel", "=", "t_school_level.Id_SchoolLevel");
-			$oQuery->where("SchoolProfile_Newed", "=", $Newed);
-			$oQuery->where("SchoolProfile_Type", "=", $Type);
-			$oQuery->where("Id_School", "=", $Id_School);
-			$oQuery->where("Id_SchoolYear", "=", $Id_SchoolYear);
-			$oQuery->where("Id_SchoolLevel", "=", $Id_SchoolLevel);
-			$oQuery->where('SchoolProfile_Status', '=', SchoolProfileStatus::ACTIVE->value);
+			$oQuery->where("t_school_profile.SchoolProfile_Newed", "=", $Newed);
+			$oQuery->where("t_school_profile.SchoolProfile_Type", "=", $Type);
+			$oQuery->where("t_school_profile.Id_School", "=", $Id_School);
+			$oQuery->where("t_school_profile.Id_SchoolYear", "=", $Id_SchoolYear);
+			$oQuery->where("t_school_profile.Id_SchoolLevel", "=", $Id_SchoolLevel);
+			$oQuery->where('t_school_profile.SchoolProfile_Status', '=', SchoolProfileStatus::ACTIVE->value);
 			$oQuery->orderBy("Id_SchoolProfile", "ASC");
 
 			$oData	= $oQuery->get();
@@ -458,7 +458,7 @@ class EloquentSchoolProfileRepository implements ISchoolProfileRepository
 			//
 			$oResult = ResultManager::Result(1005, $oEntity, $oData);
 		}
-		catch (\Exception $oException)
+		catch (\Throwable $oException)
 		{
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}
