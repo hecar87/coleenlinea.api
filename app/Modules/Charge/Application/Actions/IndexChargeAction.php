@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\School\Application\Actions;
+namespace App\Modules\Charge\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
 
 
-class IndexSchoolAction
+class IndexChargeAction
 {
 
 	public function __construct(
-		protected ISchoolRepository $oSchoolRepository
+		protected IChargeRepository $oChargeRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_School) : Result
+	public function execute(int $Id_Charge) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolRepository->getEntity();
+		$oEntity = $this->oChargeRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class IndexSchoolAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oSchoolRepository->exists($Id_School);
+			$oResult = $this->oChargeRepository->exists($Id_Charge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolRepository->index($Id_School);
+			$oResult = $this->oChargeRepository->index($Id_Charge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

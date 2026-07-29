@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\School\Application\DTOs;
+namespace App\Modules\Charge\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\School\Domain\Enums\SchoolFilterDisplay;
-use App\Modules\School\Domain\Enums\SchoolFilterStatus;
+use App\Modules\Charge\Domain\Enums\ChargeFilterDisplay;
+use App\Modules\Charge\Domain\Enums\ChargeFilterStatus;
 
 
-class SearchSchoolDTO
+class SearchChargeDTO
 {
     public function __construct(
         public string $Text = "",
-        public SchoolFilterDisplay $Display = SchoolFilterDisplay::ALL,
-        public SchoolFilterStatus $Status = SchoolFilterStatus::ALL,
+        public ChargeFilterDisplay $Display = ChargeFilterDisplay::ALL,
+        public ChargeFilterStatus $Status = ChargeFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchSchoolDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => SchoolFilterDisplay::PUBLIC,
-            'PRIVATE' => SchoolFilterDisplay::PRIVATE,
-            default => SchoolFilterDisplay::ALL,
+            'PUBLIC' => ChargeFilterDisplay::PUBLIC,
+            'PRIVATE' => ChargeFilterDisplay::PRIVATE,
+            default => ChargeFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => SchoolFilterStatus::ACTIVE,
-            'INACTIVE' => SchoolFilterStatus::INACTIVE,
-            default => SchoolFilterStatus::ALL,
+            'ACTIVE' => ChargeFilterStatus::ACTIVE,
+            'INACTIVE' => ChargeFilterStatus::INACTIVE,
+            default => ChargeFilterStatus::ALL,
         };
 
         return new self(

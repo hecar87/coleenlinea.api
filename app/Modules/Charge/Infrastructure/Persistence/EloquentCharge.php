@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Modules\School\Infrastructure\Persistence;
+namespace App\Modules\Charge\Infrastructure\Persistence;
 
 use Illuminate\Database\Eloquent\Model;
 
 
-class EloquentSchool extends Model
+class EloquentCharge extends Model
 {
 	public $timestamps 		= false;
 	protected $table 		= "t_school";
 	protected $entity		= "SCHOOL";
-	protected $primaryKey 	= "Id_School";
+	protected $primaryKey 	= "Id_Charge";
 	protected $fillable 	= [
-		"Id_School",
-		"School_Code",
-		"School_BusinessName",
-		"School_TradeName",
-		"School_NoDocument",
-		"School_Address",
-		"School_Phone",
-		"School_Public",
-		"School_Status",
+		"Id_Charge",
+		"Charge_Code",
+		"Charge_BusinessName",
+		"Charge_TradeName",
+		"Charge_NoDocument",
+		"Charge_Address",
+		"Charge_Phone",
+		"Charge_Public",
+		"Charge_Status",
 		"Id_State",
 		"Id_City",
 		"Id_District",
 		"Id_TypeDocument",
 		"Id_TypePopulation",
-		"Id_TypeSchool"
+		"Id_TypeCharge"
 	];
 	protected $hidden 		= [];
 	protected $casts 		= [];

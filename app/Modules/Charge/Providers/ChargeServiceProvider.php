@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\School\Providers;
+namespace App\Modules\Charge\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
-use App\Modules\School\Infrastructure\Repositories\EloquentSchoolRepository;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
+use App\Modules\Charge\Infrastructure\Repositories\EloquentChargeRepository;
 
 
-class SchoolServiceProvider extends ServiceProvider
+class ChargeServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(ISchoolRepository::class, EloquentSchoolRepository::class);
+		$this->app->bind(IChargeRepository::class, EloquentChargeRepository::class);
 	}
 
 	public function boot(): void

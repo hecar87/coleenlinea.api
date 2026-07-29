@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\School\Http\Controllers\Manager;
+namespace App\Modules\Charge\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
 
 
 // Requests
-use App\Modules\School\Http\Requests\Manager\CreateSchoolRequest;
-use App\Modules\School\Http\Requests\Manager\UpdateSchoolRequest;
-use App\Modules\School\Http\Requests\Manager\ListSchoolRequest;
-use App\Modules\School\Http\Requests\Manager\SearchSchoolRequest;
+use App\Modules\Charge\Http\Requests\Manager\CreateChargeRequest;
+use App\Modules\Charge\Http\Requests\Manager\UpdateChargeRequest;
+use App\Modules\Charge\Http\Requests\Manager\ListChargeRequest;
+use App\Modules\Charge\Http\Requests\Manager\SearchChargeRequest;
 
 // DTOs
-use App\Modules\School\Application\DTOs\CreateSchoolDTO;
-use App\Modules\School\Application\DTOs\UpdateSchoolDTO;
-use App\Modules\School\Application\DTOs\SearchSchoolDTO;
+use App\Modules\Charge\Application\DTOs\CreateChargeDTO;
+use App\Modules\Charge\Application\DTOs\UpdateChargeDTO;
+use App\Modules\Charge\Application\DTOs\SearchChargeDTO;
 
 // Actions
-use App\Modules\School\Application\Actions\CreateSchoolAction;
-use App\Modules\School\Application\Actions\UpdateSchoolAction;
-use App\Modules\School\Application\Actions\DeleteSchoolAction;
-use App\Modules\School\Application\Actions\IndexSchoolAction;
-use App\Modules\School\Application\Actions\ListSchoolAction;
-use App\Modules\School\Application\Actions\SearchSchoolAction;
+use App\Modules\Charge\Application\Actions\CreateChargeAction;
+use App\Modules\Charge\Application\Actions\UpdateChargeAction;
+use App\Modules\Charge\Application\Actions\DeleteChargeAction;
+use App\Modules\Charge\Application\Actions\IndexChargeAction;
+use App\Modules\Charge\Application\Actions\ListChargeAction;
+use App\Modules\Charge\Application\Actions\SearchChargeAction;
 
 
-class SchoolController extends Controller
+class ChargeController extends Controller
 {
-	protected ISchoolRepository $repository;
+	protected IChargeRepository $repository;
 
 	public function __construct(
-		ISchoolRepository $repository,
+		IChargeRepository $repository,
 
-		private CreateSchoolAction $oCreateSchoolAction,
-		private UpdateSchoolAction $oUpdateSchoolAction,
-		private DeleteSchoolAction $oDeleteSchoolAction,
-		private IndexSchoolAction $oIndexSchoolAction,
-		private ListSchoolAction $oListSchoolAction,
-		private SearchSchoolAction $oSearchSchoolAction
+		private CreateChargeAction $oCreateChargeAction,
+		private UpdateChargeAction $oUpdateChargeAction,
+		private DeleteChargeAction $oDeleteChargeAction,
+		private IndexChargeAction $oIndexChargeAction,
+		private ListChargeAction $oListChargeAction,
+		private SearchChargeAction $oSearchChargeAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateSchoolRequest $oRequest)
+	public function create(CreateChargeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateSchoolDTO::fromRequest($oRequest);
+		$oData = CreateChargeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateSchoolAction->execute($oData);
+		$oResult	= $this->oCreateChargeAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateSchoolRequest $oRequest)
+	public function update(UpdateChargeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateSchoolDTO::fromRequest($oRequest);
+		$oData = UpdateChargeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateSchoolAction->execute($oData);
+		$oResult	= $this->oUpdateChargeAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_School)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteSchoolAction->execute($Id_School);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_School)
+	public function delete(int $Id_Charge)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class SchoolController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexSchoolAction->execute($Id_School);
+		$oResult	= $this->oDeleteChargeAction->execute($Id_Charge);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(ListSchoolRequest $oRequest)
+	public function index(int $Id_Charge)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexChargeAction->execute($Id_Charge);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(ListChargeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class SchoolController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListSchoolAction->execute($Display);
+		$oResult	= $this->oListChargeAction->execute($Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchSchoolRequest $oRequest)
+	public function search(SearchChargeRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchSchoolDTO::fromRequest($oRequest);
+		$oData = SearchChargeDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchSchoolAction->execute($oData);
+		$oResult	= $this->oSearchChargeAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

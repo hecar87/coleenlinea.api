@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\School\Domain\Enums;
+namespace App\Modules\Charge\Domain\Enums;
 
-enum SchoolFilterDisplay : string
+enum ChargeFilterDisplay : string
 {
     case ALL = 'ALL';
     case PUBLIC = 'PUBLIC';

@@ -1,47 +1,47 @@
 <?php
 
-namespace App\Modules\School\Application\Actions;
+namespace App\Modules\Charge\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\School\Domain\Repositories\ISchoolRepository;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
 use App\Modules\State\Domain\Repositories\IStateRepository;
 use App\Modules\City\Domain\Repositories\ICityRepository;
 use App\Modules\District\Domain\Repositories\IDistrictRepository;
 use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
 use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
-use App\Modules\TypeSchool\Domain\Repositories\ITypeSchoolRepository;
+use App\Modules\TypeCharge\Domain\Repositories\ITypeChargeRepository;
 
-use App\Modules\School\Application\DTOs\CreateSchoolDTO;
-use App\Modules\School\Application\DTOs\DuplicatedSchoolDTO;
+use App\Modules\Charge\Application\DTOs\CreateChargeDTO;
+use App\Modules\Charge\Application\DTOs\DuplicatedChargeDTO;
 
 
-class CreateSchoolAction
+class CreateChargeAction
 {
 
 	public function __construct(
-		protected ISchoolRepository $oSchoolRepository,
+		protected IChargeRepository $oChargeRepository,
 		protected IStateRepository $oStateRepository,
 		protected ICityRepository $oCityRepository,
 		protected IDistrictRepository $oDistrictRepository,
 		protected ITypeDocumentRepository $oTypeDocumentRepository,
 		protected ITypePopulationRepository $oTypePopulationRepository,
-		protected ITypeSchoolRepository $oTypeSchoolRepository
+		protected ITypeChargeRepository $oTypeChargeRepository
 	)
 	{
 	}
 
-	public function execute(CreateSchoolDTO $oData) : Result
+	public function execute(CreateChargeDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oSchoolRepository->getEntity();
-		$oDataDuplicated = new DuplicatedSchoolDTO(
-			Id_School	: 0,
-			School_NoDocument : $oData->School_NoDocument,
+		$oEntity = $this->oChargeRepository->getEntity();
+		$oDataDuplicated = new DuplicatedChargeDTO(
+			Id_Charge	: 0,
+			Charge_NoDocument : $oData->Charge_NoDocument,
 			Id_TypeDocument : $oData->Id_TypeDocument
 		);
 
@@ -71,14 +71,14 @@ class CreateSchoolAction
 			$oResult = $this->oTypePopulationRepository->exists($oData->Id_TypePopulation);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oTypeSchoolRepository->exists($oData->Id_TypeSchool);
+			$oResult = $this->oTypeChargeRepository->exists($oData->Id_TypeCharge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
 
-			$oResult = $this->oSchoolRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oChargeRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oSchoolRepository->create($oData);
+			$oResult = $this->oChargeRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
