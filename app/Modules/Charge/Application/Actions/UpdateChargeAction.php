@@ -7,15 +7,11 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\Charge\Domain\Repositories\IChargeRepository;
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\City\Domain\Repositories\ICityRepository;
-use App\Modules\District\Domain\Repositories\IDistrictRepository;
-use App\Modules\TypeDocument\Domain\Repositories\ITypeDocumentRepository;
-use App\Modules\TypePopulation\Domain\Repositories\ITypePopulationRepository;
-use App\Modules\TypeCharge\Domain\Repositories\ITypeChargeRepository;
+use App\Modules\Guardian\Domain\Repositories\IGuardianRepository;
+use App\Modules\TypeCurrency\Domain\Repositories\ITypeCurrencyRepository;
+use App\Modules\TypePayment\Domain\Repositories\ITypePaymentRepository;
 
 use App\Modules\Charge\Application\DTOs\UpdateChargeDTO;
-use App\Modules\Charge\Application\DTOs\DuplicatedChargeDTO;
 
 
 class UpdateChargeAction
@@ -23,12 +19,9 @@ class UpdateChargeAction
 
 	public function __construct(
 		protected IChargeRepository $oChargeRepository,
-		protected IStateRepository $oStateRepository,
-		protected ICityRepository $oCityRepository,
-		protected IDistrictRepository $oDistrictRepository,
-		protected ITypeDocumentRepository $oTypeDocumentRepository,
-		protected ITypePopulationRepository $oTypePopulationRepository,
-		protected ITypeChargeRepository $oTypeChargeRepository
+		protected IGuardianRepository $oGuardianRepository,
+		protected ITypeCurrencyRepository $oTypeCurrencyRepository,
+		protected ITypePaymentRepository $oTypePaymentRepository
 	)
 	{
 	}
@@ -39,11 +32,6 @@ class UpdateChargeAction
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity = $this->oChargeRepository->getEntity();
-		$oDataDuplicated = new DuplicatedChargeDTO(
-			Id_Charge : $oData->Id_Charge,
-			Charge_NoDocument : $oData->Charge_NoDocument,
-			Id_TypeDocument : $oData->Id_TypeDocument
-		);
 
 
 		//------------------------------------------------------------------------------
@@ -56,27 +44,18 @@ class UpdateChargeAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->exists($oData->Id_State);
+			$oResult = $this->oGuardianRepository->exists($oData->Id_Guardian);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oCityRepository->exists($oData->Id_City);
+			$oResult = $this->oTypeCurrencyRepository->exists($oData->Id_TypeCurrency);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oDistrictRepository->exists($oData->Id_District);
+			$oResult = $this->oTypePaymentRepository->exists($oData->Id_TypePayment);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oTypeDocumentRepository->exists($oData->Id_TypeDocument);
+			$oResult = $this->oChargeRepository->exists($oData->Id_Charge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
 
-			$oResult = $this->oTypePopulationRepository->exists($oData->Id_TypePopulation);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
-
-			$oResult = $this->oTypeChargeRepository->exists($oData->Id_TypeCharge);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack();	return $oResult; }
-
-
-			$oResult = $this->oChargeRepository->duplicated($oDataDuplicated);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			$oResult = $this->oChargeRepository->update($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }

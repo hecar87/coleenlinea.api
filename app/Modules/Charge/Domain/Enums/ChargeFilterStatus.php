@@ -7,4 +7,5 @@ enum ChargeFilterStatus : string
     case ALL = 'ALL';
     case ACTIVE = 'ACTIVE';
     case INACTIVE = 'INACTIVE';
+    case NULLIFIED = 'NULLIFIED';
 }

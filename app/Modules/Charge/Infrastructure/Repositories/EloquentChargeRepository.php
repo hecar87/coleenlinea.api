@@ -3,6 +3,7 @@
 namespace App\Modules\Charge\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
@@ -14,6 +15,8 @@ use App\Modules\Charge\Application\DTOs\CreateChargeDTO;
 use App\Modules\Charge\Application\DTOs\UpdateChargeDTO;
 use App\Modules\Charge\Application\DTOs\DuplicatedChargeDTO;
 use App\Modules\Charge\Application\DTOs\SearchChargeDTO;
+use App\Modules\Charge\Application\DTOs\SearchChargeByGuardianDTO;
+use App\Modules\Charge\Application\DTOs\PayChargeDTO;
 
 use App\Modules\Charge\Domain\Enums\ChargeFilterDisplay;
 use App\Modules\Charge\Domain\Enums\ChargeFilterStatus;
@@ -92,8 +95,7 @@ class EloquentChargeRepository implements IChargeRepository
 
 			$oQuery->where("Id_Charge", "<>", $dto->Id_Charge);
 			$oQuery->where("Charge_Status", "<>", "0");
-			$oQuery->where("Charge_NoDocument", "=", $dto->Charge_NoDocument);
-			$oQuery->where("Id_TypeDocument", "=", $dto->Id_TypeDocument);
+			$oQuery->where("Charge_Code", "=", $dto->Charge_Code);
 
 			$Duplicate	= $oQuery->count();
 
@@ -105,6 +107,92 @@ class EloquentChargeRepository implements IChargeRepository
 				$oResult = ResultManager::Result(1000, $oEntity);
 			} else {
 				$oResult = ResultManager::Result(2201, $oEntity);
+			}
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canPay(int $Id_Charge): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oResult	= [];
+		$oData		= 0;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->where("Id_Charge", "=", $Id_Charge);
+			$oQuery->where("Charge_Status", "=", "1");
+
+			$oData = $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2200, $oEntity);
+			}
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function canNullify(int $Id_Charge): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oResult	= [];
+		$oData		= 0;
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->where("Id_Charge", "=", $Id_Charge);
+			$oQuery->where("Charge_Status", "<>", "9");
+
+			$oData = $oQuery->count();
+
+
+			//
+			//	FUNCTION
+			//
+			if ($oData == 1) {
+				$oResult = ResultManager::Result(1000, $oEntity);
+			} else {
+				$oResult = ResultManager::Result(2200, $oEntity);
 			}
 		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
@@ -135,24 +223,38 @@ class EloquentChargeRepository implements IChargeRepository
 			//
 			$oQuery	= ChargeModel::query();
 
-			$pCharge_Code = $this->generateCode($dto->Id_State, $dto->Id_City, $dto->Id_District, $dto->Id_TypeCharge);
+			$pCharge_Code = $this->generateCode();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_Charge"				=> $dto->Id_Charge,
-				"Charge_Code"			=> $pCharge_Code,
-				"Charge_BusinessName"	=> trim(mb_strtoupper($dto->Charge_BusinessName, "utf-8" ) ),
-				"Charge_TradeName"		=> trim(mb_strtoupper($dto->Charge_TradeName, "utf-8" ) ),
-				"Charge_NoDocument"		=> trim(mb_strtoupper($dto->Charge_NoDocument, "utf-8" ) ),
-				"Charge_Address"		=> trim(mb_strtoupper($dto->Charge_Address, "utf-8" ) ),
-				"Charge_Phone"			=> trim(mb_strtoupper($dto->Charge_Phone, "utf-8" ) ),
-				"Charge_Public"			=> $dto->Charge_Public,
-				"Charge_Status"			=> $dto->Charge_Status,
-				"Id_State"				=> $dto->Id_State,
-				"Id_City"				=> $dto->Id_City,
-				"Id_District"			=> $dto->Id_District,
-				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
-				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeCharge"			=> $dto->Id_TypeCharge
+				"Id_Charge"					=> $dto->Id_Charge,
+				"Charge_Date_Created"		=> date("Y-m-d H:i:s"),
+				"Charge_Date_Expiry"		=> date("Y-m-d H:i:s"),
+				"Charge_Date_Paid"			=> date("Y-m-d H:i:s"),
+				"Charge_Date_Nullified"		=> date("Y-m-d H:i:s"),
+				"Charge_Code"				=> $pCharge_Code,
+				"Charge_Name"				=> trim(mb_strtoupper($dto->Charge_Name, "utf-8")),
+				"Charge_LastName"			=> trim(mb_strtoupper($dto->Charge_LastName, "utf-8")),
+				"Charge_Email"				=> trim($dto->Charge_Email),
+				"Charge_NoDocument"			=> trim(mb_strtoupper($dto->Charge_NoDocument, "utf-8")),
+				"Charge_Phone"				=> trim(mb_strtoupper($dto->Charge_Phone, "utf-8")),
+				"Charge_Amount_Subtotal"	=> 0,
+				"Charge_Amount_Tax"			=> 0,
+				"Charge_Amount_Total"		=> 0,
+				"Charge_Pay_Signature"		=> "",
+				"Charge_Pay_Authorization"	=> "",
+				"Charge_Pay_Message"		=> "",
+				"Charge_Pay_Description"	=> "",
+				"Charge_Pay_ECIDescription"	=> "",
+				"Charge_Card_Last"			=> "",
+				"Charge_Card_Number"		=> "",
+				"Charge_Card_Brand"			=> "",
+				"Charge_Card_Type"			=> "",
+				"Charge_Card_Issuer"		=> "",
+				"Charge_Response"			=> "",
+				"Charge_Status"				=> 1,
+				"Id_Guardian"				=> $dto->Id_Guardian,
+				"Id_TypeCurrency"			=> $dto->Id_TypeCurrency,
+				"Id_TypePayment"			=> $dto->Id_TypePayment
 			]);
 
 			$oQuery->where("Id_Charge", "=", "$Id");
@@ -194,19 +296,14 @@ class EloquentChargeRepository implements IChargeRepository
 
 			$oQuery->where("Id_Charge", "=", $dto->Id_Charge);
 			$oQuery->update([
-				"Charge_BusinessName"	=> trim(mb_strtoupper($dto->Charge_BusinessName, "utf-8" ) ),
-				"Charge_TradeName"		=> trim(mb_strtoupper($dto->Charge_TradeName, "utf-8" ) ),
-				"Charge_NoDocument"		=> trim(mb_strtoupper($dto->Charge_NoDocument, "utf-8" ) ),
-				"Charge_Address"		=> trim(mb_strtoupper($dto->Charge_Address, "utf-8" ) ),
-				"Charge_Phone"			=> trim(mb_strtoupper($dto->Charge_Phone, "utf-8" ) ),
-				"Charge_Public"			=> $dto->Charge_Public,
-				"Charge_Status"			=> $dto->Charge_Status,
-				"Id_State"				=> $dto->Id_State,
-				"Id_City"				=> $dto->Id_City,
-				"Id_District"			=> $dto->Id_District,
-				"Id_TypeDocument"		=> $dto->Id_TypeDocument,
-				"Id_TypePopulation"		=> $dto->Id_TypePopulation,
-				"Id_TypeCharge"			=> $dto->Id_TypeCharge
+				"Charge_Name"				=> trim(mb_strtoupper($dto->Charge_Name, "utf-8")),
+				"Charge_LastName"			=> trim(mb_strtoupper($dto->Charge_LastName, "utf-8")),
+				"Charge_Email"				=> trim($dto->Charge_Email),
+				"Charge_NoDocument"			=> trim(mb_strtoupper($dto->Charge_NoDocument, "utf-8")),
+				"Charge_Phone"				=> trim(mb_strtoupper($dto->Charge_Phone, "utf-8")),
+				"Id_Guardian"				=> $dto->Id_Guardian,
+				"Id_TypeCurrency"			=> $dto->Id_TypeCurrency,
+				"Id_TypePayment"			=> $dto->Id_TypePayment,
 			]);
 
 			$oData	= $oQuery->get();
@@ -246,7 +343,7 @@ class EloquentChargeRepository implements IChargeRepository
 
 			$oQuery->where("Id_Charge", "=", $Id_Charge);
 			$oQuery->update([
-				"Charge_Name"	=> DB::raw("CONCAT('( DELETED ) ', Charge_Name)"),
+				"Charge_Code"	=> DB::raw("CONCAT('( DELETED ) ', Charge_Code)"),
 				"Charge_Status"	=> 0
 			]);
 
@@ -284,12 +381,9 @@ class EloquentChargeRepository implements IChargeRepository
 			//
 			$oQuery	= ChargeModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeCharge", "=", "t_type_school.Id_TypeCharge");
+			$oQuery->join("t_guardian", "t_charge.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
 			$oQuery->where("Id_Charge", "=", $Id_Charge);
 			$oQuery->where("Charge_Status", "<>", "0");
 
@@ -310,7 +404,7 @@ class EloquentChargeRepository implements IChargeRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(ChargeFilterDisplay $Display): Result
+	public function find(int $Charge_Code): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -325,32 +419,57 @@ class EloquentChargeRepository implements IChargeRepository
 		//------------------------------------------------------------------------------
 		try {
 			//
-			//	SET VARIABLES
+			//	TRANSACTION
 			//
-			$whereDisplay	= [
-				ChargeFilterDisplay::PUBLIC->value  => 2,
-				ChargeFilterDisplay::PRIVATE->value => 1
-			];
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->join("t_guardian", "t_charge.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
+			$oQuery->where("Charge_Code", "=", $Charge_Code);
+			$oQuery->where("Charge_Status", "<>", "0");
+
+			$oData	= $oQuery->get();
 
 
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1004, $oEntity, $oData);
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function listByGuardian(int $Id_Guardian): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
 			//
 			//	TRANSACTION
 			//
 			$oQuery	= ChargeModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeCharge", "=", "t_type_school.Id_TypeCharge");
-
-			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('Charge_Public', $whereDisplay[$Display->value]);
-			}
-
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
 			$oQuery->where('Charge_Status', '=', ChargeStatus::ACTIVE->value);
-			$oQuery->orderBy("Charge_TradeName", "ASC");
+			$oQuery->orderBy("Charge_Date_Created", "DESC");
 
 			$oData	= $oQuery->get();
 
@@ -392,10 +511,6 @@ class EloquentChargeRepository implements IChargeRepository
 			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
-			$whereDisplay	= [
-				ChargeFilterDisplay::PUBLIC->value  => 2,
-				ChargeFilterDisplay::PRIVATE->value => 1
-			];
 			$whereStatus	= [
 				ChargeFilterStatus::ACTIVE->value   => 2,
 				ChargeFilterStatus::INACTIVE->value => 1
@@ -407,16 +522,9 @@ class EloquentChargeRepository implements IChargeRepository
 			//
 			$oQuery	= ChargeModel::query();
 
-			$oQuery->join("t_state", "t_school.Id_State", "=", "t_state.Id_State");
-			$oQuery->join("t_city", "t_school.Id_City", "=", "t_city.Id_City");
-			$oQuery->join("t_district", "t_school.Id_District", "=", "t_district.Id_District");
-			$oQuery->join("t_type_document", "t_school.Id_TypeDocument", "=", "t_type_document.Id_TypeDocument");
-			$oQuery->join("t_type_population", "t_school.Id_TypePopulation", "=", "t_type_population.Id_TypePopulation");
-			$oQuery->join("t_type_school", "t_school.Id_TypeCharge", "=", "t_type_school.Id_TypeCharge");
-
-			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('Charge_Public', $whereDisplay[$dto->Display->value]);
-			}
+			$oQuery->join("t_guardian", "t_charge.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
 
 			if (isset($whereStatus[$dto->Status->value])) {
 				$oQuery->where('Charge_Status', $whereStatus[$dto->Status->value]);
@@ -426,8 +534,9 @@ class EloquentChargeRepository implements IChargeRepository
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
 				$oSubQuery->where("Charge_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Charge_BusinessName", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("Charge_TradeName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_LastName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_Email", "LIKE", "%" . $dto->Text . "%");
 				$oSubQuery->orWhere("Charge_NoDocument", "LIKE", "%" . $dto->Text . "%");
 			});
 
@@ -435,7 +544,7 @@ class EloquentChargeRepository implements IChargeRepository
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("Charge_TradeName", "ASC");
+			$oQuery->orderBy("Charge_Date_Created", "DESC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
@@ -457,9 +566,178 @@ class EloquentChargeRepository implements IChargeRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
+	public function searchByGuardian(int $Id_Guardian, SearchChargeByGuardianDTO $dto): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
 
 
-	private function generateCode(int $Id_State, int $Id_City, int $Id_District, int $Id_TypeCharge): string
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	SET VARIABLES
+			//
+			$Page_Current	= $dto->Page_Current;
+			$Page_Size		= PaginationManager::Pagination_Size($dto->Page_Size);
+			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
+
+			$whereStatus	= [
+				ChargeFilterStatus::ACTIVE->value   => 2,
+				ChargeFilterStatus::INACTIVE->value => 1
+			];
+
+
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
+			$oQuery->where("Id_Guardian", "=", $Id_Guardian);
+
+			if (isset($whereStatus[$dto->Status->value])) {
+				$oQuery->where('Charge_Status', $whereStatus[$dto->Status->value]);
+			} else {
+				$oQuery->where('Charge_Status', '<>', 0);
+			}
+
+			$oQuery->where(function ($oSubQuery) use ($dto) {
+				$oSubQuery->where("Charge_Code", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_LastName", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_Email", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("Charge_NoDocument", "LIKE", "%" . $dto->Text . "%");
+			});
+
+			// GET TOTAL DATA
+			$Data_Total	= $oQuery->count();
+
+			// SET PAGINATION
+			$oQuery->orderBy("Charge_Date_Created", "DESC");
+			$oQuery->limit($Page_Size);
+			$oQuery->offset($Page_Offset);
+
+			// GET DATA
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function pay(PayChargeDTO $dto): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->where("Id_Charge", "=", $dto->Id_Charge);
+			$oQuery->update([
+				"Charge_Pay_Signature"		=> $dto->Charge_Pay_Signature,
+				"Charge_Pay_Authorization"	=> $dto->Charge_Pay_Authorization,
+				"Charge_Pay_Message"		=> $dto->Charge_Pay_Message,
+				"Charge_Pay_Description"	=> $dto->Charge_Pay_Description,
+				"Charge_Pay_ECIDescription"	=> $dto->Charge_Pay_ECIDescription,
+				"Charge_Card_Last"			=> $dto->Charge_Card_Last,
+				"Charge_Card_Number"		=> $dto->Charge_Card_Number,
+				"Charge_Card_Brand"			=> $dto->Charge_Card_Brand,
+				"Charge_Card_Type"			=> $dto->Charge_Card_Type,
+				"Charge_Card_Issuer"		=> $dto->Charge_Card_Issuer,
+				"Charge_Response"			=> $dto->Charge_Response
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function nullify(int $Id_Charge): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//´
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->where("Id_Charge", "=", $Id_Charge);
+			$oQuery->update([
+				"Charge_Date_Nullified"		=> date("Y-m-d H:i:s"),
+				"Charge_Status"				=> 9
+			]);
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult	= ResultManager::Result(1002, $oEntity, $oData);
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+
+
+	private function generateCode(): string
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -475,16 +753,8 @@ class EloquentChargeRepository implements IChargeRepository
 			//
 			//	TRANSACTION
 			//
-			$oRow				= ChargeModel::orderBy("Id_Charge", "DESC")->get()->first();
-			$New_Id				= $oRow == null ? 1 : $oRow->Id_Charge + 1;
 
-			$Code_Charge		= str_pad( $New_Id, 6, "0", STR_PAD_LEFT );
-			$Code_State			= str_pad( $Id_State, 2, "0", STR_PAD_LEFT );
-			$Code_City			= str_pad( $Id_City, 3, "0", STR_PAD_LEFT );
-			$Code_District		= str_pad( $Id_District, 4, "0", STR_PAD_LEFT );
-			$Code_TypeCharge	= str_pad( $Id_TypeCharge, 2, "0", STR_PAD_LEFT );
-
-			$oResult			= "SC".$Code_TypeCharge.$Code_State.$Code_City.$Code_District.$Code_Charge;
+			$oResult = Str::orderedUuid()->getHex()->toString();
 		} catch (\Throwable $oException) {
 			$oResult = "ERCODE";
 		}

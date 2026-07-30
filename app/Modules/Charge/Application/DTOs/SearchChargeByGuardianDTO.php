@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Modules\Charge\Domain\Enums\ChargeFilterStatus;
 
 
-class SearchChargeDTO
+class SearchChargeByGuardianDTO
 {
     public function __construct(
         public string $Text = "",
@@ -19,7 +19,7 @@ class SearchChargeDTO
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
             'ACTIVE' => ChargeFilterStatus::ACTIVE,
             'INACTIVE' => ChargeFilterStatus::INACTIVE,
-            'NULLIFIED' => ChargeFilterStatus::NULLIFIED,
+			'NULLIFIED' => ChargeFilterStatus::NULLIFIED,
             default => ChargeFilterStatus::ALL,
         };
 

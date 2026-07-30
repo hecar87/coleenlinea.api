@@ -7,10 +7,10 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\Charge\Domain\Repositories\IChargeRepository;
-use App\Modules\Charge\Domain\Enums\ChargeFilterDisplay;
+use App\Modules\Charge\Application\DTOs\SearchChargeByGuardianDTO;
 
 
-class ListChargeAction
+class SearchChargeByGuardianAction
 {
 
 	public function __construct(
@@ -19,13 +19,12 @@ class ListChargeAction
 	{
 	}
 
-	public function execute(string $Display) : Result
+	public function execute(int $Id_Guardian, SearchChargeByGuardianDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oChargeRepository->getEntity();
-		$oDisplay 	= ChargeFilterDisplay::from(strtoupper($Display));
+		$oEntity = $this->oChargeRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +37,7 @@ class ListChargeAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oChargeRepository->list($oDisplay);
+			$oResult = $this->oChargeRepository->searchByGuardian($Id_Guardian, $oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();
