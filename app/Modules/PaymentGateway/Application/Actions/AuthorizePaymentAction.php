@@ -7,25 +7,27 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
-use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterDisplay;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
+
+use App\Modules\PaymentGateway\Application\DTOs\AuthorizePaymentDTO;
 
 
-class ListPaymentGatewayAction
+class AuthorizePaymentAction
 {
 
 	public function __construct(
-		protected IPaymentGatewayRepository $oPaymentGatewayRepository
+		protected IPaymentGatewayRepository $oPaymentGatewayRepository,
+		protected IChargeRepository $oChargeRepository
 	)
 	{
 	}
 
-	public function execute(string $Display) : Result
+	public function execute(string $Charge_Code, string $Payment_Token) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oPaymentGatewayRepository->getEntity();
-		$oDisplay 	= PaymentGatewayFilterDisplay::from(strtoupper($Display));
+		$oEntity = $this->oPaymentGatewayRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,12 +38,19 @@ class ListPaymentGatewayAction
 			//
 			//	TRANSACTION
 			//
-			DB::beginTransaction();
+			$oResult = $this->oChargeRepository->find($Charge_Code);
+			if ( $oResult->RESULT_STS <> 200 ){ return $oResult; }
 
-			$oResult = $this->oPaymentGatewayRepository->list($oDisplay);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+			$oCharge = $oResult->RESULT_DTA[0];
 
-			DB::commit();
+            $oData = new AuthorizePaymentDTO(
+                Id_Charge: $oCharge->Id_Charge,
+                Charge_Code: $oCharge->Charge_Code,
+                Payment_Token: $Payment_Token
+            );
+
+			$oResult = $this->oPaymentGatewayRepository->authorize($oData);
+			if ( $oResult->RESULT_STS <> 200 ){ return $oResult; }
 		}
 		catch (\Throwable $oException)
 		{

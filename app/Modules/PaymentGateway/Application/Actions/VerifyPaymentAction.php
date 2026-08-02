@@ -7,31 +7,27 @@ use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
 use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
-use App\Modules\PaymentGateway\Application\DTOs\CreatePaymentGatewayDTO;
-use App\Modules\PaymentGateway\Application\DTOs\DuplicatedPaymentGatewayDTO;
+use App\Modules\Charge\Domain\Repositories\IChargeRepository;
+
+use App\Modules\PaymentGateway\Application\DTOs\VerifyPaymentDTO;
 
 
-class CreatePaymentGatewayAction
+class VerifyPaymentAction
 {
 
 	public function __construct(
-		protected IPaymentGatewayRepository $oPaymentGatewayRepository
+		protected IPaymentGatewayRepository $oPaymentGatewayRepository,
+		protected IChargeRepository $oChargeRepository
 	)
 	{
 	}
 
-	public function execute(CreatePaymentGatewayDTO $oData) : Result
+	public function execute(string $Charge_Code) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
 		$oEntity = $this->oPaymentGatewayRepository->getEntity();
-		$oDataDuplicated = new DuplicatedPaymentGatewayDTO(
-			Id_PaymentGateway	: 0,
-			PaymentGateway_Code	: $oData->PaymentGateway_Code,
-			PaymentGateway_Name	: $oData->PaymentGateway_Name,
-			PaymentGateway_Abrv	: $oData->PaymentGateway_Abrv
-		);
 
 
 		//------------------------------------------------------------------------------
@@ -42,15 +38,18 @@ class CreatePaymentGatewayAction
 			//
 			//	TRANSACTION
 			//
-			DB::beginTransaction();
+			$oResult = $this->oChargeRepository->find($Charge_Code);
+			if ( $oResult->RESULT_STS <> 200 ){ return $oResult; }
 
-			$oResult = $this->oPaymentGatewayRepository->duplicated($oDataDuplicated);
+			$oCharge = $oResult->RESULT_DTA[0];
+
+			$oData = new VerifyPaymentDTO(
+				Id_Charge: $oCharge->Id_Charge,
+				Charge_Code: $oCharge->Charge_Code
+			);
+
+			$oResult = $this->oPaymentGatewayRepository->verify($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
-
-			$oResult = $this->oPaymentGatewayRepository->create($oData);
-			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
-
-			DB::commit();
 		}
 		catch (\Throwable $oException)
 		{
