@@ -228,7 +228,7 @@ class EloquentChargeRepository implements IChargeRepository
 			$Id 	= $oQuery->insertGetId([
 				"Id_Charge"					=> $dto->Id_Charge,
 				"Charge_Date_Created"		=> date("Y-m-d H:i:s"),
-				"Charge_Date_Expiry"		=> date("Y-m-d H:i:s"),
+				"Charge_Date_Expiry"		=> date("Y-m-d H:i:s", strtotime("+20 minutes")),
 				"Charge_Date_Paid"			=> date("Y-m-d H:i:s"),
 				"Charge_Date_Nullified"		=> date("Y-m-d H:i:s"),
 				"Charge_Code"				=> $pCharge_Code,
