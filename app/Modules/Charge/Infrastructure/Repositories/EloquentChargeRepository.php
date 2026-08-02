@@ -138,6 +138,7 @@ class EloquentChargeRepository implements IChargeRepository
 			$oQuery	= ChargeModel::query();
 
 			$oQuery->where("Id_Charge", "=", $Id_Charge);
+			$oQuery->where("Charge_Date_Expiry", ">", date("Y-m-d H:i:s"));
 			$oQuery->where("Charge_Status", "=", "1");
 
 			$oData = $oQuery->count();
