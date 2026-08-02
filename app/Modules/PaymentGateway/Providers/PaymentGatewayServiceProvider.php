@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Modules\State\Providers;
+namespace App\Modules\PaymentGateway\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Repositories\EloquentStateRepository;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
+use App\Modules\PaymentGateway\Infrastructure\Repositories\EloquentPaymentGatewayRepository;
 
 
-class StateServiceProvider extends ServiceProvider
+class PaymentGatewayServiceProvider extends ServiceProvider
 {
 	public function register(): void
 	{
-		$this->app->bind(IStateRepository::class, EloquentStateRepository::class);
+		$this->app->bind(IPaymentGatewayRepository::class, EloquentPaymentGatewayRepository::class);
 	}
 
 	public function boot(): void

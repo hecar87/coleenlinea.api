@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\State\Domain\Enums;
+namespace App\Modules\PaymentGateway\Domain\Enums;
 
-enum StateFilterDisplay : string
+enum PaymentGatewayFilterDisplay : string
 {
     case ALL = 'ALL';
     case PUBLIC = 'PUBLIC';

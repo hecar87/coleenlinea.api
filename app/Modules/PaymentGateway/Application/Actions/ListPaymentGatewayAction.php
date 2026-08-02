@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\PaymentGateway\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterDisplay;
 
 
-class ListStateAction
+class ListPaymentGatewayAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected IPaymentGatewayRepository $oPaymentGatewayRepository
 	)
 	{
 	}
@@ -24,8 +24,8 @@ class ListStateAction
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity 	= $this->oStateRepository->getEntity();
-		$oDisplay 	= StateFilterDisplay::from(strtoupper($Display));
+		$oEntity 	= $this->oPaymentGatewayRepository->getEntity();
+		$oDisplay 	= PaymentGatewayFilterDisplay::from(strtoupper($Display));
 
 
 		//------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class ListStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->list($oDisplay);
+			$oResult = $this->oPaymentGatewayRepository->list($oDisplay);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

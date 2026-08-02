@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\PaymentGateway\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
 
 
-class IndexStateAction
+class IndexPaymentGatewayAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected IPaymentGatewayRepository $oPaymentGatewayRepository
 	)
 	{
 	}
 
-	public function execute(int $Id_State) : Result
+	public function execute(int $Id_PaymentGateway) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
+		$oEntity = $this->oPaymentGatewayRepository->getEntity();
 
 
 		//------------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class IndexStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->exists($Id_State);
+			$oResult = $this->oPaymentGatewayRepository->exists($Id_PaymentGateway);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->index($Id_State);
+			$oResult = $this->oPaymentGatewayRepository->index($Id_PaymentGateway);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

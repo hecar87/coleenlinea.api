@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Modules\State\Domain\Repositories;
+namespace App\Modules\PaymentGateway\Domain\Repositories;
 
 use App\Helpers\Result;
-//use App\Domain\State\Entities\State;
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
+//use App\Domain\PaymentGateway\Entities\PaymentGateway;
+use App\Modules\PaymentGateway\Application\DTOs\CreatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\UpdatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\DuplicatedPaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\SearchPaymentGatewayDTO;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterDisplay;
 
 
-interface IStateRepository
+interface IPaymentGatewayRepository
 {
     public function getEntity(): string;
 
-    public function exists(int $Id_State) : Result;
+    public function exists(int $Id_PaymentGateway) : Result;
 
-    public function duplicated(DuplicatedStateDTO $dto) : Result;
+    public function duplicated(DuplicatedPaymentGatewayDTO $dto) : Result;
 
-    public function create(CreateStateDTO $dto) : Result;
+    public function create(CreatePaymentGatewayDTO $dto) : Result;
 
-    public function update(UpdateStateDTO $dto) : Result;
+    public function update(UpdatePaymentGatewayDTO $dto) : Result;
 
-    public function delete(int $Id_State) : Result;
+    public function delete(int $Id_PaymentGateway) : Result;
 
-    public function index(int $Id_State) : Result;
+    public function index(int $Id_PaymentGateway) : Result;
 
-    public function list(StateFilterDisplay $Display) : Result;
+    public function list(PaymentGatewayFilterDisplay $Display) : Result;
 
-    public function search(SearchStateDTO $dto) : Result;
+    public function search(SearchPaymentGatewayDTO $dto) : Result;
 }

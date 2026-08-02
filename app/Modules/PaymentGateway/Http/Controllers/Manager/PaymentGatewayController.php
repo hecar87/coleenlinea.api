@@ -1,106 +1,89 @@
 <?php
-namespace App\Modules\State\Http\Controllers\Manager;
+namespace App\Modules\PaymentGateway\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Result;
 use App\Helpers\ResponseManager;
 use App\Helpers\MetadataManager;
-use App\Modules\State\Domain\Repositories\IStateRepository;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
 
 
 // Requests
-use App\Modules\State\Http\Requests\Manager\CreateStateRequest;
-use App\Modules\State\Http\Requests\Manager\UpdateStateRequest;
-use App\Modules\State\Http\Requests\Manager\ListStateRequest;
-use App\Modules\State\Http\Requests\Manager\SearchStateRequest;
+use App\Modules\PaymentGateway\Http\Requests\Manager\CreatePaymentGatewayRequest;
+use App\Modules\PaymentGateway\Http\Requests\Manager\UpdatePaymentGatewayRequest;
+use App\Modules\PaymentGateway\Http\Requests\Manager\ListPaymentGatewayRequest;
+use App\Modules\PaymentGateway\Http\Requests\Manager\SearchPaymentGatewayRequest;
 
 // DTOs
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\PaymentGateway\Application\DTOs\CreatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\UpdatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\SearchPaymentGatewayDTO;
 
 // Actions
-use App\Modules\State\Application\Actions\CreateStateAction;
-use App\Modules\State\Application\Actions\UpdateStateAction;
-use App\Modules\State\Application\Actions\DeleteStateAction;
-use App\Modules\State\Application\Actions\IndexStateAction;
-use App\Modules\State\Application\Actions\ListStateAction;
-use App\Modules\State\Application\Actions\SearchStateAction;
+use App\Modules\PaymentGateway\Application\Actions\CreatePaymentGatewayAction;
+use App\Modules\PaymentGateway\Application\Actions\UpdatePaymentGatewayAction;
+use App\Modules\PaymentGateway\Application\Actions\DeletePaymentGatewayAction;
+use App\Modules\PaymentGateway\Application\Actions\IndexPaymentGatewayAction;
+use App\Modules\PaymentGateway\Application\Actions\ListPaymentGatewayAction;
+use App\Modules\PaymentGateway\Application\Actions\SearchPaymentGatewayAction;
 
 
-class StateController extends Controller
+class PaymentGatewayController extends Controller
 {
-	protected IStateRepository $repository;
+	protected IPaymentGatewayRepository $repository;
 
 	public function __construct(
-		IStateRepository $repository,
+		IPaymentGatewayRepository $repository,
 
-		private CreateStateAction $oCreateStateAction,
-		private UpdateStateAction $oUpdateStateAction,
-		private DeleteStateAction $oDeleteStateAction,
-		private IndexStateAction $oIndexStateAction,
-		private ListStateAction $oListStateAction,
-		private SearchStateAction $oSearchStateAction
+		private CreatePaymentGatewayAction $oCreatePaymentGatewayAction,
+		private UpdatePaymentGatewayAction $oUpdatePaymentGatewayAction,
+		private DeletePaymentGatewayAction $oDeletePaymentGatewayAction,
+		private IndexPaymentGatewayAction $oIndexPaymentGatewayAction,
+		private ListPaymentGatewayAction $oListPaymentGatewayAction,
+		private SearchPaymentGatewayAction $oSearchPaymentGatewayAction
 	)
 	{
 		$this->repository = $repository;
 	}
 
 
-	public function create(CreateStateRequest $oRequest)
+	public function create(CreatePaymentGatewayRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = CreateStateDTO::fromRequest($oRequest);
+		$oData = CreatePaymentGatewayDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oCreateStateAction->execute($oData);
+		$oResult	= $this->oCreatePaymentGatewayAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function update(UpdateStateRequest $oRequest)
+	public function update(UpdatePaymentGatewayRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = UpdateStateDTO::fromRequest($oRequest);
+		$oData = UpdatePaymentGatewayDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oUpdateStateAction->execute($oData);
+		$oResult	= $this->oUpdatePaymentGatewayAction->execute($oData);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function delete(int $Id_State)
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		$oResult	= $this->oDeleteStateAction->execute($Id_State);
-		$oResponse 	= ResponseManager::Response($oResult);
-
-		return $oResponse;
-
-	}
-
-	public function index(int $Id_State)
+	public function delete(int $Id_PaymentGateway)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -110,14 +93,31 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oIndexStateAction->execute($Id_State);
+		$oResult	= $this->oDeletePaymentGatewayAction->execute($Id_PaymentGateway);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 
 	}
 
-	public function list(ListStateRequest $oRequest)
+	public function index(int $Id_PaymentGateway)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oIndexPaymentGatewayAction->execute($Id_PaymentGateway);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function list(ListPaymentGatewayRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
@@ -128,24 +128,24 @@ class StateController extends Controller
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListStateAction->execute($Display);
+		$oResult	= $this->oListPaymentGatewayAction->execute($Display);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 	}
 
-	public function search(SearchStateRequest $oRequest)
+	public function search(SearchPaymentGatewayRequest $oRequest)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oData = SearchStateDTO::fromRequest($oRequest);
+		$oData = SearchPaymentGatewayDTO::fromRequest($oRequest);
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oSearchStateAction->execute($oData);
+		$oResult	= $this->oSearchPaymentGatewayAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
 

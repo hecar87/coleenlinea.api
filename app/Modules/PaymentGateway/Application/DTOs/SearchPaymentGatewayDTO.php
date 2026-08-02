@@ -1,17 +1,17 @@
 <?php
-namespace App\Modules\State\Application\DTOs;
+namespace App\Modules\PaymentGateway\Application\DTOs;
 
 use Illuminate\Http\Request;
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
-use App\Modules\State\Domain\Enums\StateFilterStatus;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterDisplay;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterStatus;
 
 
-class SearchStateDTO
+class SearchPaymentGatewayDTO
 {
     public function __construct(
         public string $Text = "",
-        public StateFilterDisplay $Display = StateFilterDisplay::ALL,
-        public StateFilterStatus $Status = StateFilterStatus::ALL,
+        public PaymentGatewayFilterDisplay $Display = PaymentGatewayFilterDisplay::ALL,
+        public PaymentGatewayFilterStatus $Status = PaymentGatewayFilterStatus::ALL,
         public int $Page_Size = 10,
         public int $Page_Current = 1
     ) {}
@@ -19,15 +19,15 @@ class SearchStateDTO
     public static function fromRequest(Request $oRequest) : self
     {
         $display = match (strtoupper($oRequest->input('Display', 'ALL'))) {
-            'PUBLIC' => StateFilterDisplay::PUBLIC,
-            'PRIVATE' => StateFilterDisplay::PRIVATE,
-            default => StateFilterDisplay::ALL,
+            'PUBLIC' => PaymentGatewayFilterDisplay::PUBLIC,
+            'PRIVATE' => PaymentGatewayFilterDisplay::PRIVATE,
+            default => PaymentGatewayFilterDisplay::ALL,
         };
 
         $status = match (strtoupper($oRequest->input('Status', 'ALL'))) {
-            'ACTIVE' => StateFilterStatus::ACTIVE,
-            'INACTIVE' => StateFilterStatus::INACTIVE,
-            default => StateFilterStatus::ALL,
+            'ACTIVE' => PaymentGatewayFilterStatus::ACTIVE,
+            'INACTIVE' => PaymentGatewayFilterStatus::INACTIVE,
+            default => PaymentGatewayFilterStatus::ALL,
         };
 
         return new self(

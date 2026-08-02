@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Modules\State\Application\Actions;
+namespace App\Modules\PaymentGateway\Application\Actions;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Result;
 use App\Helpers\ResultManager;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
+use App\Modules\PaymentGateway\Application\DTOs\CreatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\DuplicatedPaymentGatewayDTO;
 
 
-class CreateStateAction
+class CreatePaymentGatewayAction
 {
 
 	public function __construct(
-		protected IStateRepository $oStateRepository
+		protected IPaymentGatewayRepository $oPaymentGatewayRepository
 	)
 	{
 	}
 
-	public function execute(CreateStateDTO $oData) : Result
+	public function execute(CreatePaymentGatewayDTO $oData) : Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity = $this->oStateRepository->getEntity();
-		$oDataDuplicated = new DuplicatedStateDTO(
-			Id_State	: 0,
-			State_Code	: $oData->State_Code,
-			State_Name	: $oData->State_Name,
-			State_Abrv	: $oData->State_Abrv
+		$oEntity = $this->oPaymentGatewayRepository->getEntity();
+		$oDataDuplicated = new DuplicatedPaymentGatewayDTO(
+			Id_PaymentGateway	: 0,
+			PaymentGateway_Code	: $oData->PaymentGateway_Code,
+			PaymentGateway_Name	: $oData->PaymentGateway_Name,
+			PaymentGateway_Abrv	: $oData->PaymentGateway_Abrv
 		);
 
 
@@ -44,10 +44,10 @@ class CreateStateAction
 			//
 			DB::beginTransaction();
 
-			$oResult = $this->oStateRepository->duplicated($oDataDuplicated);
+			$oResult = $this->oPaymentGatewayRepository->duplicated($oDataDuplicated);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
-			$oResult = $this->oStateRepository->create($oData);
+			$oResult = $this->oPaymentGatewayRepository->create($oData);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
 			DB::commit();

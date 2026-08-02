@@ -1,28 +1,28 @@
 <?php
-namespace App\Modules\State\Application\DTOs;
+namespace App\Modules\PaymentGateway\Application\DTOs;
 
 use Illuminate\Http\Request;
 
-class UpdateStateDTO
+class UpdatePaymentGatewayDTO
 {
     public function __construct(
-        public int $Id_State,
-        public string $State_Code,
-        public string $State_Name,
-        public string $State_Abrv,
-        public int $State_Public,
-        public int $State_Status
+        public int $Id_PaymentGateway,
+        public string $PaymentGateway_Code,
+        public string $PaymentGateway_Name,
+        public string $PaymentGateway_Abrv,
+        public int $PaymentGateway_Public,
+        public int $PaymentGateway_Status
     ) {}
 
     public static function fromRequest(Request $oRequest) : self
     {
         return new self(
-            Id_State: (int) $oRequest->input('Id_State'),
-            State_Code: $oRequest->input('State_Code', ''),
-            State_Name: $oRequest->input('State_Name', ''),
-            State_Abrv: $oRequest->input('State_Abrv', ''),
-            State_Public: (int) $oRequest->input('State_Public', 2),
-            State_Status: (int) $oRequest->input('State_Status', 2)
+            Id_PaymentGateway: (int) $oRequest->input('Id_PaymentGateway'),
+            PaymentGateway_Code: $oRequest->input('PaymentGateway_Code', ''),
+            PaymentGateway_Name: $oRequest->input('PaymentGateway_Name', ''),
+            PaymentGateway_Abrv: $oRequest->input('PaymentGateway_Abrv', ''),
+            PaymentGateway_Public: (int) $oRequest->input('PaymentGateway_Public', 2),
+            PaymentGateway_Status: (int) $oRequest->input('PaymentGateway_Status', 2)
         );
     }
 }

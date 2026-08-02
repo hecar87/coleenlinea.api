@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Modules\State\Infrastructure\Repositories;
+namespace App\Modules\PaymentGateway\Infrastructure\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Helpers\PaginationManager;
 use App\Helpers\ResultManager;
 use App\Helpers\Result;
 
-use App\Modules\State\Domain\Repositories\IStateRepository;
-use App\Modules\State\Infrastructure\Persistence\EloquentState as StateModel;
+use App\Modules\PaymentGateway\Domain\Repositories\IPaymentGatewayRepository;
+use App\Modules\PaymentGateway\Infrastructure\Persistence\EloquentPaymentGateway as PaymentGatewayModel;
 
-use App\Modules\State\Application\DTOs\CreateStateDTO;
-use App\Modules\State\Application\DTOs\UpdateStateDTO;
-use App\Modules\State\Application\DTOs\DuplicatedStateDTO;
-use App\Modules\State\Application\DTOs\SearchStateDTO;
+use App\Modules\PaymentGateway\Application\DTOs\CreatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\UpdatePaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\DuplicatedPaymentGatewayDTO;
+use App\Modules\PaymentGateway\Application\DTOs\SearchPaymentGatewayDTO;
 
-use App\Modules\State\Domain\Enums\StateFilterDisplay;
-use App\Modules\State\Domain\Enums\StateFilterStatus;
-use App\Modules\State\Domain\Enums\StatePublic;
-use App\Modules\State\Domain\Enums\StateStatus;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterDisplay;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayFilterStatus;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayPublic;
+use App\Modules\PaymentGateway\Domain\Enums\PaymentGatewayStatus;
 
 
-class EloquentStateRepository implements IStateRepository
+class EloquentPaymentGatewayRepository implements IPaymentGatewayRepository
 {
 	public function getEntity(): string
 	{
-		return StateModel::getEntity();
+		return PaymentGatewayModel::getEntity();
 	}
 
-	public function exists(int $Id_State): Result
+	public function exists(int $Id_PaymentGateway): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oResult	= [];
 		$exists		= 0;
 
@@ -45,10 +45,10 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_PaymentGateway", "=", $Id_PaymentGateway);
+			$oQuery->where("PaymentGateway_Status", "<>", "0");
 
 			$exists = $oQuery->count();
 
@@ -71,12 +71,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function duplicated(DuplicatedStateDTO $dto): Result
+	public function duplicated(DuplicatedPaymentGatewayDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oResult	= [];
 		$Duplicate	= 0;
 
@@ -88,14 +88,14 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
-			$oQuery->where("Id_State", "<>", $dto->Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_PaymentGateway", "<>", $dto->Id_PaymentGateway);
+			$oQuery->where("PaymentGateway_Status", "<>", "0");
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("State_Code", "=", $dto->State_Code);
-				$oSubQuery->orWhere("State_Name", "=", $dto->State_Name);
-				$oSubQuery->orWhere("State_Abrv", "=", $dto->State_Abrv);
+				$oSubQuery->where("PaymentGateway_Code", "=", $dto->PaymentGateway_Code);
+				$oSubQuery->orWhere("PaymentGateway_Name", "=", $dto->PaymentGateway_Name);
+				$oSubQuery->orWhere("PaymentGateway_Abrv", "=", $dto->PaymentGateway_Abrv);
 			});
 
 			$Duplicate	= $oQuery->count();
@@ -119,12 +119,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function create(CreateStateDTO $dto): Result
+	public function create(CreatePaymentGatewayDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -136,18 +136,18 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
 			$Id 	= $oQuery->insertGetId([
-				"Id_State"		=> $dto->Id_State,
-				"State_Code"	=> trim(mb_strtoupper($dto->State_Code, "utf-8")),
-				"State_Name"	=> trim(mb_strtoupper($dto->State_Name, "utf-8")),
-				"State_Abrv"	=> trim(mb_strtoupper($dto->State_Abrv, "utf-8")),
-				"State_Public"	=> $dto->State_Public,
-				"State_Status"	=> $dto->State_Status
+				"Id_PaymentGateway"		=> $dto->Id_PaymentGateway,
+				"PaymentGateway_Code"	=> trim(mb_strtoupper($dto->PaymentGateway_Code, "utf-8")),
+				"PaymentGateway_Name"	=> trim(mb_strtoupper($dto->PaymentGateway_Name, "utf-8")),
+				"PaymentGateway_Abrv"	=> trim(mb_strtoupper($dto->PaymentGateway_Abrv, "utf-8")),
+				"PaymentGateway_Public"	=> $dto->PaymentGateway_Public,
+				"PaymentGateway_Status"	=> $dto->PaymentGateway_Status
 			]);
 
-			$oQuery->where("Id_State", "=", "$Id");
+			$oQuery->where("Id_PaymentGateway", "=", "$Id");
 			$oData	= $oQuery->get();
 
 
@@ -165,12 +165,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function update(UpdateStateDTO $dto): Result
+	public function update(UpdatePaymentGatewayDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -182,15 +182,15 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//´
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
-			$oQuery->where("Id_State", "=", $dto->Id_State);
+			$oQuery->where("Id_PaymentGateway", "=", $dto->Id_PaymentGateway);
 			$oQuery->update([
-				"State_Code"	=> trim(mb_strtoupper($dto->State_Code, "utf-8")),
-				"State_Name"	=> trim(mb_strtoupper($dto->State_Name, "utf-8")),
-				"State_Abrv"	=> trim(mb_strtoupper($dto->State_Abrv, "utf-8")),
-				"State_Public"	=> $dto->State_Public,
-				"State_Status"	=> $dto->State_Status
+				"PaymentGateway_Code"	=> trim(mb_strtoupper($dto->PaymentGateway_Code, "utf-8")),
+				"PaymentGateway_Name"	=> trim(mb_strtoupper($dto->PaymentGateway_Name, "utf-8")),
+				"PaymentGateway_Abrv"	=> trim(mb_strtoupper($dto->PaymentGateway_Abrv, "utf-8")),
+				"PaymentGateway_Public"	=> $dto->PaymentGateway_Public,
+				"PaymentGateway_Status"	=> $dto->PaymentGateway_Status
 			]);
 
 			$oData	= $oQuery->get();
@@ -210,12 +210,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function delete(int $Id_State): Result
+	public function delete(int $Id_PaymentGateway): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oResult	= [];
 
 
@@ -226,12 +226,12 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
+			$oQuery->where("Id_PaymentGateway", "=", $Id_PaymentGateway);
 			$oQuery->update([
-				"State_Name"	=> DB::raw("CONCAT('( DELETED ) ', State_Name)"),
-				"State_Status"	=> 0
+				"PaymentGateway_Name"	=> DB::raw("CONCAT('( DELETED ) ', PaymentGateway_Name)"),
+				"PaymentGateway_Status"	=> 0
 			]);
 
 
@@ -249,12 +249,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function index(int $Id_State): Result
+	public function index(int $Id_PaymentGateway): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -266,10 +266,10 @@ class EloquentStateRepository implements IStateRepository
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
-			$oQuery->where("Id_State", "=", $Id_State);
-			$oQuery->where("State_Status", "<>", "0");
+			$oQuery->where("Id_PaymentGateway", "=", $Id_PaymentGateway);
+			$oQuery->where("PaymentGateway_Status", "<>", "0");
 
 			$oData	= $oQuery->get();
 
@@ -288,12 +288,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function list(StateFilterDisplay $Display): Result
+	public function list(PaymentGatewayFilterDisplay $Display): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -306,22 +306,22 @@ class EloquentStateRepository implements IStateRepository
 			//	SET VARIABLES
 			//
 			$whereDisplay	= [
-				StateFilterDisplay::PUBLIC->value  => 2,
-				StateFilterDisplay::PRIVATE->value => 1
+				PaymentGatewayFilterDisplay::PUBLIC->value  => 2,
+				PaymentGatewayFilterDisplay::PRIVATE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
 			if (isset($whereDisplay[$Display->value])) {
-				$oQuery->where('State_Public', $whereDisplay[$Display->value]);
+				$oQuery->where('PaymentGateway_Public', $whereDisplay[$Display->value]);
 			}
 
-			$oQuery->where('State_Status', '=', StateStatus::ACTIVE->value);
-			$oQuery->orderBy("State_Name", "ASC");
+			$oQuery->where('PaymentGateway_Status', '=', PaymentGatewayStatus::ACTIVE->value);
+			$oQuery->orderBy("PaymentGateway_Name", "ASC");
 
 			$oData	= $oQuery->get();
 
@@ -342,12 +342,12 @@ class EloquentStateRepository implements IStateRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function search(SearchStateDTO $dto): Result
+	public function search(SearchPaymentGatewayDTO $dto): Result
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$oEntity	= StateModel::getEntity();
+		$oEntity	= PaymentGatewayModel::getEntity();
 		$oData		= [];
 		$oResult	= [];
 
@@ -364,41 +364,41 @@ class EloquentStateRepository implements IStateRepository
 			$Page_Offset	= PaginationManager::Pagination_Offset($Page_Size, $Page_Current);
 
 			$whereDisplay	= [
-				StateFilterDisplay::PUBLIC->value  => 2,
-				StateFilterDisplay::PRIVATE->value => 1
+				PaymentGatewayFilterDisplay::PUBLIC->value  => 2,
+				PaymentGatewayFilterDisplay::PRIVATE->value => 1
 			];
 			$whereStatus	= [
-				StateFilterStatus::ACTIVE->value   => 2,
-				StateFilterStatus::INACTIVE->value => 1
+				PaymentGatewayFilterStatus::ACTIVE->value   => 2,
+				PaymentGatewayFilterStatus::INACTIVE->value => 1
 			];
 
 
 			//
 			//	TRANSACTION
 			//
-			$oQuery	= StateModel::query();
+			$oQuery	= PaymentGatewayModel::query();
 
 			if (isset($whereDisplay[$dto->Display->value])) {
-				$oQuery->where('State_Public', $whereDisplay[$dto->Display->value]);
+				$oQuery->where('PaymentGateway_Public', $whereDisplay[$dto->Display->value]);
 			}
 
 			if (isset($whereStatus[$dto->Status->value])) {
-				$oQuery->where('State_Status', $whereStatus[$dto->Status->value]);
+				$oQuery->where('PaymentGateway_Status', $whereStatus[$dto->Status->value]);
 			} else {
-				$oQuery->where('State_Status', '<>', 0);
+				$oQuery->where('PaymentGateway_Status', '<>', 0);
 			}
 
 			$oQuery->where(function ($oSubQuery) use ($dto) {
-				$oSubQuery->where("State_Code", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("State_Name", "LIKE", "%" . $dto->Text . "%");
-				$oSubQuery->orWhere("State_Abrv", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->where("PaymentGateway_Code", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("PaymentGateway_Name", "LIKE", "%" . $dto->Text . "%");
+				$oSubQuery->orWhere("PaymentGateway_Abrv", "LIKE", "%" . $dto->Text . "%");
 			});
 
 			// GET TOTAL DATA
 			$Data_Total	= $oQuery->count();
 
 			// SET PAGINATION
-			$oQuery->orderBy("State_Name", "ASC");
+			$oQuery->orderBy("PaymentGateway_Name", "ASC");
 			$oQuery->limit($Page_Size);
 			$oQuery->offset($Page_Offset);
 
