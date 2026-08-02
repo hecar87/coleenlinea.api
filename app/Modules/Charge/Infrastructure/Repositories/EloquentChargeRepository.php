@@ -404,48 +404,6 @@ class EloquentChargeRepository implements IChargeRepository
 		//------------------------------------------------------------------------------
 		return $oResult;
 	}
-	public function find(int $Charge_Code): Result
-	{
-		//------------------------------------------------------------------------------
-		//	VARIABLES
-		//------------------------------------------------------------------------------
-		$oEntity	= ChargeModel::getEntity();
-		$oData		= [];
-		$oResult	= [];
-
-
-		//------------------------------------------------------------------------------
-		//	FUNCTION
-		//------------------------------------------------------------------------------
-		try {
-			//
-			//	TRANSACTION
-			//
-			$oQuery	= ChargeModel::query();
-
-			$oQuery->join("t_guardian", "t_charge.Id_Guardian", "=", "t_guardian.Id_Guardian");
-			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
-			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
-			$oQuery->where("Charge_Code", "=", $Charge_Code);
-			$oQuery->where("Charge_Status", "<>", "0");
-
-			$oData	= $oQuery->get();
-
-
-			//
-			//	FUNCTION
-			//
-			$oResult = ResultManager::Result(1004, $oEntity, $oData);
-		} catch (\Throwable $oException) {
-			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
-		}
-
-
-		//------------------------------------------------------------------------------
-		//	RESPONSE
-		//------------------------------------------------------------------------------
-		return $oResult;
-	}
 	public function listByGuardian(int $Id_Guardian): Result
 	{
 		//------------------------------------------------------------------------------
@@ -632,6 +590,48 @@ class EloquentChargeRepository implements IChargeRepository
 			//	FUNCTION
 			//
 			$oResult = ResultManager::Result(1006, $oEntity, $oData, $Data_Total);
+		} catch (\Throwable $oException) {
+			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
+		}
+
+
+		//------------------------------------------------------------------------------
+		//	RESPONSE
+		//------------------------------------------------------------------------------
+		return $oResult;
+	}
+	public function find(string $Charge_Code): Result
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oEntity	= ChargeModel::getEntity();
+		$oData		= [];
+		$oResult	= [];
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		try {
+			//
+			//	TRANSACTION
+			//
+			$oQuery	= ChargeModel::query();
+
+			$oQuery->join("t_guardian", "t_charge.Id_Guardian", "=", "t_guardian.Id_Guardian");
+			$oQuery->join("t_type_currency", "t_charge.Id_TypeCurrency", "=", "t_type_currency.Id_TypeCurrency");
+			$oQuery->join("t_type_payment", "t_charge.Id_TypePayment", "=", "t_type_payment.Id_TypePayment");
+			$oQuery->where("Charge_Code", "=", $Charge_Code);
+			$oQuery->where("Charge_Status", "<>", "0");
+
+			$oData	= $oQuery->get();
+
+
+			//
+			//	FUNCTION
+			//
+			$oResult = ResultManager::Result(1004, $oEntity, $oData);
 		} catch (\Throwable $oException) {
 			$oResult = ResultManager::Result(2100, $oEntity, null, 0, $oException->getMessage());
 		}

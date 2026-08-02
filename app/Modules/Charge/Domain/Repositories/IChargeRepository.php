@@ -33,13 +33,13 @@ interface IChargeRepository
 
     public function index(int $Id_Charge) : Result;
 
-    public function find(int $Charge_Code) : Result;
-
     public function listByGuardian(int $Id_Guardian) : Result;
 
     public function search(SearchChargeDTO $dto) : Result;
 
     public function searchByGuardian(int $Id_Guardian, SearchChargeByGuardianDTO $dto) : Result;
+
+    public function find(string $Charge_Code) : Result;
 
     public function pay(PayChargeDTO $dto) : Result;
 

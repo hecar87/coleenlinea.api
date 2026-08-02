@@ -11,21 +11,28 @@ use App\Modules\Charge\Domain\Repositories\IChargeRepository;
 // Requests
 use App\Modules\Charge\Http\Requests\Manager\CreateChargeRequest;
 use App\Modules\Charge\Http\Requests\Manager\UpdateChargeRequest;
-use App\Modules\Charge\Http\Requests\Manager\ListChargeRequest;
+use App\Modules\Charge\Http\Requests\Manager\ListChargeByguardianRequest;
 use App\Modules\Charge\Http\Requests\Manager\SearchChargeRequest;
+use App\Modules\Charge\Http\Requests\Manager\SearchChargeByguardianRequest;
+use App\Modules\Charge\Http\Requests\Manager\PayChargeRequest;
 
 // DTOs
 use App\Modules\Charge\Application\DTOs\CreateChargeDTO;
 use App\Modules\Charge\Application\DTOs\UpdateChargeDTO;
 use App\Modules\Charge\Application\DTOs\SearchChargeDTO;
+use App\Modules\Charge\Application\DTOs\SearchChargeByGuardianDTO;
+use App\Modules\Charge\Application\DTOs\PayChargeDTO;
 
 // Actions
 use App\Modules\Charge\Application\Actions\CreateChargeAction;
 use App\Modules\Charge\Application\Actions\UpdateChargeAction;
 use App\Modules\Charge\Application\Actions\DeleteChargeAction;
 use App\Modules\Charge\Application\Actions\IndexChargeAction;
-use App\Modules\Charge\Application\Actions\ListChargeAction;
+use App\Modules\Charge\Application\Actions\ListChargeByGuardianAction;
 use App\Modules\Charge\Application\Actions\SearchChargeAction;
+use App\Modules\Charge\Application\Actions\SearchChargeByGuardianAction;
+use App\Modules\Charge\Application\Actions\PayChargeAction;
+use App\Modules\Charge\Application\Actions\NullifyChargeAction;
 
 
 class ChargeController extends Controller
@@ -39,8 +46,11 @@ class ChargeController extends Controller
 		private UpdateChargeAction $oUpdateChargeAction,
 		private DeleteChargeAction $oDeleteChargeAction,
 		private IndexChargeAction $oIndexChargeAction,
-		private ListChargeAction $oListChargeAction,
-		private SearchChargeAction $oSearchChargeAction
+		private ListChargeByGuardianAction $oListChargeByGuardianAction,
+		private SearchChargeAction $oSearchChargeAction,
+		private SearchChargeByGuardianAction $oSearchChargeByGuardianAction,
+		private PayChargeAction $oPayChargeAction,
+		private NullifyChargeAction $oNullifyChargeAction
 	)
 	{
 		$this->repository = $repository;
@@ -117,18 +127,17 @@ class ChargeController extends Controller
 
 	}
 
-	public function list(ListChargeRequest $oRequest)
+	public function listByGuardian(int $Id_Guardian)
 	{
 		//------------------------------------------------------------------------------
 		//	VARIABLES
 		//------------------------------------------------------------------------------
-		$Display    = $oRequest->input('Display', 'ALL');
 
 
 		//------------------------------------------------------------------------------
 		//	FUNCTION
 		//------------------------------------------------------------------------------
-		$oResult	= $this->oListChargeAction->execute($Display);
+		$oResult	= $this->oListChargeByGuardianAction->execute($Id_Guardian);
 		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
@@ -148,6 +157,60 @@ class ChargeController extends Controller
 		$oResult	= $this->oSearchChargeAction->execute($oData);
 		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
 		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function searchByGuardian(int $Id_Guardian, SearchChargeByGuardianRequest $oRequest)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oData = SearchChargeByGuardianDTO::fromRequest($oRequest);
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oSearchChargeByGuardianAction->execute($Id_Guardian, $oData);
+		$oMetadata	= MetadataManager::Metadata($oData->Page_Size, $oData->Page_Current, $oResult->RESULT_DTL);
+		$oResponse 	= ResponseManager::Response($oResult, $oMetadata);
+
+		return $oResponse;
+
+	}
+
+	public function pay(PayChargeRequest $oRequest)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+		$oData = PayChargeDTO::fromRequest($oRequest);
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oPayChargeAction->execute($oData);
+		$oResponse 	= ResponseManager::Response($oResult);
+
+		return $oResponse;
+
+	}
+
+	public function nullify(int $Id_Charge)
+	{
+		//------------------------------------------------------------------------------
+		//	VARIABLES
+		//------------------------------------------------------------------------------
+
+
+		//------------------------------------------------------------------------------
+		//	FUNCTION
+		//------------------------------------------------------------------------------
+		$oResult	= $this->oNullifyChargeAction->execute($Id_Charge);
+		$oResponse 	= ResponseManager::Response($oResult);
 
 		return $oResponse;
 

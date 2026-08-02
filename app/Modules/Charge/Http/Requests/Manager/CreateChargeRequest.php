@@ -9,19 +9,14 @@ class CreateChargeRequest extends ValidatedRequest
 	public function rules(): array
 	{
 		return [
-			"Charge_BusinessName"	=> "required|string|max:200",
-			"Charge_TradeName"		=> "required|string|max:200",
-			"Charge_NoDocument"		=> "required|string|max:30",
-			"Charge_Address"		=> "required|string|max:250",
-			"Charge_Phone"			=> "required|string|max:30",
-			"Charge_Public"			=> "required|int|in:1,2",
-			"Charge_Status"			=> "required|int|in:1,2",
-			"Id_State"				=> "required|int",
-			"Id_City"				=> "required|int",
-			"Id_District"			=> "required|int",
-			"Id_TypeDocument"		=> "required|int",
-			"Id_TypePopulation"		=> "required|int",
-			"Id_TypeCharge"			=> "required|int"
+			"Charge_Name"			=> "required|string|max:100",
+			"Charge_LastName"		=> "required|string|max:100",
+			"Charge_Email"			=> "required|string|email|max:250",
+			"Charge_NoDocument"		=> "required|string|max:20",
+			"Charge_Phone"			=> "required|string|max:20",
+			"Id_Guardian"			=> "required|int",
+			"Id_TypeCurrency"		=> "required|int",
+			"Id_TypePayment"		=> "required|int"
 		];
 	}
 

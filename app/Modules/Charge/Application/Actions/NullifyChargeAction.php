@@ -39,6 +39,9 @@ class NullifyChargeAction
 			$oResult = $this->oChargeRepository->exists($Id_Charge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 
+			$oResult = $this->oChargeRepository->canNullify($Id_Charge);
+			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
+
 			$oResult = $this->oChargeRepository->nullify($Id_Charge);
 			if ( $oResult->RESULT_STS <> 200 ){ DB::rollBack(); return $oResult; }
 

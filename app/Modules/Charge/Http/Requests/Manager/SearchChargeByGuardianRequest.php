@@ -4,7 +4,7 @@ namespace App\Modules\Charge\Http\Requests\Manager;
 
 use App\Http\Requests\ValidatedRequest;
 
-class SearchChargeRequest extends ValidatedRequest
+class SearchChargeByGuardianRequest extends ValidatedRequest
 {
 	public function rules(): array
 	{
